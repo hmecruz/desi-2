@@ -793,62 +793,136 @@ a:hover {
     padding-top: 9.25rem;
     padding-bottom: 8.5rem;
 
-    /* stronger dark overlay for good contrast on hero image */
-    background: linear-gradient(rgba(13,27,42,0.7), rgba(13,27,42,0.7)), url('../images/contact-background.jpg') center center no-repeat;
+    /* darker overlay for better contrast */
+    background: linear-gradient(rgba(13,27,42,0.75), rgba(13,27,42,0.75)), url('../images/contact-background.jpg') center center no-repeat;
     background-size: cover;
     text-align: center;
 }
 
-/* headings and intro text in the contact area should be white */
+/* headings and intro text */
 .form-1 .h2-heading {
     margin-bottom: 1.125rem;
     color: var(--brand-white);
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .form-1 .p-heading {
-    margin-bottom: 0.375rem;
-    color: var(--brand-white);
+    margin-bottom: 1.25rem;
+    color: rgba(255,255,255,0.88);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* contact list (address / phone / mail) */
-.form-1 .list-unstyled {
-    margin-bottom: 3.5rem;
-    color: var(--brand-white);
+/* ---------- Contact grid (new) ---------- */
+.contact-grid {
+    margin-bottom: 2.5rem;
 }
 
-.form-1 .list-unstyled a {
+/* each contact item */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+}
+
+/* circular icon */
+.contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: rgba(0, 123, 255, 0.12); /* light accent background */
+    color: var(--brand-accent);
+    font-size: 1.25rem;
+    flex: 0 0 56px;
+}
+
+/* bigger icon when screen wide enough */
+@media (min-width: 992px) {
+    .contact-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 1.4rem;
+        flex: 0 0 64px;
+    }
+}
+
+/* textual info next to icon */
+.contact-info {
+    text-align: left;
+}
+
+.contact-primary {
+    font-weight: 700;
     color: var(--brand-white);
+    font-size: 1.05rem;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+}
+
+/* link color for contact primary values */
+.contact-primary a {
+    color: var(--brand-white);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.contact-primary a:hover,
+.contact-primary a:focus {
+    color: var(--brand-accent);
     text-decoration: underline;
 }
 
-/* icon accent uses brand accent */
-.form-1 .list-unstyled .fas {
-    color: var(--brand-accent);
+/* secondary line smaller and lighter */
+.contact-secondary {
+    color: rgba(191, 200, 209, 0.95);
+    font-size: 0.875rem;
+    line-height: 1.2;
 }
 
-/* override form controls only in this dark section */
+/* responsive: stack items nicely on small screens */
+@media (max-width: 767.98px) {
+    .contact-item {
+        justify-content: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 0.25rem;
+    }
+    .contact-grid .col-md-4 {
+        margin-bottom: 0.75rem;
+    }
+    .form-1 .p-heading {
+        padding: 0 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* ---------- form controls (slight tune for dark bg) ---------- */
 .form-1 .form-control-input,
 .form-1 .form-control-textarea {
     border-color: #374959;
-    background-color: #25323a; /* darker input area for contrast on dark hero */
+    background-color: #25323a;
     color: #efefef;
 }
 
-/* placeholder color lighter but still visible on dark background */
 .form-1 .form-control-input::placeholder,
 .form-1 .form-control-textarea::placeholder {
     color: #d6d9db;
 }
 
-/* focus outlines tuned for accessibility */
 .form-1 .form-control-input:focus,
 .form-1 .form-control-textarea:focus {
     border-color: var(--brand-accent);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12); /* subtle accent focus ring */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
     outline: none;
 }
 
-/* submit button in contact section uses accent */
+/* submit button */
 .form-1 .form-control-submit-button {
     display: inline-block;
     width: 100%;
