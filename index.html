@@ -34,85 +34,112 @@
 <body>
     
     <!-- Navigation -->
-    <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Main navigation">
-        <div class="container">
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
+    <div class="container">
 
-            <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a> 
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
+        <img src="images/logo.svg" alt="CODE logo">
+        </a>
 
-            <!-- Text Logo - Use this if you don't have a graphic logo -->
-            <!-- <a class="navbar-brand logo-text" href="index.html">Desi</a> -->
+        <!-- Text Logo fallback -->
+        <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
-            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ms-auto navbar-nav-scroll">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#header">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Drop</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                            <li><a class="dropdown-item" href="article.html">Article Details</a></li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="terms.html">Terms Conditions</a></li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-                <span class="nav-item social-icons">
-                    <span class="fa-stack">
-                        <a href="#your-link">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fab fa-facebook-f fa-stack-1x"></i>
-                        </a>
-                    </span>
-                    <span class="fa-stack">
-                        <a href="#your-link">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fab fa-twitter fa-stack-1x"></i>
-                        </a>
-                    </span>
-                </span>
-            </div> <!-- end of navbar-collapse -->
-        </div> <!-- end of container -->
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#header">Início</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#services">Serviços</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#projects">Projetos</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#contact">Contactos</a>
+            </li>
+        </ul>
+
+        <!-- CTA button in navbar (prominent, no social icons) -->
+        <div class="nav-item ms-3 ms-lg-4">
+            <a class="btn-outline-sm navbar-cta" href="#contact" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+        </div>
+        </div> <!-- end of navbar-collapse -->
+    </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
 
-      
-    <!-- Header -->
-    <header id="header" class="header">
-        <div class="header-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="h1-large">Creative Social Media Digital Agency</h1>
-                        <a class="btn-solid-lg" href="#introduction">Discover</a>
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of header-content -->
-        
-        <!-- Video Background -->
-        <video autoplay loop muted id="video-background" poster="images/header-background.jpg" playsinline>
-            <source src="images/header-background-video.mp4" type="video/mp4" />
-        </video>
-        <!-- end of video background -->
 
-    </header> <!-- end of header -->
-    <!-- end of header -->
+    <!-- Header -->
+    <header id="header" class="header" role="banner">
+    <div class="header-content">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+            <h1 class="h1-large">Agência Digital Criativa</h1>
+
+            <!-- HERO CAROUSEL (subtitle replacement) -->
+            <div id="heroInfoCarousel" class="hero-carousel" aria-label="Destaques CODE">
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-content">
+                    <h3 class="carousel-title">Criação de Websites</h3>
+                    <p class="carousel-text">Sites personalizados em HTML, CSS e JavaScript — rápidos, acessíveis e otimizados para conversão.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                    <h3 class="carousel-title">Rebranding &amp; UI</h3>
+                    <p class="carousel-text">Renovamos identidades visuais e interfaces para uma presença digital coerente e profissional.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                    <h3 class="carousel-title">SEO &amp; Conteúdo</h3>
+                    <p class="carousel-text">Estratégia SEO e gestão de conteúdos para que o seu site seja encontrado e converta melhor.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Controls (outside the content box) -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroInfoCarousel" aria-label="Slide anterior">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#heroInfoCarousel" aria-label="Próximo slide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+                </button>
+            </div>
+            <!-- end hero carousel -->
+
+            <div class="mt-4">
+                <a class="btn-solid-lg" href="#introduction">Saber mais</a>
+            </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        </div> <!-- end container -->
+    </div> <!-- end header-content -->
+
+    <!-- Video Background -->
+    <video autoplay loop muted id="video-background" poster="images/header-background.jpg" playsinline>
+        <source src="images/header-background-video.mp4" type="video/mp4" />
+    </video>
+
+    <!-- subtle overlay to ensure legibility -->
+    <div class="header-overlay" aria-hidden="true"></div>
+    </header>
+    <!-- end header -->
+
+
 
 
     <!-- Introduction -->

@@ -145,3 +145,108 @@ function topFunction() {
 	document.body.scrollTop = 0; // for Safari
 	document.documentElement.scrollTop = 0; // for Chrome, Firefox, IE and Opera
 }
+
+
+// HERO INFO CAROUSEL (standalone controller)
+// Paste into scripts.js (remove any previous hero carousel code to avoid duplicates)
+(function () {
+  const CAROUSEL_SELECTOR = '#heroInfoCarousel';
+  const ROTATE_CLASS = 'rotating';
+  const ROTATE_DURATION = 850; // must match CSS animation duration in ms
+  const AUTO_INTERVAL = 5000;  // 5 seconds
+
+  const carousel = document.querySelector(CAROUSEL_SELECTOR);
+  if (!carousel) return;
+
+  const items = Array.from(carousel.querySelectorAll('.carousel-item'));
+  if (!items.length) return;
+
+  const prevBtn = carousel.querySelector('.carousel-control-prev');
+  const nextBtn = carousel.querySelector('.carousel-control-next');
+
+  // Ensure exactly one active item on init
+  let current = items.findIndex(it => it.classList.contains('active'));
+  if (current === -1) {
+    current = 0;
+    items.forEach((it, i) => it.classList.toggle('active', i === 0));
+  }
+
+  // Clean helper to set active slide
+  function showIndex(idx) {
+    idx = (idx + items.length) % items.length;
+    items.forEach((it, i) => {
+      if (i === idx) {
+        it.classList.add('active');
+      } else {
+        it.classList.remove('active');
+      }
+    });
+    current = idx;
+  }
+
+  // Start a rotate animation, change slide, then remove rotating flag after animation
+  function goToIndexWithRotate(nextIndex) {
+    // If already rotating, ignore to avoid overlapping animations
+    if (carousel.classList.contains(ROTATE_CLASS)) {
+      // still allow immediate show (prevents user feeling click is ignored)
+      showIndex(nextIndex);
+      return;
+    }
+
+    // Add rotating class (CSS does the spin)
+    carousel.classList.add(ROTATE_CLASS);
+
+    // Immediately switch slide (CSS transition/opacity handles visibility)
+    showIndex(nextIndex);
+
+    // Remove rotating class after animation completes
+    setTimeout(() => {
+      carousel.classList.remove(ROTATE_CLASS);
+    }, ROTATE_DURATION + 20);
+  }
+
+  function next() {
+    goToIndexWithRotate((current + 1) % items.length);
+  }
+  function prev() {
+    goToIndexWithRotate((current - 1 + items.length) % items.length);
+  }
+
+  // Auto-advance timer
+  let autoTimer = setInterval(next, AUTO_INTERVAL);
+
+  // Pause on hover, resume on leave
+  carousel.addEventListener('mouseenter', () => {
+    clearInterval(autoTimer);
+    autoTimer = null;
+  });
+  carousel.addEventListener('mouseleave', () => {
+    if (autoTimer) return;
+    autoTimer = setInterval(next, AUTO_INTERVAL);
+  });
+
+  // Prev/Next button handlers
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      prev();
+      // restart auto timer so users have full interval after manual action
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = setInterval(next, AUTO_INTERVAL); }
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      next();
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = setInterval(next, AUTO_INTERVAL); }
+    });
+  }
+
+  // Optional: keyboard left/right arrow control when carousel is focused
+  carousel.setAttribute('tabindex', '-1'); // ensure focusable
+  carousel.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { prev(); }
+    else if (e.key === 'ArrowRight') { next(); }
+  });
+
+})();
