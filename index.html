@@ -438,112 +438,134 @@
 
     <!-- Contact -->
     <div id="contact" class="form-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="h2-heading">Contact details</h2>
-                    <p class="p-heading">Of will at sell well at as. Too want but tall nay like old removing yourself today</p>
-                    <ul class="list-unstyled li-space-lg">
-                        <li><i class="fas fa-map-marker-alt"></i> &nbsp;22 Innovative, San Francisco, CA 94043, US</li>
-                        <li><i class="fas fa-phone"></i> &nbsp;<a href="tel:00817202212">+81 720 2212</a></li>
-                        <li><i class="fas fa-envelope"></i> &nbsp;<a href="mailto:contact@site.com">contact@site.com</a></li>
-                    </ul>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    
-                    <!-- Contact Form -->
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" placeholder="Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control-input" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control-textarea" placeholder="Message" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="form-control-submit-button">Submit</button>
-                        </div>
-                    </form>
-                    <!-- end of contact form -->
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="h2-heading">Contact details</h2>
+            <p class="p-heading">We design modern, fast and responsive websites that communicate clearly, inspire trust and deliver results.</p>
+            <ul class="list-unstyled li-space-lg">
+            <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> &nbsp;22 Innovative Ave, San Francisco, CA 94043, USA</li>
+            <li><i class="fas fa-phone" aria-hidden="true"></i> &nbsp;<a href="tel:+17202212">+1 720 2212</a></li>
+            <li><i class="fas fa-envelope" aria-hidden="true"></i> &nbsp;<a href="mailto:contact@codeagency.com">contact@codeagency.com</a></li>
+            </ul>
+        </div> <!-- end of col -->
+        </div> <!-- end of row -->
 
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
+        <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+
+            <!-- Contact Form -->
+            <form id="contactForm" method="post" action="/contact" novalidate>
+            <div class="form-group">
+                <label for="name" class="sr-only">Name</label>
+                <input id="name" name="name" type="text" class="form-control-input" placeholder="Name" required aria-label="Name">
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="sr-only">Email</label>
+                <input id="email" name="email" type="email" class="form-control-input" placeholder="Email" required aria-label="Email">
+            </div>
+
+            <div class="form-group">
+                <label for="project" class="sr-only">Type of project</label>
+                <select id="project" name="project_type" class="form-control-input" aria-label="Type of project">
+                <option value="">Type of project (optional)</option>
+                <option>Website</option>
+                <option>Rebranding</option>
+                <option>SEO & Content</option>
+                <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message" class="sr-only">Message</label>
+                <textarea id="message" name="message" class="form-control-textarea" placeholder="Message" required aria-label="Message"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="form-control-submit-button">Send message</button>
+            </div>
+            </form>
+            <!-- end of contact form -->
+
+        </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
     </div> <!-- end of form-1 -->
     <!-- end of contact -->
 
-
     <!-- Footer -->
     <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer-col first">
-                        <h6>About Desi</h6>
-                        <p class="p-small">He oppose at thrown desire of no. Announcing impression unaffected day his are unreserved indulgence. Him hard find read are you</p>
-                    </div> <!-- end of footer-col -->
-                    <div class="footer-col second">
-                        <h6>Links</h6>
-                        <ul class="list-unstyled li-space-lg p-small">
-                            <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                            <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                            <li>Menu: <a href="#header">Home</a>, <a href="#services">Services</a>, <a href="#projects">Projects</a>, <a href="#contact">Contact</a></li>
-                        </ul>
-                    </div> <!-- end of footer-col -->
-                    <div class="footer-col third">
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-facebook-f fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <p class="p-small">We would love to hear from you <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
-                    </div> <!-- end of footer-col -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
-    <!-- end of footer -->
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-4">
+            <div class="footer-col first">
+            <h6>About CODE</h6>
+            <p class="p-small">
+                CODE is a young, creative team specialized in web design and digital communication. We combine
+                aesthetics, technology and strategy to create unique online experiences.
+            </p>
+            </div>
+        </div>
 
+        <div class="col-lg-4">
+            <div class="footer-col second">
+            <h6>Links</h6>
+            <ul class="list-unstyled li-space-lg p-small">
+                <li>Important: <a href="terms.html">Terms &amp; Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
+                <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
+                <li>Menu: <a href="#header">Home</a>, <a href="#services">Services</a>, <a href="#projects">Projects</a>, <a href="#contact">Contact</a></li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col third text-lg-right">
+            <div class="social-icons">
+                <a href="#" class="social-link" aria-label="Facebook">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Pinterest">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-instagram fa-stack-1x"></i>
+                </span>
+                </a>
+            </div>
+
+            <p class="p-small mt-3">We would love to hear from you <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+            </div>
+        </div>
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+    </div> <!-- end of footer -->
 
     <!-- Copyright -->
     <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Distributed by:  <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of copyright --> 
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-lg-12">
+            <p class="p-small">Copyright © <a href="#header">CODE</a></p>
+            <p class="p-small">Website design by CODE</p>
+        </div>
+        </div>
+    </div>
+    </div>
     <!-- end of copyright -->
     
 
