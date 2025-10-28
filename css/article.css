@@ -1,0 +1,284 @@
+/* article.css
+   Styles for the Technologies page (tech-table, header, footer polishing)
+   Designed to match CODE brand: dark blue + electric blue accent.
+   UPDATED: columns visually enlarged (~40% increase in key dimensions)
+          and increased padding (more space between content and cell box).
+*/
+
+/* Brand variables */
+:root{
+  --brand-dark: #0d1b2a;
+  --brand-accent: #007bff;
+  --brand-white: #ffffff;
+  --muted: #bfc8d1;
+  --card-bg: rgba(255,255,255,0.03);
+  --glass-shadow: 0 8px 32px rgba(13,27,42,0.28);
+  --max-content-width: 1100px;
+  --radius: 10px;
+  --gap: 1.25rem;
+  --body-font: "Open Sans", sans-serif;
+  --heading-font: "Poppins", sans-serif;
+}
+
+/* Base page settings (page-specific) */
+body {
+  font-family: var(--body-font);
+  color: #2f3940;
+  background: #fbfdff;
+}
+
+/* ----- Header (ex-header) ----- */
+.ex-header {
+  background: linear-gradient(90deg, rgba(13,27,42,0.95), rgba(13,27,42,0.75));
+  color: var(--brand-white);
+  padding: 3.5rem 0;
+  text-align: center;
+  box-shadow: var(--glass-shadow);
+  position: relative;
+}
+
+.ex-header h1{
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 2.25rem;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+/* ----- Main tech page wrapper ----- */
+#tech-page.tech-page {
+  padding: 3.5rem 0 4.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* center the inner container and limit width */
+#tech-page .container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+/* section header */
+.tech-header h2 {
+  font-family: var(--heading-font);
+  font-size: 1.375rem;
+  color: #153043;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* descriptive intro */
+.tech-header p {
+  color: #46585f;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto 1.25rem;
+  max-width: 880px;
+}
+
+/* ----- Table block styling ----- */
+.tech-table {
+  margin-top: 1.25rem;
+  display: block;
+  width: 100%;
+  overflow: auto; /* small horizontal scroll if needed on tiny screens */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* table base
+   NOTE: removed fixed table-layout so columns can expand naturally.
+*/
+.tech-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--glass-shadow);
+  /* allow columns to size based on content so "bigger" columns feel larger */
+}
+
+/* table head */
+.tech-table thead th {
+  text-align: left;
+  padding: 1.4rem 1.75rem; /* increased padding ~40% */
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  color: #eef6fb;
+  background-color: var(--brand-dark);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 0.98rem;
+  vertical-align: middle;
+}
+
+/* table body rows */
+.tech-table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+/* zebra effect */
+.tech-table tbody tr:nth-child(odd) {
+  background: rgba(255,255,255,0.015);
+}
+
+/* cells - increased padding to create larger "box" around text (~40% bigger) */
+.tech-table td {
+  padding: 1.25rem 1.75rem; /* was 0.875rem 1.25rem -> increased ~40% */
+  vertical-align: middle;
+  font-size: 1.02rem; /* slightly larger for readability */
+  color: #21343b;
+  overflow-wrap: break-word;
+}
+
+/* first column: icon + label */
+/* Increased minimum width by ~40% (200px -> 280px) so first column appears bigger */
+.tech-table td:first-child {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 280px; /* increased from 200px */
+}
+
+/* tech logo svg sizing increased by ~40% (36 -> 50) */
+.tech-logo {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+}
+
+/* bold name */
+.tech-table td:first-child strong {
+  font-weight: 700;
+  font-family: var(--heading-font);
+  color: #102226;
+  font-size: 1.06rem;
+}
+
+/* description column - increased relative width visually by letting it take more space */
+.tech-table td:nth-child(2) {
+  color: #2d4349;
+  line-height: 1.5;
+  width: auto; /* let it expand naturally */
+  padding-right: 2rem;
+}
+
+/* usage column - a little wider and more emphasis */
+.tech-table td:nth-child(3) {
+  font-weight: 700;
+  color: var(--brand-accent);
+  text-align: left;
+  white-space: nowrap;
+  min-width: 220px; /* ensure the usage column is visibly wider */
+}
+
+/* responsive table: stack on small screens */
+@media (max-width: 767.98px) {
+  .tech-table table, .tech-table thead, .tech-table tbody, .tech-table th, .tech-table td, .tech-table tr {
+    display: block;
+  }
+
+  .tech-table thead {
+    display: none;
+  }
+
+  .tech-table tbody tr {
+    margin-bottom: 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 0.85rem;
+    box-shadow: 0 6px 18px rgba(13,27,42,0.06);
+  }
+
+  .tech-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .tech-table td:first-child {
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .tech-table td:nth-child(2), .tech-table td:nth-child(3) {
+    width: auto;
+    white-space: normal;
+    text-align: right;
+    flex: 1 1 auto;
+  }
+
+  .tech-table td .tech-logo { width: 44px; height: 44px; flex: 0 0 44px; }
+}
+
+/* ----- Navigation back / CTA button ----- */
+.btn-solid-reg {
+  display: inline-block;
+  padding: 0.95rem 1.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--brand-accent);
+  background-color: var(--brand-accent);
+  color: var(--brand-white);
+  font-weight: 700;
+  text-decoration: none;
+  margin: 2rem auto 0;
+  display: block;
+  width: max-content;
+}
+
+/* ----- Footer adjustments specific to this page ----- */
+.footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: var(--brand-dark);
+  color: var(--muted);
+}
+
+.footer .footer-col.first h6,
+.footer .footer-col.second h6 {
+  color: var(--brand-white);
+}
+
+/* small footer link style */
+.footer a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.footer a:hover { color: var(--brand-accent); text-decoration: underline; }
+
+/* copyright */
+.copyright {
+  padding: 1.5rem 0;
+  background-color: #0b1116;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* back to top button */
+#myBtn {
+  position: fixed;
+  z-index: 999;
+  bottom: 22px;
+  right: 22px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #25323a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(13,27,42,0.25);
+}
+#myBtn img { width: 18px; }
+
+/* small helpers */
+.p-small { color: var(--muted); font-size: 0.9rem; }
+
+/* Utility spacing for the tech header */
+.tech-header { margin-bottom: 0.75rem; padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+/* Make SVG logos adapt to their fill if they don't set color directly */
+.tech-logo path { vector-effect: non-scaling-stroke; }
+
+/* End of article.css */
