@@ -790,7 +790,7 @@ a:hover {
 		margin-left: 1rem;
 	}
 	/* end of extra pages */
-}
+
 /* end of min-width 992px */
 
 
@@ -1723,3 +1723,517 @@ a:hover {
 	/* end of extra pages */
 }
 /* end of min-width 1200px */
+
+/**********************/
+/*     Services       */
+/**********************/
+
+        .services-section {
+            margin-top: 120px;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 80px;
+        }
+
+        .services-title {
+            text-align: left;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px 80px;
+            margin-bottom: 80px;
+        }
+
+        .service-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .service-card:hover .service-title {
+            color: #666666;
+        }
+
+        .service-icon {
+            display: none;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .service-description {
+            color: #666666;
+            line-height: 1.7;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .cta-section {
+            text-align: left;
+            margin-top: 60px;
+        }
+
+/* Portfolio Section Styles */
+.portfolio-container {
+    margin: 40px 0;
+    overflow: hidden;
+}
+
+.portfolio-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.portfolio-item {
+    flex: 0 0 calc(25% - 15px);
+    max-width: calc(25% - 15px);
+    perspective: 1000px;
+}
+
+.portfolio-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.portfolio-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   }
+
+/* Slider Horizontal Automático */
+.slider-horizontal-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 60px 0;
+    padding: 20px 0;
+}
+
+.slider-track {
+    display: flex;
+    gap: 20px;
+    animation: slideHorizontal 40s linear infinite;
+    width: max-content;
+}
+
+.slider-item {
+    flex: 0 0 300px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.slider-item:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.slider-item:hover .slider-image {
+    transform: scale(1.1);
+}
+
+/* Animação do slider */
+@keyframes slideHorizontal {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-300px * 6 - 20px * 6)); /* Move pela primeira metade das imagens */
+    }
+}
+
+/* Efeito de gradiente nas bordas */
+.slider-horizontal-container::before,
+.slider-horizontal-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.slider-horizontal-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider-horizontal-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+/* Pausa na animação no hover */
+.slider-horizontal-container:hover .slider-track {
+    animation-play-state: paused;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .slider-item {
+        flex: 0 0 250px;
+        height: 180px;
+    }
+    
+    @keyframes slideHorizontal {
+        100% {
+            transform: translateX(calc(-250px * 6 - 20px * 6));
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-item {
+        flex: 0 0 200px;
+        height: 150px;
+    }
+    
+    .slider-track {
+        gap: 15px;
+    }
+    
+    @keyframes slideHorizontal {
+        100% {
+            transform: translateX(calc(-200px * 6 - 15px * 6));
+        }
+    }
+    
+    .slider-horizontal-container::before,
+    .slider-horizontal-container::after {
+        width: 50px;
+    }
+}
+
+/* Testimonials Full Width */
+.slider-1 {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.container-fluid.p-0 {
+    padding: 0 !important;
+}
+
+.slider-container {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.swiper-container.card-slider {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.swiper-slide {
+    padding: 40px 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    margin: 0 20px; /* Espaço entre slides */
+    max-width: 400px; /* Largura máxima de cada slide */
+    height: auto;
+}
+
+/* Botões de navegação posicionados nas bordas */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 50px;
+    height: 50px;
+    background: #007bff;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: 20px;
+}
+
+/* Efeitos de hover nos botões */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Ajustes para o conteúdo dentro do slide */
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.testimonial-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid #007bff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.testimonial-info {
+    flex: 1;
+}
+
+.testimonial-author {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.testimonial-position {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.testimonial-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    text-align: left;
+    margin: 0;
+}
+
+/* Efeitos visuais */
+.swiper-slide:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Gradientes nas bordas para indicar mais conteúdo */
+.slider-container::before,
+.slider-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.slider-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .swiper-slide {
+        margin: 0 15px;
+        max-width: 300px;
+        padding: 30px 20px;
+    }
+    
+    .testimonial-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .testimonial-image {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .swiper-button-next {
+        right: 10px;
+    }
+    
+    .swiper-button-prev {
+        left: 10px;
+    }
+    
+    .slider-container::before,
+    .slider-container::after {
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .swiper-slide {
+        margin: 0 10px;
+        max-width: 280px;
+        padding: 25px 15px;
+    }
+    
+    .slider-container::before,
+    .slider-container::after {
+        width: 30px;
+    }
+}
+
+/* Botões de navegação personalizados com setas */
+.swiper-button-next-custom,
+.swiper-button-prev-custom {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: #007bff;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,123,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.swiper-button-next-custom {
+    right: 30px;
+}
+
+.swiper-button-prev-custom {
+    left: 30px;
+}
+
+.swiper-button-next-custom i,
+.swiper-button-prev-custom i {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Efeitos hover */
+.swiper-button-next-custom:hover,
+.swiper-button-prev-custom:hover {
+    background: #0056b3;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 25px rgba(0,123,255,0.4);
+}
+
+/* Efeito active */
+.swiper-button-next-custom:active,
+.swiper-button-prev-custom:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Remove os botões padrão do Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none;
+}
+
+/* Responsividade para os botões */
+@media (max-width: 768px) {
+    .swiper-button-next-custom,
+    .swiper-button-prev-custom {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .swiper-button-next-custom i,
+    .swiper-button-prev-custom i {
+        font-size: 20px;
+    }
+    
+    .swiper-button-next-custom {
+        right: 15px;
+    }
+    
+    .swiper-button-prev-custom {
+        left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .swiper-button-next-custom,
+    .swiper-button-prev-custom {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .swiper-button-next-custom i,
+    .swiper-button-prev-custom i {
+        font-size: 18px;
+    }
+    
+    .swiper-button-next-custom {
+        right: 10px;
+    }
+    
+    .swiper-button-prev-custom {
+        left: 10px;
+    }
+}
