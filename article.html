@@ -36,57 +36,49 @@
     
     
     <!-- Navigation -->
-    <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Main navigation">
-        <div class="container">
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
+    <div class="container">
 
-            <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a> 
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
+        <img src="images/code_logo.png" alt="CODE logo">
+        </a>
 
-            <!-- Text Logo - Use this if you don't have a graphic logo -->
-            <!-- <a class="navbar-brand logo-text" href="index.html">Desi</a> -->
+        <!-- Text Logo fallback -->
+        <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
-            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ms-auto navbar-nav-scroll">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">INÍCIO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#services">SOBRE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#projects">SERVIÇOS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#contact">CONTACTOS</a>
-                    </li>
-                </ul>
-                <span class="nav-item social-icons">
-                    <span class="fa-stack">
-                        <a href="#your-link">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fab fa-facebook-f fa-stack-1x"></i>
-                        </a>
-                    </span>
-                    <span class="fa-stack">
-                        <a href="#your-link">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fab fa-twitter fa-stack-1x"></i>
-                        </a>
-                    </span>
-                </span>
-            </div> <!-- end of navbar-collapse -->
-        </div> <!-- end of container -->
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html#header">Início</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#sobre">Sobre</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#services">Serviços</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#contact">Contactos</a>
+            </li>
+        </ul>
+
+        <!-- CTA button in navbar (prominent, no social icons) -->
+        <div class="nav-item ms-3 ms-lg-4">
+            <a class="btn-outline-sm navbar-cta" href="#jump-solicitar-orcamento" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+        </div>
+        </div> <!-- end of navbar-collapse -->
+    </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
 
-
     <!-- Header -->
     <header class="ex-header">
-        <div class="container">
+        <div class="ex-container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
                     <h1>Tecnologias que Utilizamos</h1>
@@ -96,137 +88,134 @@
     </header> <!-- end of ex-header -->
     <!-- end of header -->
 
-<div id="tech-page" class="tech-page">
-    <div class="container">
-    <div class="tech-header">
-    <br>
-     <h2>Conheça as ferramentas e linguagens que usamos para criar websites excepcionais:</h2>
-    <br>
+    <div id="tech-page" class="tech-page">
+        <div class="container">
+        <div class="tech-header">
+        <br>
+        <h2>Conheça as ferramentas e linguagens que usamos para criar websites excepcionais:</h2>
+        <br>
+        </div>
+        <div class="tech-table">
+        <table>
+        <thead>
+        <tr>
+            <th>Tecnologia</th>
+            <th>Descrição</th>
+            <th>Utilização</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+            <svg class="tech-logo" viewbox="0 0 24 24" fill="#e34c26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" />
+            </svg><strong>HTML</strong></td>
+            <td>HyperText Markup Language - Linguagem de marcação para estruturar conteúdo web</td>
+            <td>Estrutura e semântica das páginas</td>
+        </tr>
+        <tr>
+            <td>
+            <svg class="tech-logo" viewbox="0 0 24 24" fill="#1572b6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z" />
+            </svg><strong>CSS</strong></td>
+            <td>Cascading Style Sheets - Linguagem para estilização e layout</td>
+            <td>Design visual, cores, tipografia e responsividade</td>
+        </tr>
+        <tr>
+            <td>
+            <svg class="tech-logo" viewbox="0 0 24 24" fill="#f7df1e"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
+            </svg><strong>JavaScript</strong></td>
+            <td>Linguagem de programação para interatividade e funcionalidades dinâmicas</td>
+            <td>Animações, validações, APIs e experiência do utilizador</td>
+        </tr>
+        <tr>
+            <td>
+            <svg class="tech-logo" viewbox="0 0 24 24" fill="#7952b3"><path d="M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 0v24H0V0h24zM8.537 6.731v10.538h4.26c2.606 0 4.104-1.268 4.104-3.467 0-1.674-.834-2.88-2.326-3.467v-.065c1.17-.585 1.834-1.663 1.834-2.88 0-1.98-1.395-3.659-3.728-3.659H8.537z" />
+            </svg><strong>Bootstrap</strong></td>
+            <td>Framework CSS para desenvolvimento responsivo e componentes pré-construídos</td>
+            <td>Grids responsivos, componentes UI e prototipagem rápida</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
     </div>
-    <div class="tech-table">
-     <table>
-      <thead>
-       <tr>
-        <th>Tecnologia</th>
-        <th>Descrição</th>
-        <th>Utilização</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-        <td>
-         <svg class="tech-logo" viewbox="0 0 24 24" fill="#e34c26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" />
-         </svg><strong>HTML</strong></td>
-        <td>HyperText Markup Language - Linguagem de marcação para estruturar conteúdo web</td>
-        <td>Estrutura e semântica das páginas</td>
-       </tr>
-       <tr>
-        <td>
-         <svg class="tech-logo" viewbox="0 0 24 24" fill="#1572b6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z" />
-         </svg><strong>CSS</strong></td>
-        <td>Cascading Style Sheets - Linguagem para estilização e layout</td>
-        <td>Design visual, cores, tipografia e responsividade</td>
-       </tr>
-       <tr>
-        <td>
-         <svg class="tech-logo" viewbox="0 0 24 24" fill="#f7df1e"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
-         </svg><strong>JavaScript</strong></td>
-        <td>Linguagem de programação para interatividade e funcionalidades dinâmicas</td>
-        <td>Animações, validações, APIs e experiência do utilizador</td>
-       </tr>
-       <tr>
-        <td>
-         <svg class="tech-logo" viewbox="0 0 24 24" fill="#7952b3"><path d="M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 0v24H0V0h24zM8.537 6.731v10.538h4.26c2.606 0 4.104-1.268 4.104-3.467 0-1.674-.834-2.88-2.326-3.467v-.065c1.17-.585 1.834-1.663 1.834-2.88 0-1.98-1.395-3.659-3.728-3.659H8.537z" />
-         </svg><strong>Bootstrap</strong></td>
-        <td>Framework CSS para desenvolvimento responsivo e componentes pré-construídos</td>
-        <td>Grids responsivos, componentes UI e prototipagem rápida</td>
-       </tr>
-      </tbody>
-     </table>
     </div>
-   </div>
-  </div>
 
-                    
- <a class="btn-solid-reg mb-5" href="index.html">Home</a>
-
+                        
+    <a class="btn-solid-reg mb-5" href="index.html">Home</a>
 
 
     <!-- Footer -->
     <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer-col first">
-                        <h6>About Desi</h6>
-                        <p class="p-small">He oppose at thrown desire of no. Announcing impression unaffected day his are unreserved indulgence. Him hard find read are you</p>
-                    </div> <!-- end of footer-col -->
-                    <div class="footer-col second">
-                        <h6>Links</h6>
-                        <ul class="list-unstyled li-space-lg p-small">
-                            <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                            <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                            <li>Menu: <a href="#header">Home</a>, <a href="#services">Services</a>, <a href="#projects">Projects</a>, <a href="#contact">Contact</a></li>
-                        </ul>
-                    </div> <!-- end of footer-col -->
-                    <div class="footer-col third">
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-facebook-f fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-twitter fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <span class="fa-stack">
-                            <a href="#your-link">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fab fa-instagram fa-stack-1x"></i>
-                            </a>
-                        </span>
-                        <p class="p-small">We would love to hear from you <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
-                    </div> <!-- end of footer-col -->
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
-    <!-- end of footer -->
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-4">
+            <div class="footer-col first">
+            <h6>Sobre a CODE</h6>
+            <p class="p-small">
+                A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
+                estética, tecnologia e estratégia para criar experiências online únicas.
+            </p>
+            </div>
+        </div>
 
+        <div class="col-lg-4">
+            <div class="footer-col second">
+            <h6>Ligações</h6>
+            <ul class="list-unstyled li-space-lg p-small">
+                <li>Importante: <a href="index.html#header">Termos &amp; Condições</a>, <a href="index.html#header">Política de Privacidade</a></li>
+                <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
+                <li>Menu: <a href="index.html">Início</a>, <a href="index.html#sobre">Sobre</a>, <a href="index.html#services">Serviços</a>, <a href="index.html#contact">Contactos</a></li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col third text-lg-right">
+            <div class="social-icons">
+                <a href="#" class="social-link" aria-label="Facebook">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Pinterest">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-instagram fa-stack-1x"></i>
+                </span>
+                </a>
+            </div>
+
+            <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+            </div>
+        </div>
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+    </div> <!-- end of footer -->
 
     <!-- Copyright -->
     <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Distributed by:  <a href="https://themewagon.com/" target="_blank">Themewagon</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of copyright --> 
-    <!-- end of copyright -->       
-    
-
-    <!-- Back To Top Button -->
-    <button onclick="topFunction()" id="myBtn">
-        <img src="images/up-arrow.png" alt="alternative">
-    </button>
-    <!-- end of back to top button -->
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-lg-12">
+            <p class="p-small">Copyright © <a href="index.html#header">CODE</a></p>
+            <p class="p-small">Website desenvolvido pela CODE</p>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- end of copyright -->
     	
     <!-- Scripts -->
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
