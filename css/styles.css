@@ -1730,7 +1730,8 @@ a:hover {
 /*     Services       */
 /**********************/
 
-        .services-section {
+/* SERVICES */
+.services-section {
             margin-top: 120px;
             border-top: 1px solid #e5e5e5;
             padding-top: 80px;
@@ -1830,14 +1831,15 @@ a:hover {
     object-fit: cover;
    }
 
+
 /* ---------------------------
    HORIZONTAL IMAGE SLIDER
    --------------------------- */
 .slider-horizontal-section { padding:40px 0; }
 .slider-horizontal-container { width:100%; overflow:hidden; position:relative; background:transparent; padding: 18px 0; }
-.slider-track { display:flex; align-items:center; gap:16px; will-change:transform; }
-.slider-item { flex:0 0 300px; height:200px; border-radius:12px; overflow:hidden; background:#f7f7f7; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(0,0,0,0.06); transition: transform .25s ease; }
-.slider-item:hover { transform: translateY(-6px) scale(1.02); }
+.slider-track { display:flex; align-items:center; gap:16px; will-change:transform; transform: translateZ(0); }
+.slider-item { flex:0 0 300px; height:200px; border-radius:12px; overflow:hidden; background:#f7f7f7; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(0,0,0,0.06); transition: transform .25s ease, box-shadow .25s ease; }
+.slider-item:hover { transform: translateY(-6px) scale(1.02); box-shadow:0 16px 40px rgba(0,0,0,0.12); }
 .slider-image { width:100%; height:100%; object-fit:cover; display:block; }
 
 /* gradient fade edges */
@@ -1856,7 +1858,7 @@ a:hover {
 /* ---------------------------
    TESTIMONIALS CAROUSEL
    --------------------------- */
-.testimonials-section { padding:40px 0 80px; background:#f9fafb; }
+.testimonials-section { padding:40px 0 80px; background: linear-gradient(180deg,#f9fbff 0%, #f9fafb 100%); }
 .section-title { font-size:1.8rem; margin-bottom:18px; color:#111; }
 
 /* wrapper that contains buttons + viewport */
@@ -1865,17 +1867,20 @@ a:hover {
   border:0; background:#007bff; color:white; width:48px; height:48px;
   border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer;
   box-shadow:0 6px 18px rgba(0,123,255,0.18);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
+.test-btn:hover { transform: scale(1.06); box-shadow:0 10px 26px rgba(0,123,255,0.22); }
 .test-btn:focus { outline:3px solid rgba(0,123,255,0.18); }
 
 /* viewport that masks overflow */
-.testimonials-viewport { overflow:hidden; flex:1; }
+.testimonials-viewport { overflow:hidden; flex:1; border-radius:14px; padding:18px; background: linear-gradient(180deg,#ffffff 0%, rgba(255,255,255,0.9) 100%); box-shadow:0 8px 28px rgba(0,0,0,0.04); }
 .testimonials-track {
   display:flex;
   gap:20px;
   align-items:stretch;
   transition: transform 450ms cubic-bezier(.2,.9,.3,1);
   will-change:transform;
+  padding-bottom:6px;
 }
 
 /* each slide card */
@@ -1886,12 +1891,28 @@ a:hover {
   width:320px; /* fixed width for consistent sliding */
   box-shadow:0 12px 30px rgba(0,0,0,0.06);
   flex:0 0 auto;
+  transform-origin: center center;
+  transition: transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  overflow:visible;
 }
+.testimonial-slide:hover { transform: translateY(-8px) scale(1.03); box-shadow:0 22px 44px rgba(0,0,0,0.12); z-index:3; }
 .testimonial-header { display:flex; gap:14px; align-items:center; margin-bottom:14px; }
 .testimonial-image { width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid #007bff; }
-.testimonial-author { font-weight:600; font-size:1.05rem; color:#222; }
+.testimonial-author { font-weight:700; font-size:1.05rem; color:#222; letter-spacing: -0.01em; }
 .testimonial-position { font-style:italic; color:#666; font-size:0.9rem; }
-.testimonial-text { color:#444; line-height:1.6; margin:0; }
+.testimonial-text { color:#444; line-height:1.6; margin:0; font-size:1rem; }
+
+/* small decorative quote mark */
+.testimonial-slide::before {
+  content: "“";
+  font-size:36px;
+  color: rgba(7,55,121,0.08);
+  position:absolute;
+  top:8px;
+  right:12px;
+  pointer-events:none;
+}
 
 /* responsive */
 @media (max-width:900px) {

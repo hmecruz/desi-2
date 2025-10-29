@@ -504,3 +504,95 @@ function initTestimonialsCarousel(opts = {}) {
   viewport.addEventListener('focusin', stopAutoplay);
   viewport.addEventListener('focusout', startAutoplay);
 }
+
+function initContinuousImageSlider(trackSelector, opts = {}) {
+  const speed = opts.speed || 60; // px per second
+  const track = document.querySelector(trackSelector);
+  if (!track) return;
+  const viewport = track.parentElement;
+
+  // wait for images in track to load
+  const imgs = Array.from(track.querySelectorAll('img'));
+  const loadPromises = imgs.map(img => {
+    if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+    return new Promise(res => { img.onload = img.onerror = res; });
+  });
+
+  Promise.all(loadPromises).then(() => {
+    // Clone the original set exactly once (append copy)
+    const originals = Array.from(track.children);
+    // Remove clones if they already exist (defensive)
+    const clonesExist = originals.some(n => n.dataset.clone === 'true');
+    if (!clonesExist) {
+      originals.forEach(node => {
+        const c = node.cloneNode(true);
+        c.dataset.clone = 'true';
+        track.appendChild(c);
+      });
+    }
+
+    // measure one-time sizes
+    const fullWidth = track.scrollWidth;        // width of originals + clones
+    const halfWidth = fullWidth / 2;            // width of original set
+    // Use integer arithmetic for smoothness
+    let pos = 0;
+    let last = null;
+    let rafId = null;
+
+    function step(ts) {
+      if (!last) last = ts;
+      const dt = (ts - last) / 1000;
+      last = ts;
+      pos -= speed * dt;
+      // keep pos in range [-halfWidth, 0)
+      if (Math.abs(pos) >= halfWidth) {
+        pos += halfWidth; // jump forward by exactly halfWidth (no visible jump because duplicate content)
+        // ensure no subpixel accumulation by rounding to 0.5px precision:
+        pos = Math.round(pos * 2) / 2;
+      }
+      // apply transform with translate3d for GPU acceleration
+      track.style.transform = `translate3d(${pos}px,0,0)`;
+      rafId = requestAnimationFrame(step);
+    }
+
+    // controls
+    function start() {
+      if (!rafId) {
+        last = null;
+        rafId = requestAnimationFrame(step);
+      }
+    }
+    function stop() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+        last = null;
+      }
+    }
+
+    viewport.addEventListener('mouseenter', stop);
+    viewport.addEventListener('mouseleave', start);
+    viewport.addEventListener('focusin', stop);
+    viewport.addEventListener('focusout', start);
+
+    // restart if window resized (recalculate dimensions)
+    let resizeTo = null;
+    window.addEventListener('resize', () => {
+      if (resizeTo) clearTimeout(resizeTo);
+      resizeTo = setTimeout(() => {
+        stop();
+        // recompute widths (images may scale)
+        const newFull = track.scrollWidth;
+        // if the structure changed, ensure we still have duplicated set; we assume clone exists
+        // set pos to a value modulo newHalf to avoid visible jump
+        const newHalf = newFull / 2;
+        pos = ((pos % newHalf) + newHalf) % newHalf; // keep pos in [0, newHalf)
+        // convert pos to negative direction
+        pos = -Math.abs(pos);
+        start();
+      }, 180);
+    });
+
+    start();
+  });
+}
