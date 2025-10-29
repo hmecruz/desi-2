@@ -742,6 +742,8 @@ a:hover {
     border-radius: 50%;
     margin-bottom: 15px;
     border: 3px solid #007bff;
+    object-fit: cover;       
+    object-position: center;  
 }
 /* end of Sobre nós */
 
@@ -1828,7 +1830,7 @@ a:hover {
     object-fit: cover;
    }
 
-/* Slider Horizontal Automático */
+/* Slider Horizontal Automático (infinite loop fix) */
 .slider-horizontal-container {
     width: 100%;
     overflow: hidden;
@@ -1840,10 +1842,17 @@ a:hover {
 .slider-track {
     display: flex;
     gap: 20px;
-    animation: slideHorizontal 40s linear infinite;
     width: max-content;
+    animation: slideHorizontal 40s linear infinite;
 }
 
+/* Duplicate content inside .slider-track via CSS trick */
+.slider-track::after {
+    content: "";
+    display: flex;
+}
+
+/* Each slider item */
 .slider-item {
     flex: 0 0 300px;
     height: 200px;
@@ -1877,17 +1886,17 @@ a:hover {
     transform: scale(1.1);
 }
 
-/* Animação do slider */
+/* Animation (continuous carousel) */
 @keyframes slideHorizontal {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-300px * 6 - 20px * 6)); /* Move pela primeira metade das imagens */
+        transform: translateX(-50%);
     }
 }
 
-/* Efeito de gradiente nas bordas */
+/* Gradient edge fade */
 .slider-horizontal-container::before,
 .slider-horizontal-container::after {
     content: '';
@@ -1909,22 +1918,21 @@ a:hover {
     background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
 }
 
-/* Pausa na animação no hover */
+/* Pause animation on hover */
 .slider-horizontal-container:hover .slider-track {
     animation-play-state: paused;
 }
 
-/* Responsividade */
+/* Responsiveness */
 @media (max-width: 768px) {
     .slider-item {
         flex: 0 0 250px;
         height: 180px;
     }
-    
+
     @keyframes slideHorizontal {
-        100% {
-            transform: translateX(calc(-250px * 6 - 20px * 6));
-        }
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
     }
 }
 
@@ -1933,22 +1941,22 @@ a:hover {
         flex: 0 0 200px;
         height: 150px;
     }
-    
+
     .slider-track {
         gap: 15px;
     }
-    
+
     @keyframes slideHorizontal {
-        100% {
-            transform: translateX(calc(-200px * 6 - 15px * 6));
-        }
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
     }
-    
+
     .slider-horizontal-container::before,
     .slider-horizontal-container::after {
         width: 50px;
     }
 }
+
 
 /* Testimonials Full Width */
 .slider-1 {
