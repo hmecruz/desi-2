@@ -249,3 +249,258 @@ function topFunction() {
   });
 
 })();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  initContinuousImageSlider('#image-slider .slider-track', {
+    speed: 80 // pixels per second
+  });
+
+  initTestimonialsCarousel({
+    viewport: '#testimonials-slider',
+    trackSelector: '.testimonials-track',
+    slideSelector: '.testimonial-slide',
+    prevBtn: '.test-btn.prev',
+    nextBtn: '.test-btn.next',
+    autoplay: true,
+    autoplayDelay: 3500
+  });
+});
+
+/* =====================================================
+   Continuous image slider (JS-driven)
+   - clones content until track width >= viewportWidth * 2
+   - uses requestAnimationFrame for smooth movement
+   - resets transform when half width passed for seamless loop
+   ===================================================== */
+function initContinuousImageSlider(trackSelector, opts = {}) {
+  const speed = opts.speed || 60; // px per second
+  const track = document.querySelector(trackSelector);
+  if (!track) return;
+
+  const viewport = track.parentElement;
+  let items = Array.from(track.children);
+
+  // ensure enough content: duplicate until track width >= viewport width * 2
+  function ensureEnough() {
+    const vpW = viewport.clientWidth;
+    let trackW = track.scrollWidth;
+    let cloneIndex = 0;
+    while (trackW < vpW * 2) {
+      const clone = items[cloneIndex % items.length].cloneNode(true);
+      track.appendChild(clone);
+      items.push(clone);
+      cloneIndex++;
+      trackW = track.scrollWidth;
+      // safety break
+      if (cloneIndex > 50) break;
+    }
+  }
+
+  ensureEnough();
+
+  // animation state
+  let pos = 0;
+  let rafId = null;
+  let lastTime = null;
+  const halfWidth = track.scrollWidth / 2;
+
+  function step(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    const dt = (timestamp - lastTime) / 1000; // seconds
+    lastTime = timestamp;
+    pos -= speed * dt; // moving left
+    // when we've moved past half the (duplicated) content, reset pos
+    if (Math.abs(pos) >= halfWidth) {
+      pos += halfWidth; // reset by adding halfWidth to continue loop seamlessly
+    }
+    track.style.transform = `translateX(${pos}px)`;
+    rafId = requestAnimationFrame(step);
+  }
+
+  // pause/resume on hover/focus
+  function start() {
+    if (!rafId) {
+      lastTime = null;
+      rafId = requestAnimationFrame(step);
+    }
+  }
+  function stop() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+      lastTime = null;
+    }
+  }
+
+  viewport.addEventListener('mouseenter', stop);
+  viewport.addEventListener('mouseleave', start);
+  viewport.addEventListener('focusin', stop);
+  viewport.addEventListener('focusout', start);
+
+  // re-run ensure on resize (debounced)
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // remove clones we added, keep original set (assume first N children are originals)
+      // safest approach: if many children > initial count, re-create track content from original first set
+      // we detect original count by using dataset or initial copy; simplest: do nothing heavy, just ensureEnough again.
+      ensureEnough();
+    }, 220);
+  });
+
+  start();
+}
+
+/* =====================================================
+   Testimonials carousel (finite slides, loop using clones)
+   - clones first and last slides for seamless loop
+   - supports prev/next and autoplay
+   - handles transitionend to jump without animation when reaching clones
+   ===================================================== */
+function initTestimonialsCarousel(opts = {}) {
+  const viewport = document.querySelector(opts.viewport);
+  if (!viewport) return;
+  const track = viewport.querySelector(opts.trackSelector || '.testimonials-track');
+  const slideSelector = opts.slideSelector || '.testimonial-slide';
+  const prevBtn = document.querySelector(opts.prevBtn);
+  const nextBtn = document.querySelector(opts.nextBtn);
+  const autoplay = opts.autoplay ?? true;
+  const autoplayDelay = opts.autoplayDelay || 3000;
+
+  let slides = Array.from(track.querySelectorAll(slideSelector));
+  if (!slides.length) return;
+
+  // Clone first and last for looping
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone  = slides[slides.length - 1].cloneNode(true);
+  firstClone.classList.add('clone');
+  lastClone.classList.add('clone');
+
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, slides[0]);
+
+  // Refresh slides list after clones
+  slides = Array.from(track.querySelectorAll(slideSelector));
+  let index = 1; // we start at real first (after lastClone)
+  const slideWidth = slides[index].offsetWidth + parseFloat(getComputedStyle(track).gap || 20);
+
+  // Set initial transform to show the first real slide
+  function updateTrackPosition(transition = true) {
+    if (!transition) track.style.transition = 'none';
+    else track.style.transition = 'transform 450ms cubic-bezier(.2,.9,.3,1)';
+    const offset = -index * (slides[index].offsetWidth + gap());
+    track.style.transform = `translateX(${offset}px)`;
+    if (!transition) {
+      // force reflow so subsequent transitions apply
+      void track.offsetWidth;
+      track.style.transition = '';
+    }
+  }
+
+  function gap() {
+    const g = getComputedStyle(track).gap;
+    return g ? parseFloat(g) : 20;
+  }
+
+  // On next
+  function next() {
+    if (track.isAnimating) return;
+    track.isAnimating = true;
+    index++;
+    updateTrackPosition(true);
+  }
+  function prev() {
+    if (track.isAnimating) return;
+    track.isAnimating = true;
+    index--;
+    updateTrackPosition(true);
+  }
+
+  // When transition ends, handle clones
+  track.addEventListener('transitionend', () => {
+    track.isAnimating = false;
+    const current = track.querySelectorAll(slideSelector)[index];
+    if (current && current.classList.contains('clone')) {
+      // Jump to the corresponding real slide without animation
+      if (index === 0) {
+        // we moved to lastClone -> jump to last real
+        index = slides.length - 2;
+      } else if (index === slides.length - 1) {
+        // we moved to firstClone -> jump to first real
+        index = 1;
+      }
+      updateTrackPosition(false);
+    }
+  });
+
+  // Prev/Next button handlers
+  if (nextBtn) nextBtn.addEventListener('click', () => { stopAutoplay(); next(); startAutoplay(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { stopAutoplay(); prev(); startAutoplay(); });
+
+  // Autoplay
+  let autoplayTimer = null;
+  function startAutoplay() {
+    if (!autoplay) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(() => {
+      next();
+    }, autoplayDelay);
+  }
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  // Touch support (swipe)
+  let startX = 0, dx = 0, isTouching = false;
+  viewport.addEventListener('touchstart', (e) => {
+    stopAutoplay();
+    isTouching = true;
+    startX = e.touches[0].clientX;
+    track.style.transition = 'none';
+  }, { passive: true });
+  viewport.addEventListener('touchmove', (e) => {
+    if (!isTouching) return;
+    dx = e.touches[0].clientX - startX;
+    const base = -index * (slides[index].offsetWidth + gap());
+    track.style.transform = `translateX(${base + dx}px)`;
+  }, { passive: true });
+  viewport.addEventListener('touchend', () => {
+    if (!isTouching) return;
+    isTouching = false;
+    const threshold = (slides[index].offsetWidth || 200) * 0.2;
+    if (dx > threshold) {
+      prev();
+    } else if (dx < -threshold) {
+      next();
+    } else {
+      updateTrackPosition(true);
+    }
+    dx = 0;
+    startAutoplay();
+  });
+
+  // init sizing on load & resize
+  function recalc() {
+    // ensure we position correctly: recompute index offset
+    updateTrackPosition(false);
+  }
+  window.addEventListener('resize', () => {
+    // slight delay for resize stabilization
+    setTimeout(recalc, 120);
+  });
+
+  // initialize
+  recalc();
+  startAutoplay();
+
+  // Pause autoplay on hover & focus
+  viewport.addEventListener('mouseenter', stopAutoplay);
+  viewport.addEventListener('mouseleave', startAutoplay);
+  viewport.addEventListener('focusin', stopAutoplay);
+  viewport.addEventListener('focusout', startAutoplay);
+}

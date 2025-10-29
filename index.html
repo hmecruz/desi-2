@@ -30,6 +30,9 @@
 	
 	<!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous" defer></script>
 </head>
 <body>
     
@@ -218,177 +221,131 @@
     <!-- end of Sobre nós -->
 
 
-    <!-- Serviços -->
-<section id="services" class="services-section">
-    <div class="container">
+    <!-- SERVICES -->
+    <section id="services" class="services-section">
+        <div class="container">
         <div class="services-header">
             <h1>O Que Fazemos</h1>
             <p>Transformamos ideias em experiências digitais extraordinárias que conectam marcas aos seus clientes.</p>
-            <br/>
         </div>
 
-        <div class="container d-flex flex-column gap-4 py-4">
-                            <div class="d-flex flex-column flex-md-row gap-5 justify-content-between">
-                                <div class="col-md-4 aos-init aos-animate" data-aos="fade-up">
-                                    <div class="theme-font border-start border-primary border-4 ps-3 mb-3">
-                                        <h3>Criação de Websites</h3>
-                                    </div>
-                                    <div class="ps-4 fs-5">
-                                        Desenvolvemos sites personalizados em HTML, CSS e JavaScript.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 aos-init" data-aos="fade-up" data-aos-delay="100">
-                                    <div class="theme-font border-start border-primary border-4 ps-3 mb-3">
-                                        <h3>Rebranding Digital</h3>
-                                    </div>
-                                    <div class="ps-4 fs-5">
-                                        Renovamos identidades visuais e interfaces.
-                                    </div>
-                                </div>
-                                <div class="d-none d-md-block"></div>
-                            </div>
-                            <div class="d-none d-md-block py-4"></div>
-                            <div class="d-flex flex-column flex-md-row gap-5 justify-content-between">
-                                <div class="d-none d-md-block"></div>
-                                <div class="col-md-4 aos-init" data-aos="fade-up">
-                                    <div class="theme-font border-start border-primary border-4 ps-3 mb-3">
-                                        <h3>Otimização SEO</h3>
-                                    </div>
-                                    <div class="ps-4 fs-5">
-                                        Fazemos com que o seu site seja encontrado.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 aos-init" data-aos="fade-up" data-aos-delay="100">
-                                    <div class="theme-font border-start border-primary border-4 ps-3 mb-3">
-                                        <h3>Gestão de Conteúdos</h3>
-                                    </div>
-                                    <div class="ps-4 fs-5">
-                                        Estruturamos e organizamos o conteúdo do seu site.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>        
+        <div class="services-grid">
+            <div class="service-card">
+            <div class="service-title">Criação de Websites</div>
+            <div class="service-description">Desenvolvemos sites personalizados em HTML, CSS e JavaScript.</div>
+            </div>
 
-        <div id="services" class="basic-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <a class="read-more no-line green" href="article.html">Saber mais <span class="fas fa-long-arrow-alt-right"></span></a>
+            <div class="service-card">
+            <div class="service-title">Rebranding Digital</div>
+            <div class="service-description">Renovamos identidades visuais e interfaces.</div>
+            </div>
+
+            <div class="service-card">
+            <div class="service-title">Otimização SEO</div>
+            <div class="service-description">Fazemos com que o seu site seja encontrado.</div>
+            </div>
+
+            <div class="service-card">
+            <div class="service-title">Gestão de Conteúdos</div>
+            <div class="service-description">Estruturamos e organizamos o conteúdo do seu site.</div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a class="read-more no-line green" href="article.html">Saber mais <span class="fas fa-long-arrow-alt-right"></span></a>
+        </div>
+        </div>
+    </section>
+
+    <!-- IMAGE HORIZONTAL SLIDER (continuous loop) -->
+    <section class="slider-horizontal-section">
+        <div class="slider-horizontal-container" id="image-slider">
+        <div class="slider-track" aria-hidden="false">
+            <!-- Add as many items as you need; the JS will clone as required for a continuous effect -->
+            <div class="slider-item"><img src="images/service-gallery5.png" alt="Web Design" class="slider-image"></div>
+            <div class="slider-item"><img src="images/IA-2.webp" alt="Website Development" class="slider-image"></div>
+            <div class="slider-item"><img src="images/service-gallery2.png" alt="UI/UX Design" class="slider-image"></div>
+            <div class="slider-item"><img src="images/INTERN-LAT.webp" alt="Mobile Design" class="slider-image"></div>
+            <div class="slider-item"><img src="images/perfectsleep.webp" alt="Web Design" class="slider-image"></div>
+            <div class="slider-item"><img src="images/PTF2.webp" alt="Website Development" class="slider-image"></div>
+            <div class="slider-item"><img src="images/IA-6.webp" alt="Dashboard Design" class="slider-image"></div>
+            <div class="slider-item"><img src="images/hawekc-aw.webp" alt="Dashboard Design" class="slider-image"></div>
+        </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (card carousel loop) -->
+    <section class="testimonials-section">
+        <div class="container">
+        <h2 class="section-title">Testemunhos</h2>
+
+        <div class="testimonials-wrapper">
+            <button class="test-btn prev" aria-label="Anterior testimonial">‹</button>
+
+            <div class="testimonials-viewport" id="testimonials-slider">
+            <div class="testimonials-track">
+                <div class="testimonial-slide">
+                <div class="testimonial-header">
+                    <img class="testimonial-image" src="images/photo-1580489944761-15a19d654956.jpg" alt="Ana Silva">
+                    <div class="testimonial-info">
+                    <div class="testimonial-author">Ana Silva</div>
+                    <div class="testimonial-position">CEO - ModaPortugal</div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-    <!-- Slider Horizontal Automático -->
-        <div class="slider-horizontal-container">
-            <!-- Slider Horizontal Automático (replace your existing .slider-track content with this block) -->
-                <div class="slider-track">
-                <!-- ORIGINAL SET -->
-                <div class="slider-item"><div class="image-container"><img src="images/service-gallery5.png" alt="Web Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/IA-2.webp" alt="Website Development" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/service-gallery2.png" alt="UI/UX Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/INTERN-LAT.webp" alt="Mobile Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/perfectsleep.webp" alt="Web Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/PTF2.webp" alt="Website Development" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/IA-6.webp" alt="Dashboard Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/hawekc-aw.webp" alt="Dashboard Design" class="slider-image"></div></div>
-
-                <!-- DUPLICATED SET (same order) for seamless looping -->
-                <div class="slider-item"><div class="image-container"><img src="images/service-gallery5.png" alt="Web Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/IA-2.webp" alt="Website Development" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/service-gallery2.png" alt="UI/UX Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/INTERN-LAT.webp" alt="Mobile Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/perfectsleep.webp" alt="Web Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/PTF2.webp" alt="Website Development" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/IA-6.webp" alt="Dashboard Design" class="slider-image"></div></div>
-                <div class="slider-item"><div class="image-container"><img src="images/hawekc-aw.webp" alt="Dashboard Design" class="slider-image"></div></div>
+                <p class="testimonial-text">“A CODE revolucionou a nossa presença digital. O website que desenvolveram aumentou as nossas conversões em 40%.”</p>
                 </div>
-        </div>
-    </div>
-    
-     <!-- Testemunhos -->
-    <!-- Testemunhos -->
-<div class="slider-1">
-  <img class="text-decoration img-fluid" src="images/TESTEMUNHOS.png" alt="Testemunhos">
 
-  <div class="slider-container"> <!-- centered, max-width container -->
-    <div class="swiper-container card-slider">
-      <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <div class="swiper-slide">
-          <div class="testimonial-header">
-            <img class="testimonial-image" src="images/photo-1580489944761-15a19d654956.jpg" alt="Ana Silva">
-            <div class="testimonial-info">
-              <div class="testimonial-author">Ana Silva</div>
-              <div class="testimonial-position">CEO - ModaPortugal</div>
-            </div>
-          </div>
-          <p class="testimonial-text">“A CODE revolucionou a nossa presença digital. O website que desenvolveram não só é visualmente impressionante como aumentou as nossas conversões em 40%. A equipa é profissional, criativa e extremamente dedicada.”</p>
-        </div>
+                <div class="testimonial-slide">
+                <div class="testimonial-header">
+                    <img class="testimonial-image" src="images/photo-1472099645785-5658abf4ff4e.jpg" alt="Miguel Santos">
+                    <div class="testimonial-info">
+                    <div class="testimonial-author">Miguel Santos</div>
+                    <div class="testimonial-position">Diretor de Marketing - TechInnovation</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“O trabalho de rebranding digital superou todas as expectativas.”</p>
+                </div>
 
-        <!-- Slide 2 -->
-        <div class="swiper-slide">
-          <div class="testimonial-header">
-            <img class="testimonial-image" src="images/photo-1472099645785-5658abf4ff4e.jpg" alt="Miguel Santos">
-            <div class="testimonial-info">
-              <div class="testimonial-author">Miguel Santos</div>
-              <div class="testimonial-position">Diretor de Marketing - TechInnovation</div>
-            </div>
-          </div>
-          <p class="testimonial-text">“O trabalho de rebranding digital superou todas as expectativas. A CODE compreendeu perfeitamente a nossa visão e transformou-a numa identidade visual coerente e moderna que realmente representa a nossa marca.”</p>
-        </div>
+                <div class="testimonial-slide">
+                <div class="testimonial-header">
+                    <img class="testimonial-image" src="images/photo-1489424731084-a5d8b219a5bb.jpg" alt="Catarina Oliveira">
+                    <div class="testimonial-info">
+                    <div class="testimonial-author">Catarina Oliveira</div>
+                    <div class="testimonial-position">Fundadora - EcoLiving Store</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“A otimização SEO fez-nos saltar para o top 5 nas pesquisas principais. Tráfego orgânico +150%.”</p>
+                </div>
 
-        <!-- Slide 3 -->
-        <div class="swiper-slide">
-          <div class="testimonial-header">
-            <img class="testimonial-image" src="images/photo-1489424731084-a5d8b219a5bb.jpg" alt="Catarina Oliveira">
-            <div class="testimonial-info">
-              <div class="testimonial-author">Catarina Oliveira</div>
-              <div class="testimonial-position">Fundadora - EcoLiving Store</div>
-            </div>
-          </div>
-          <p class="testimonial-text">“A otimização SEO realizada pela CODE fez-nos saltar da 3ª página do Google para o top 5 nas pesquisas principais. Em 2 meses, o tráfego orgânico aumentou 150%.”</p>
-        </div>
+                <div class="testimonial-slide">
+                <div class="testimonial-header">
+                    <img class="testimonial-image" src="images/photo-1507003211169-0a1dd7228f2d.jpg" alt="Ricardo Fernandes">
+                    <div class="testimonial-info">
+                    <div class="testimonial-author">Ricardo Fernandes</div>
+                    <div class="testimonial-position">Diretor Criativo - ArtStudio</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“A gestão de conteúdos implementada organizou o nosso caos digital.”</p>
+                </div>
 
-        <!-- Slide 4 -->
-        <div class="swiper-slide">
-          <div class="testimonial-header">
-            <img class="testimonial-image" src="images/photo-1507003211169-0a1dd7228f2d.jpg" alt="Ricardo Fernandes">
-            <div class="testimonial-info">
-              <div class="testimonial-author">Ricardo Fernandes</div>
-              <div class="testimonial-position">Diretor Criativo - ArtStudio</div>
-            </div>
-          </div>
-          <p class="testimonial-text">“A gestão de conteúdos implementada pela CODE organizou o nosso caos digital. Agora temos um fluxo de trabalho eficiente e conteúdo consistentemente de alta qualidade.”</p>
+                <div class="testimonial-slide">
+                <div class="testimonial-header">
+                    <img class="testimonial-image" src="images/photo-1544005313-94ddf0286df2.jpg" alt="Sofia Martins">
+                    <div class="testimonial-info">
+                    <div class="testimonial-author">Sofia Martins</div>
+                    <div class="testimonial-position">Directora Geral - LisbonFoods</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Trabalhar com a equipa foi uma experiência incrível. São verdadeiros parceiros.”</p>
+                </div>
+            </div> <!-- .testimonials-track -->
+            </div> <!-- .testimonials-viewport -->
+
+            <button class="test-btn next" aria-label="Próximo testimonial">›</button>
         </div>
 
-        <!-- Slide 5 -->
-        <div class="swiper-slide">
-          <div class="testimonial-header">
-            <img class="testimonial-image" src="images/photo-1544005313-94ddf0286df2.jpg" alt="Sofia Martins">
-            <div class="testimonial-info">
-              <div class="testimonial-author">Sofia Martins</div>
-              <div class="testimonial-position">Directora Geral - LisbonFoods</div>
-            </div>
-          </div>
-          <p class="testimonial-text">“Trabalhar com a Maria, Tiago e Henrique foi uma experiência incrível. São verdadeiros parceiros que se preocupam genuinamente com o sucesso do nosso projeto.”</p>
         </div>
-
-      </div> <!-- .swiper-wrapper -->
-    </div> <!-- .swiper-container -->
-  </div> <!-- .slider-container -->
-
-  <!-- Custom nav buttons placed OUTSIDE the centered slider-container so they do not overlap content -->
-  <button class="swiper-button-prev-custom" aria-label="Anterior">
-    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-  </button>
-  <button class="swiper-button-next-custom" aria-label="Próximo">
-    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-  </button>
-
-</div> <!-- .slider-1 -->
-    <!-- end of testimonials -->
-
+    </section>
 
     <!-- Contact -->
     <div id="contact" class="form-1">
