@@ -148,7 +148,6 @@ function topFunction() {
 
 
 // HERO INFO CAROUSEL (standalone controller)
-// Paste into scripts.js (remove any previous hero carousel code to avoid duplicates)
 (function () {
   const CAROUSEL_SELECTOR = '#heroInfoCarousel';
   const ROTATE_CLASS = 'rotating';

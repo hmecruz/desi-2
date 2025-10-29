@@ -7,9 +7,6 @@ Table Of Contents:
 - Header
 - Introduction
 - Details
-- Services 1
-- Services 2
-- Services 3
 - Projects
 - Testimonials
 - Contact
@@ -49,7 +46,6 @@ html {
 /* body text */
 body, p {
     color: #53575a; 
-    font: 400 1rem/1.625rem "Open Sans", sans-serif;
 }
 
 /* headings */
@@ -60,6 +56,7 @@ h1 {
     line-height: 3.25rem;
     font-family: "Poppins";
 }
+    font: 400 1rem/1.625rem "Poppins", sans-serif;
 
 h2 {
     color: #161223;
