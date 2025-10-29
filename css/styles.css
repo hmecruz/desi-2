@@ -1842,6 +1842,19 @@ a:hover {
 .slider-item:hover { transform: translateY(-6px) scale(1.02); box-shadow:0 16px 40px rgba(0,0,0,0.12); }
 .slider-image { width:100%; height:100%; object-fit:cover; display:block; }
 
+.fullscreen-hero {
+  display: block;
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw); /* center the 100vw element inside a container */
+  margin-right: calc(50% - 50vw);
+  object-fit: cover;         /* fill and crop while preserving aspect ratio */
+  object-position: center;   /* keep center as focal point */
+  position: relative;
+  z-index: 0;
+  margin-bottom: 80px;
+}
+
 /* gradient fade edges */
 .slider-horizontal-container::before,
 .slider-horizontal-container::after {
