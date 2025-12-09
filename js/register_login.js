@@ -1,58 +1,73 @@
-    /*Data Base*/
+/* CONSTANTS & STATE MANAGEMENT 
+*/
+const DB_KEY = 'code_website_users'; // Key for LocalStorage
+let userDatabase = [];
 
-var dataBase = [];
-
-function addDict(username, password, email, formador){
-    var dict = {username: username, password: password, email: email, formador: formador};
-    dataBase.push(dict);
-}
-
-function printDataBase(){
-    for(let i = 0; i < dataBase.length; i++){
-        for(let j in dataBase[i]){
-            console.log(j + ": " + dataBase[i][j]);
+/* INITIALIZATION 
+    1. Load users from LocalStorage.
+    2. If LocalStorage is empty, fetch from accounts.json to populate defaults.
+*/
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Load LocalStorage
+    const storedUsers = localStorage.getItem(DB_KEY);
+    
+    if (storedUsers) {
+        userDatabase = JSON.parse(storedUsers);
+    } else {
+        // 2. Fetch from JSON file if LocalStorage is empty
+        try {
+            const response = await fetch('json/accounts.json');
+            if (response.ok) {
+                const jsonData = await response.json();
+                userDatabase = jsonData;
+                // Save initial JSON data to LocalStorage so we can append to it later
+                saveToLocalStorage(); 
+            }
+        } catch (error) {
+            console.warn("Could not load accounts.json. Starting with empty database.", error);
         }
     }
+
+    setupEventListeners();
+});
+
+/* CORE LOGIC 
+*/
+
+function saveToLocalStorage() {
+    localStorage.setItem(DB_KEY, JSON.stringify(userDatabase));
 }
 
-function checkKey(key, value){
-    if(key == "username"){
-        return (dataBase.some(e => e.username == value));
-    }
-    if(key == "password"){
-        return (dataBase.some(e => e.password == value)); 
-    }
-    if(key == "email"){
-        return (dataBase.some(e => e.email == value)); 
-    }
-    if(key == "formador"){
-        return (dataBase.some(e => e.formador == value)); 
-    }
+function registerUser(username, email, password, isFormador) {
+    const newUser = {
+        username: username,
+        email: email,
+        password: password,
+        formador: isFormador // Boolean
+    };
+    
+    userDatabase.push(newUser);
+    saveToLocalStorage();
+    console.log("User registered:", newUser);
 }
 
-function checkKeyValue(username, password){
-    for(let i = 0; i < dataBase.length; i++){
-        if(dataBase[i]['username'] === username && dataBase[i]['password'] === password){
-            return true;
-        }
-    }
-    return false;
+function findUser(username) {
+    return userDatabase.find(user => user.username === username);
 }
 
-function checkKeyValueCheckbox(username, password){
-    for(let i = 0; i < dataBase.length; i++){
-        if(dataBase[i]['username'] === username && dataBase[i]['password'] === password && dataBase[i]['formador'] === true){
-            return true;
-        }
-    }
-    return false;
+function findUserByEmail(email) {
+    return userDatabase.find(user => user.email === email);
 }
 
-    /*Functions*/
+function authenticateUser(username, password) {
+    return userDatabase.find(user => user.username === username && user.password === password);
+}
+
+/* UI HELPER FUNCTIONS 
+*/
 
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
-
     messageElement.textContent = message;
     messageElement.classList.remove("form__message--success", "form__message--error");
     messageElement.classList.add(`form__message--${type}`);
@@ -68,209 +83,165 @@ function clearInputError(inputElement) {
     inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
 }
 
-
-    // Register Fields Validation
-
-function validateUsername(){
-    if(document.getElementById('signupUsername').value.length > 0 && document.getElementById('signupUsername').value.length < 3){
-        return false;
-    }
-    return true
+function clearAllErrors(formElement) {
+    const inputs = formElement.querySelectorAll(".form__input");
+    inputs.forEach(input => clearInputError(input));
+    const messageElement = formElement.querySelector(".form__message");
+    messageElement.textContent = "";
 }
 
-function existantUsername(){
-    return checkKey("username", document.getElementById('signupUsername').value); 
+/* VALIDATION LOGIC 
+*/
+
+function validateEmail(email) {
+    const validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return validRegex.test(email);
 }
 
-function validateEmail(email){
-    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+/* EVENT LISTENERS SETUP 
+*/
 
-    if (email.value.match(validRegex) || email.value.length == 0) {
-        return true;
-    } 
-    return false;
-}
-
-function existantEmail(){
-    return checkKey("email", document.getElementById('email').value); 
-}
-
-function validatePassword(){
-    if(document.getElementById('password').value.length > 0 && document.getElementById('password').value.length < 8){
-        return false;
-    }
-    return true;
-}
-
-
-function validateConfirmPassword(){
-    if(document.getElementById('password').value == document.getElementById('confirmPassword').value){
-        return true;
-    }
-    return false;
-}
-
-function validateAllFields(){
-    if(validateUsername() && validateEmail(document.getElementById('email')) && validatePassword() && validateConfirmPassword()){
-        return true;
-    } 
-    return false;
-}
-
-function emptyFields(){
-    if(document.getElementById('signupUsername').value.length == 0 || document.getElementById('email').value.length == 0 || document.getElementById('password').value.length == 0 || document.getElementById('confirmPassword').value.length == 0){
-        return true;
-    }
-    return false;
-}
-
-    // Login Fields Validation
-
-function validateLoginUsername(){
-    if(document.getElementById('loginUsername').value.length > 0 && document.getElementById('loginUsername').value.length < 3){
-        return false;
-    }
-    return true
-}
-
-function existantLoginUsernamePassword(){
-    //console.log(checkKeyValue(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value));
-    return (checkKeyValue(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value));
-}
-
-
-function validateLoginPassword(){
-    if(document.getElementById('loginPassword').value.length > 0 && document.getElementById('loginPassword').value.length < 8){
-        return false;
-    }
-    return true;
-}
-
-function validateAllLoginFields(){
-    if(validateLoginUsername() && validateLoginPassword()){
-        return true
-    }
-    return false;
-}
-
-function emptyLoginFields(){
-    if(document.getElementById('loginUsername').value.length == 0 || document.getElementById('loginPassword').value.length == 0 ){
-        return true;
-    }
-    return false;
-}
-
-function checkBoxFormador(){
-    return (checkKeyValueCheckbox(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value));
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
+function setupEventListeners() {
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
 
+    // Toggle: Switch to Create Account
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
         e.preventDefault();
+        clearAllErrors(loginForm);
         loginForm.classList.add("form--hidden");
         createAccountForm.classList.remove("form--hidden");
     });
 
+    // Toggle: Switch to Login
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
+        clearAllErrors(createAccountForm);
         loginForm.classList.remove("form--hidden");
         createAccountForm.classList.add("form--hidden");
     });
 
+    // --- LOGIN SUBMIT ---
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
+        const usernameInput = document.getElementById('loginUsername');
+        const passwordInput = document.getElementById('loginPassword');
+        
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        let hasError = false;
 
-        // Perform your AJAX/Fetch login
-        if(!validateAllLoginFields() || !existantLoginUsernamePassword()){
-            setFormMessage(loginForm, "error", "Invalid username/password combination");
-        } 
-        if(emptyLoginFields()){
-            setFormMessage(loginForm, "error", "There are empty fields");
+        // Basic Empty Check
+        if (!username) {
+            setInputError(usernameInput, "Username is required");
+            hasError = true;
         }
-        if(existantLoginUsernamePassword() && checkBoxFormador()){
-            window.location.href = "formadores.html";
+        if (!password) {
+            setInputError(passwordInput, "Password is required");
+            hasError = true;
         }
-        if(existantLoginUsernamePassword() && !checkBoxFormador()){
-            window.location.href = "formando.html";
+
+        if (hasError) return;
+
+        // Authentication Check
+        const user = authenticateUser(username, password);
+
+        if (user) {
+            setFormMessage(loginForm, "success", "Login successful! Redirecting...");
+            
+            // Redirect based on user role (formador vs formando)
+            setTimeout(() => {
+                if (user.formador === true || user.formador === "true") {
+                    window.location.href = "formadores.html";
+                } else {
+                    window.location.href = "formando.html";
+                }
+            }, 1000);
+        } else {
+            setFormMessage(loginForm, "error", "Invalid username or password combination");
         }
     });
 
+    // --- REGISTER SUBMIT ---
     createAccountForm.addEventListener("submit", e => {
         e.preventDefault();
+        
+        const usernameInput = document.getElementById('signupUsername');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const checkboxInput = document.getElementById('checkboxID');
 
-        // Perform your AJAX/Fetch login
-        if(!validateAllFields()){
-            setFormMessage(createAccountForm, "error", "There are invalid fields");
-        } 
-        if(emptyFields()){
-            setFormMessage(createAccountForm, "error", "There are empty fields");
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        let hasError = false;
+
+        // 1. Validate Username
+        if (username.length < 3) {
+            setInputError(usernameInput, "Username must be at least 3 characters");
+            hasError = true;
+        } else if (findUser(username)) {
+            setInputError(usernameInput, "Username already taken");
+            hasError = true;
+        } else {
+            clearInputError(usernameInput);
         }
-        if(validateAllFields() && !emptyFields() && !existantUsername() && !existantEmail()){
-            addDict(document.getElementById('signupUsername').value, document.getElementById('password').value, document.getElementById('email').value, document.getElementById('checkboxID').checked);
-            var delayInMilliseconds = 1500; //1 second
-            setTimeout(function() {
-                loginForm.classList.remove("form--hidden");
-                createAccountForm.classList.add("form--hidden");
-            }, delayInMilliseconds);
-            printDataBase();
+
+        // 2. Validate Email
+        if (!validateEmail(email)) {
+            setInputError(emailInput, "Invalid email address");
+            hasError = true;
+        } else if (findUserByEmail(email)) {
+            setInputError(emailInput, "Email already registered");
+            hasError = true;
+        } else {
+            clearInputError(emailInput);
         }
-        else if(existantUsername() || existantEmail()){
-            setFormMessage(createAccountForm, "error", "This account has already been registered");
-        } 
+
+        // 3. Validate Password
+        if (password.length < 8) {
+            setInputError(passwordInput, "Password must be at least 8 characters");
+            hasError = true;
+        } else {
+            clearInputError(passwordInput);
+        }
+
+        // 4. Validate Confirm Password
+        if (password !== confirmPassword) {
+            setInputError(confirmPasswordInput, "Passwords do not match");
+            hasError = true;
+        } else {
+            clearInputError(confirmPasswordInput);
+        }
+
+        // Stop if errors
+        if (hasError) {
+            setFormMessage(createAccountForm, "error", "Please fix the errors above");
+            return;
+        }
+
+        // Success: Register User
+        registerUser(username, email, password, checkboxInput.checked);
+        
+        setFormMessage(createAccountForm, "success", "Account created! Redirecting to login...");
+        
+        // Reset form and switch to login after delay
+        createAccountForm.reset();
+        setTimeout(() => {
+            createAccountForm.classList.add("form--hidden");
+            loginForm.classList.remove("form--hidden");
+            setFormMessage(createAccountForm, "", ""); // Clear success message
+        }, 1500);
     });
 
-    var delayInMilliseconds = 1000; //1 second
-
-setTimeout(function() {
-    loginForm.classList.remove("form--hidden");
-    createAccountForm.classList.add("form--hidden");
-}, delayInMilliseconds);
-
-
+    // --- REAL-TIME INPUT CLEARING ---
+    // Clears error messages as soon as the user starts typing
     document.querySelectorAll(".form__input").forEach(inputElement => {
-        inputElement.addEventListener("blur", e => {
-            if (e.target.id === "signupUsername") {
-                if(existantUsername()){
-                    setInputError(inputElement, "Username has already been registered");
-                }
-                if(!(validateUsername())){
-                    setInputError(inputElement, "Username must be at least 3 characters in length");
-                }
-            }
-            if (e.target.id === "email") {
-                if(existantEmail()){
-                    setInputError(inputElement, "Email has already been registered");
-                }
-                if(!validateEmail(inputElement)){
-                    setInputError(inputElement, "Email must be in the format xxxxx@xxxxx.xxx");
-                }
-            }
-            if (e.target.id === "password") {
-                if(!validatePassword()){
-                    setInputError(inputElement, "Password is too weak. Must be at least 8 characters in length");
-                }
-                else if (!validateConfirmPassword()) {
-                    setInputError(document.getElementById('confirmPassword'), "Password and Confirm Password don't match");
-                }
-                else clearInputError(document.getElementById('confirmPassword'));
-            }
-            if (e.target.id === "confirmPassword" && !validateConfirmPassword()) {
-                setInputError(document.getElementById('confirmPassword'), "Password and Confirm Password don't match");
-            }
-            if(validateAllFields() && !emptyFields()){
-                setFormMessage(createAccountForm, "success", "All Good");
-            }
-            if(validateAllLoginFields() && !emptyLoginFields() && existantLoginUsernamePassword()){
-                setFormMessage(loginForm, "success", "All Good");
-            }
-        });
-        inputElement.addEventListener("input", e => {
+        inputElement.addEventListener("input", () => {
             clearInputError(inputElement);
         });
     });
-   
-});
+}
