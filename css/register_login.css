@@ -11,20 +11,17 @@ body {
     flex-direction: column;
 }
 
-/* Wrapper to handle the fixed navbar spacing and center the form 
-   Adjust background here if you want an image like the old file
-*/
+/* Wrapper to handle the fixed navbar spacing and center the form */
 .auth-section {
-    padding-top: 6rem; /* Space for fixed navbar */
-    padding-bottom: 4rem;
-    flex: 1; /* Pushes footer down */
+    padding-top: 10rem; /* Increased space from navbar (was 6rem) */
+    padding-bottom: 8rem; /* Increased space below the form (was 4rem) */
+    flex: 1; 
     display: flex;
-    align-items: center;
+    align-items: center; /* This centers the form vertically in the available space */
     justify-content: center;
     
-    /* Optional: Add a background image here if desired, 
-       otherwise it uses the body background */
-    background: url('../images/header-background.jpg') center center no-repeat;
+    /* Placeholder for background image path */
+    background: url('../images/background.jpg') center center no-repeat; 
     background-size: cover;
 }
 
