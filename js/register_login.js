@@ -25,7 +25,7 @@ let userDatabase = [];
 })();
 
 
-/* CORE LOGIC 
+/* CORE LOGIC 
 */
 
 function registerUser(username, email, password, isFormador, isAdmin, birthday) {
@@ -42,8 +42,8 @@ function registerUser(username, email, password, isFormador, isAdmin, birthday) 
     console.log("User registered (in-memory):", newUser);
 }
 
+// Function to find user by username or email (used for login and recovery)
 function findUser(identifier) {
-    // Check if username or email exists
     return userDatabase.find(user => user.username === identifier || user.email === identifier);
 }
 
@@ -62,7 +62,7 @@ function authenticateUser(identifier, password) {
     );
 }
 
-/* UI HELPER FUNCTIONS 
+/* UI HELPER FUNCTIONS 
 */
 
 function setFormMessage(formElement, type, message) {
@@ -109,9 +109,15 @@ function clearAllErrors(formElement) {
     // Clear Terms & Conditions specific error
     const termsError = document.getElementById('termsError');
     if (termsError) termsError.textContent = "";
+
+    // Clear recovery identifier error message specifically
+    const recoveryInput = formElement.querySelector('#recoveryIdentifier');
+    if (recoveryInput) {
+        clearInputError(recoveryInput);
+    }
 }
 
-/* VALIDATION LOGIC 
+/* VALIDATION LOGIC 
 */
 
 function validateEmail(email) {
@@ -161,12 +167,13 @@ function validateBirthday(day, month, year) {
 }
 
 
-/* EVENT LISTENERS SETUP 
+/* EVENT LISTENERS SETUP 
 */
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
+    const forgotPasswordForm = document.querySelector("#forgotPassword"); // NEW
 
     // --- Toggle: Switch to Create Account ---
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
@@ -174,17 +181,37 @@ document.addEventListener("DOMContentLoaded", () => {
         clearAllErrors(loginForm);
         loginForm.classList.add("form--hidden");
         createAccountForm.classList.remove("form--hidden");
+        forgotPasswordForm.classList.add("form--hidden"); // Ensure recovery is hidden
     });
 
-    // --- Toggle: Switch to Login ---
+    // --- Toggle: Switch to Login (From Register) ---
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
         clearAllErrors(createAccountForm);
         loginForm.classList.remove("form--hidden");
         createAccountForm.classList.add("form--hidden");
+        forgotPasswordForm.classList.add("form--hidden"); // Ensure recovery is hidden
     });
 
-    // --- LOGIN SUBMIT (Feature 3: Username or Email) ---
+    // --- Toggle: Switch to Forgot Password (From Login) ---
+    document.querySelector("#linkForgotPassword").addEventListener("click", e => { // NEW
+        e.preventDefault();
+        clearAllErrors(loginForm);
+        loginForm.classList.add("form--hidden");
+        createAccountForm.classList.add("form--hidden");
+        forgotPasswordForm.classList.remove("form--hidden");
+    });
+    
+    // --- Toggle: Switch to Login (From Forgot Password) ---
+    document.querySelector("#linkForgotPasswordLogin").addEventListener("click", e => { // NEW
+        e.preventDefault();
+        clearAllErrors(forgotPasswordForm);
+        loginForm.classList.remove("form--hidden");
+        createAccountForm.classList.add("form--hidden");
+        forgotPasswordForm.classList.add("form--hidden");
+    });
+
+    // --- LOGIN SUBMIT ---
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
         const identifierInput = document.getElementById('loginIdentifier');
@@ -210,14 +237,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Authentication Check
-        const user = authenticateUser(identifier, password); // Checks both username and email
+        const user = authenticateUser(identifier, password); 
 
         if (user) {
             setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
             
-            // Redirect based on user role (formador vs formando)
             setTimeout(() => {
-                // If formador is true OR admin is true, redirect to formadores.html
                 if (user.formador === true || user.formador === "true" || user.admin === true || user.admin === "true") {
                     window.location.href = "formadores.html";
                 } else {
@@ -228,8 +253,36 @@ document.addEventListener("DOMContentLoaded", () => {
             setFormMessage(loginForm, "error", "Nome de utilizador/Email ou password inválidos");
         }
     });
+    
+    // --- FORGOT PASSWORD SUBMIT (NEW FEATURE) ---
+    forgotPasswordForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const recoveryIdentifierInput = document.getElementById('recoveryIdentifier');
+        const identifier = recoveryIdentifierInput.value.trim();
+        
+        clearInputError(recoveryIdentifierInput);
+        setFormMessage(forgotPasswordForm, "", "");
 
-    // --- REGISTER SUBMIT (Features 1, 2, 4 implemented) ---
+        if (!identifier) {
+            setInputError(recoveryIdentifierInput, "Nome de utilizador ou Email necessário");
+            setFormMessage(forgotPasswordForm, "error", "Preencha o campo necessário.");
+            return;
+        }
+        
+        // Check if user exists by username or email
+        const user = findUser(identifier);
+
+        if (user) {
+            // Success case: user found
+            recoveryIdentifierInput.value = ''; // Clear input
+            setFormMessage(forgotPasswordForm, "success", "Se a conta estiver registada, será enviado um email de restauração.");
+        } else {
+            // Failure case: user not found
+            setFormMessage(forgotPasswordForm, "error", "Nome do utilizador ou email inválidos");
+        }
+    });
+
+    // --- REGISTER SUBMIT ---
     createAccountForm.addEventListener("submit", e => {
         e.preventDefault();
         
@@ -237,9 +290,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
-        const checkboxInputFormador = document.getElementById('checkboxID'); // Assuming original checkbox is formador
-        const checkboxInputAdmin = document.getElementById('checkboxAdmin'); // New Admin checkbox
-        const checkboxInputTerms = document.getElementById('checkboxTerms'); // New Terms checkbox
+        
+        // FIX APPLIED HERE: Replaced 'checkboxID' with 'checkboxAdmin' to reference the existing element.
+        const checkboxInputFormador = document.getElementById('checkboxAdmin'); 
+        const checkboxInputAdmin = document.getElementById('checkboxAdmin');
+        
+        const checkboxInputTerms = document.getElementById('checkboxTerms');
 
         const dayInput = document.getElementById('bdayDay');
         const monthInput = document.getElementById('bdayMonth');
@@ -283,7 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInputError(emailInput);
         }
         
-        // 3. Validate Birthday (Feature 1)
+        // 3. Validate Birthday
         if (!validateBirthday(bdayDay, bdayMonth, bdayYear)) {
              hasError = true;
         }
@@ -304,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInputError(confirmPasswordInput);
         }
         
-        // 6. Validate Terms and Conditions (Feature 2: Mandatory)
+        // 6. Validate Terms and Conditions
         if (!checkboxInputTerms.checked) {
             termsErrorElement.textContent = "É obrigatório aceitar os termos e condições.";
             hasError = true;
@@ -319,14 +375,15 @@ document.addEventListener("DOMContentLoaded", () => {
         // Format birthday for storage
         const birthdayString = `${bdayDay}/${bdayMonth}/${bdayYear}`;
 
-        // Success: Register User (Features 1, 4 data points added)
+        // Success: Register User
+        // Note: isFormador and isAdmin both get the value from the 'checkboxAdmin' element.
         registerUser(
             username, 
             email, 
             password, 
             checkboxInputFormador.checked, 
-            checkboxInputAdmin.checked, // Feature 4: Admin checkbox value
-            birthdayString // Feature 1: Birthday string
+            checkboxInputAdmin.checked,
+            birthdayString
         );
         
         setFormMessage(createAccountForm, "success", "Conta criada com sucesso! A redirecionar para o login...");
