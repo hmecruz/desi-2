@@ -244,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 // Simplified login redirect based only on 'admin' status
                 if (user.admin === true) {
-                    window.location.href = "formadores.html";
+                    window.location.href = "index.html";
                 } else {
-                    window.location.href = "formando.html";
+                    window.location.href = "index.html";
                 }
             }, 1000);
         } else {
