@@ -1,42 +1,29 @@
-/* CONSTANTS & STATE MANAGEMENT 
+/* CORE DATA STRUCTURE 
+   Uses a global array to store user objects during the current session only.
+   (Data is reset when the page is refreshed or closed.)
 */
-const DB_KEY = 'code_website_users'; // Key for LocalStorage
 let userDatabase = [];
 
-/* INITIALIZATION 
-    1. Load users from LocalStorage.
-    2. If LocalStorage is empty, fetch from accounts.json to populate defaults.
-*/
-document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Load LocalStorage
-    const storedUsers = localStorage.getItem(DB_KEY);
-    
-    if (storedUsers) {
-        userDatabase = JSON.parse(storedUsers);
-    } else {
-        // 2. Fetch from JSON file if LocalStorage is empty
-        try {
-            const response = await fetch('json/accounts.json');
-            if (response.ok) {
-                const jsonData = await response.json();
-                userDatabase = jsonData;
-                // Save initial JSON data to LocalStorage so we can append to it later
-                saveToLocalStorage(); 
-            }
-        } catch (error) {
-            console.warn("Could not load accounts.json. Starting with empty database.", error);
-        }
-    }
+// --- Mock Data Initialization (Optional) ---
+// Add a few test users immediately upon script load.
+(function initializeMockUsers() {
+    userDatabase.push({
+        username: "admin",
+        password: "password123",
+        email: "admin@code.com",
+        formador: true
+    });
+    userDatabase.push({
+        username: "user",
+        password: "password123",
+        email: "user@code.com",
+        formador: false
+    });
+})();
 
-    setupEventListeners();
-});
 
 /* CORE LOGIC 
 */
-
-function saveToLocalStorage() {
-    localStorage.setItem(DB_KEY, JSON.stringify(userDatabase));
-}
 
 function registerUser(username, email, password, isFormador) {
     const newUser = {
@@ -47,19 +34,22 @@ function registerUser(username, email, password, isFormador) {
     };
     
     userDatabase.push(newUser);
-    saveToLocalStorage();
-    console.log("User registered:", newUser);
+    console.log("User registered (in-memory):", newUser);
+    // Optional: console.log(userDatabase);
 }
 
 function findUser(username) {
+    // Check if username exists
     return userDatabase.find(user => user.username === username);
 }
 
 function findUserByEmail(email) {
+    // Check if email exists
     return userDatabase.find(user => user.email === email);
 }
 
 function authenticateUser(username, password) {
+    // Check if username AND password match
     return userDatabase.find(user => user.username === username && user.password === password);
 }
 
@@ -101,11 +91,11 @@ function validateEmail(email) {
 /* EVENT LISTENERS SETUP 
 */
 
-function setupEventListeners() {
+document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
 
-    // Toggle: Switch to Create Account
+    // --- Toggle: Switch to Create Account ---
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
         e.preventDefault();
         clearAllErrors(loginForm);
@@ -113,7 +103,7 @@ function setupEventListeners() {
         createAccountForm.classList.remove("form--hidden");
     });
 
-    // Toggle: Switch to Login
+    // --- Toggle: Switch to Login ---
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
         clearAllErrors(createAccountForm);
@@ -133,24 +123,28 @@ function setupEventListeners() {
 
         // Basic Empty Check
         if (!username) {
-            setInputError(usernameInput, "Username is required");
+            setInputError(usernameInput, "Nome de utilizador necessário");
             hasError = true;
         }
         if (!password) {
-            setInputError(passwordInput, "Password is required");
+            setInputError(passwordInput, "Password necessária");
             hasError = true;
         }
 
-        if (hasError) return;
+        if (hasError) {
+             setFormMessage(loginForm, "error", "Preencha todos os campos necessários");
+             return;
+        }
 
         // Authentication Check
         const user = authenticateUser(username, password);
 
         if (user) {
-            setFormMessage(loginForm, "success", "Login successful! Redirecting...");
+            setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
             
             // Redirect based on user role (formador vs formando)
             setTimeout(() => {
+                // Check using strict boolean or string 'true' just in case
                 if (user.formador === true || user.formador === "true") {
                     window.location.href = "formadores.html";
                 } else {
@@ -158,7 +152,7 @@ function setupEventListeners() {
                 }
             }, 1000);
         } else {
-            setFormMessage(loginForm, "error", "Invalid username or password combination");
+            setFormMessage(loginForm, "error", "Nome de utilizador ou password inválidos");
         }
     });
 
@@ -179,12 +173,15 @@ function setupEventListeners() {
 
         let hasError = false;
 
+        // Clear previous messages
+        setFormMessage(createAccountForm, "", "");
+
         // 1. Validate Username
         if (username.length < 3) {
-            setInputError(usernameInput, "Username must be at least 3 characters");
+            setInputError(usernameInput, "O nome de utilizador deve ter pelo menos 3 caracteres");
             hasError = true;
         } else if (findUser(username)) {
-            setInputError(usernameInput, "Username already taken");
+            setInputError(usernameInput, "Nome de utilizador já registado");
             hasError = true;
         } else {
             clearInputError(usernameInput);
@@ -192,10 +189,10 @@ function setupEventListeners() {
 
         // 2. Validate Email
         if (!validateEmail(email)) {
-            setInputError(emailInput, "Invalid email address");
+            setInputError(emailInput, "Endereço de email inválido");
             hasError = true;
         } else if (findUserByEmail(email)) {
-            setInputError(emailInput, "Email already registered");
+            setInputError(emailInput, "Email já registado");
             hasError = true;
         } else {
             clearInputError(emailInput);
@@ -203,7 +200,7 @@ function setupEventListeners() {
 
         // 3. Validate Password
         if (password.length < 8) {
-            setInputError(passwordInput, "Password must be at least 8 characters");
+            setInputError(passwordInput, "A password deve ter pelo menos 8 caracteres");
             hasError = true;
         } else {
             clearInputError(passwordInput);
@@ -211,7 +208,7 @@ function setupEventListeners() {
 
         // 4. Validate Confirm Password
         if (password !== confirmPassword) {
-            setInputError(confirmPasswordInput, "Passwords do not match");
+            setInputError(confirmPasswordInput, "As passwords não coincidem");
             hasError = true;
         } else {
             clearInputError(confirmPasswordInput);
@@ -219,29 +216,29 @@ function setupEventListeners() {
 
         // Stop if errors
         if (hasError) {
-            setFormMessage(createAccountForm, "error", "Please fix the errors above");
+            setFormMessage(createAccountForm, "error", "Corrija os erros destacados acima");
             return;
         }
 
         // Success: Register User
         registerUser(username, email, password, checkboxInput.checked);
         
-        setFormMessage(createAccountForm, "success", "Account created! Redirecting to login...");
+        setFormMessage(createAccountForm, "success", "Conta criada com sucesso! A redirecionar para o login...");
         
         // Reset form and switch to login after delay
         createAccountForm.reset();
         setTimeout(() => {
+            clearAllErrors(createAccountForm);
             createAccountForm.classList.add("form--hidden");
             loginForm.classList.remove("form--hidden");
-            setFormMessage(createAccountForm, "", ""); // Clear success message
+            setFormMessage(loginForm, "success", "Registo concluído. Por favor, inicie sessão.");
         }, 1500);
     });
 
     // --- REAL-TIME INPUT CLEARING ---
-    // Clears error messages as soon as the user starts typing
     document.querySelectorAll(".form__input").forEach(inputElement => {
         inputElement.addEventListener("input", () => {
             clearInputError(inputElement);
         });
     });
-}
+});
