@@ -1,4 +1,4 @@
-/* CORE DATA STRUCTURE 
+/* CORE DATA STRUCTURE 
    Uses a global array to store user objects during the current session only.
    (Data is reset when the page is refreshed or closed.)
 */
@@ -21,7 +21,7 @@ async function loadUserDatabase() {
     }
 }
 
-/* CORE LOGIC 
+/* CORE LOGIC 
 */
 
 // Removed isFormador parameter and logic
@@ -58,7 +58,54 @@ function authenticateUser(identifier, password) {
     );
 }
 
-/* UI HELPER FUNCTIONS 
+// --- NEW SESSION MANAGEMENT & NAVBAR UI FUNCTIONS ---
+
+function saveUserSession(user) {
+    // Store user session data (username and status) in sessionStorage
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('username', user.username);
+    sessionStorage.setItem('isAdmin', user.admin);
+    console.log("Session saved for:", user.username);
+}
+
+function clearUserSession() {
+    // Clear all session data and refresh the page to restore guest UI
+    sessionStorage.clear();
+    console.log("Session cleared.");
+    // Redirect to home or login page after logout
+    window.location.href = "index.html"; 
+}
+
+function updateNavbarUI(username, isLoggedIn) {
+    const guestButtonContainer = document.getElementById('auth-button-guest');
+    const userDropdownContainer = document.getElementById('auth-dropdown-user');
+    const usernameDisplay = document.getElementById('loggedInUsername');
+
+    if (isLoggedIn) {
+        // Logged in: Hide guest button, show user dropdown
+        if (guestButtonContainer) {
+            guestButtonContainer.classList.add('d-none');
+        }
+        if (userDropdownContainer) {
+            userDropdownContainer.classList.remove('d-none');
+        }
+        if (usernameDisplay) {
+            usernameDisplay.textContent = username;
+        }
+    } else {
+        // Logged out: Show guest button, hide user dropdown
+        if (guestButtonContainer) {
+            guestButtonContainer.classList.remove('d-none');
+        }
+        if (userDropdownContainer) {
+            userDropdownContainer.classList.add('d-none');
+        }
+    }
+}
+
+// ---------------------------------------------------
+
+/* UI HELPER FUNCTIONS 
 */
 
 function setFormMessage(formElement, type, message) {
@@ -113,7 +160,7 @@ function clearAllErrors(formElement) {
     }
 }
 
-/* VALIDATION LOGIC 
+/* VALIDATION LOGIC 
 */
 
 function validateEmail(email) {
@@ -163,16 +210,33 @@ function validateBirthday(day, month, year) {
 }
 
 
-/* EVENT LISTENERS SETUP 
+/* EVENT LISTENERS SETUP 
 */
 
 document.addEventListener("DOMContentLoaded", () => {
     // Load users from JSON immediately on page load
     loadUserDatabase();
 
+    // --- NEW: Check Session and Update UI on load ---
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const username = sessionStorage.getItem('username');
+    if (isLoggedIn && username) {
+        updateNavbarUI(username, true);
+    }
+    // ------------------------------------------------
+
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
-    const forgotPasswordForm = document.querySelector("#forgotPassword"); // NEW
+    const forgotPasswordForm = document.querySelector("#forgotPassword"); 
+
+    // --- Logout Listener (NEW) ---
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearUserSession();
+        });
+    }
 
     // --- Toggle: Switch to Create Account ---
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
@@ -193,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- Toggle: Switch to Forgot Password (From Login) ---
-    document.querySelector("#linkForgotPassword").addEventListener("click", e => { // NEW
+    document.querySelector("#linkForgotPassword").addEventListener("click", e => { 
         e.preventDefault();
         clearAllErrors(loginForm);
         loginForm.classList.add("form--hidden");
@@ -202,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // --- Toggle: Switch to Login (From Forgot Password) ---
-    document.querySelector("#linkForgotPasswordLogin").addEventListener("click", e => { // NEW
+    document.querySelector("#linkForgotPasswordLogin").addEventListener("click", e => { 
         e.preventDefault();
         clearAllErrors(forgotPasswordForm);
         loginForm.classList.remove("form--hidden");
@@ -239,6 +303,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = authenticateUser(identifier, password); 
 
         if (user) {
+            // KEY CHANGE: Save session and update UI
+            saveUserSession(user);
+            updateNavbarUI(user.username, true); // Update navbar immediately
+
             setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
             
             setTimeout(() => {
