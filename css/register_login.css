@@ -1,0 +1,313 @@
+:root{
+    --NavBar-height: 44px;
+    --Menu-width: 240px;
+} 
+
+*{
+
+    padding:0px;
+    box-sizing: border-box;
+
+    font-family: sans-serif;
+
+}
+
+
+/*Remover a underline dos links*/
+
+.NavBar .Home a
+{
+    text-decoration: none;
+}
+
+        /*NavBar*/
+
+.NavBar
+{
+    position:fixed;
+
+    top: 0;
+    left:0;
+    height: 64px;
+    width: 100vw;
+
+    background: #033663ff;
+
+}
+
+    /*NavBar Headers*/
+
+.NavBar .Home, .Register, .Login, .LogOut{
+    position: absolute;
+    cursor: pointer;
+
+    height: 64px;
+    top:0px;
+
+    border-radius: 7px;
+}
+
+/*Position and Width*/
+
+.NavBar .Home{
+    width: fit-content;
+    left: 10px;
+}
+
+.NavBar .Register{
+    height: 32px;
+    top: 16px;
+    width: 95px;
+    right: 155px;
+}
+
+.NavBar .Login{
+    height: 32px;
+    top: 16px;
+    width: 65px;
+    right: 75px;
+}
+
+.NavBar .LogOut{
+    height: 32px;
+    top: 15px;
+    width: 36px;
+    right: 25px;
+}
+
+    /*NavBar Icons*/
+
+.NavBar .Home i
+{
+    position: absolute;
+
+    font-size: 28px;
+
+    top: 20px;
+    margin-left: 5px;
+
+    color: white;
+}
+
+.NavBar .LogOut i{
+
+    position: absolute;
+
+    font-size: 28px;
+
+    top: 4px;
+    margin-left: 4px;
+
+    color: white;
+}
+
+
+
+    /*NavBar Links p*/
+
+.NavBar .Home p, .Register p, .Login p
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    text-align: right;
+    color: white;
+
+    margin-top: 6px;
+    margin-right: 5px;
+}
+
+/*Font-Size and top position*/
+
+.NavBar .Home p{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;;
+    margin-top: 15px;
+}
+
+.NavBar .Register p, .Login p
+{
+    font-size: 26px;
+    margin-top: -4px;
+}
+
+
+
+
+        /*Login and Register*/
+
+body {
+    --color-primary: #009579;
+    --color-primary-dark: #007f67;
+    --color-secondary: #252c6a;
+    --color-error: #cc3333;
+    --color-success: #4bb544;
+    --border-radius: 4px;
+
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: url(../images/background.jpg);
+    background-size: cover;
+}
+
+.container {
+    width: 400px;
+    max-width: 400px;
+    margin: 1rem;
+    margin-top: 50px;
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    background: #ffffff;
+}
+
+.container,
+.form__input,
+.form__button {
+    font: 500 1rem 'Quicksand', sans-serif;
+}
+
+.form--hidden {
+    display: none;
+}
+
+.form > *:first-child {
+    margin-top: 0;
+}
+
+.form > *:last-child {
+    margin-bottom: 0;
+}
+
+.form__title {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form__message {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form__message--success {
+    color: var(--color-success);
+}
+
+.form__message--error {
+    color: var(--color-error);
+}
+
+.form__input-group {
+    margin-bottom: 1rem;
+}
+
+.form__input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.form__input:focus {
+    border-color: var(--color-primary);
+    background: #ffffff;
+}
+
+.form__input--error {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.form__input-error-message {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-error);
+}
+
+.form__button {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--border-radius);
+    outline: none;
+    cursor: pointer;
+    background: var(--color-primary);
+}
+
+.form__button:hover {
+    background: var(--color-primary-dark);
+}
+
+.form__button:active {
+    transform: scale(0.98);
+}
+
+.form__text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form__link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form__link:hover {
+    text-decoration: underline;
+}
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox__input{
+    display: none;
+}
+
+.checkbox__box{
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #cccccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.checkbox__box::after{
+    content: '\2714';
+    color: #ffffff;
+    transform: scale(0);
+    transition: transform 0.15s;
+}
+
+.checkbox__input:checked + .checkbox__box{
+    background: #2266dc;
+    border-color: #2266dc;
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+    transform:scale(1);
+}
+
+
+.form__input__checkbox-group{
+    padding: 0.4em;
+}
