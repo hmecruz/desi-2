@@ -1,23 +1,26 @@
-/* CORE DATA STRUCTURE 
+/* CORE DATA STRUCTURE 
    Uses a global array to store user objects during the current session only.
    (Data is reset when the page is refreshed or closed.)
 */
 let userDatabase = [];
 
-// --- Mock Data Initialization (Optional) ---
-// Add a few test users immediately upon script load.
+// --- Mock Data Initialization ---
 (function initializeMockUsers() {
     userDatabase.push({
         username: "admin",
         password: "password123",
         email: "admin@code.com",
-        formador: true
+        formador: true, // Existing checkbox value
+        admin: true,     // New admin checkbox value
+        birthday: "1/1/2000" // New field
     });
     userDatabase.push({
         username: "user",
         password: "password123",
         email: "user@code.com",
-        formador: false
+        formador: false,
+        admin: false,
+        birthday: "10/5/1995"
     });
 })();
 
@@ -25,32 +28,38 @@ let userDatabase = [];
 /* CORE LOGIC 
 */
 
-function registerUser(username, email, password, isFormador) {
+function registerUser(username, email, password, isFormador, isAdmin, birthday) {
     const newUser = {
         username: username,
         email: email,
         password: password,
-        formador: isFormador // Boolean
+        formador: isFormador,
+        admin: isAdmin,
+        birthday: birthday
     };
     
     userDatabase.push(newUser);
     console.log("User registered (in-memory):", newUser);
-    // Optional: console.log(userDatabase);
 }
 
-function findUser(username) {
-    // Check if username exists
+function findUser(identifier) {
+    // Check if username or email exists
+    return userDatabase.find(user => user.username === identifier || user.email === identifier);
+}
+
+function findUserByUsername(username) {
     return userDatabase.find(user => user.username === username);
 }
 
 function findUserByEmail(email) {
-    // Check if email exists
     return userDatabase.find(user => user.email === email);
 }
 
-function authenticateUser(username, password) {
-    // Check if username AND password match
-    return userDatabase.find(user => user.username === username && user.password === password);
+function authenticateUser(identifier, password) {
+    // Check if identifier (username or email) AND password match
+    return userDatabase.find(user => 
+        (user.username === identifier || user.email === identifier) && user.password === password
+    );
 }
 
 /* UI HELPER FUNCTIONS 
@@ -64,13 +73,31 @@ function setFormMessage(formElement, type, message) {
 }
 
 function setInputError(inputElement, message) {
+    // Check if the input is a select box (like the Month dropdown) or a standard input
+    if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
+        // Find the error message element specific to the input's container
+        const parentCol = inputElement.closest('.col-4');
+        if (parentCol) {
+            parentCol.querySelector(".form__input-error-message").textContent = message;
+        }
+    } else {
+        inputElement.classList.add("form__input--error");
+        inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
+    }
     inputElement.classList.add("form__input--error");
-    inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
 }
 
 function clearInputError(inputElement) {
+    // Special handling for grouped birthday inputs
+    if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
+        const parentCol = inputElement.closest('.col-4');
+        if (parentCol) {
+            parentCol.querySelector(".form__input-error-message").textContent = "";
+        }
+    } else {
+        inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
+    }
     inputElement.classList.remove("form__input--error");
-    inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
 }
 
 function clearAllErrors(formElement) {
@@ -78,6 +105,10 @@ function clearAllErrors(formElement) {
     inputs.forEach(input => clearInputError(input));
     const messageElement = formElement.querySelector(".form__message");
     messageElement.textContent = "";
+    
+    // Clear Terms & Conditions specific error
+    const termsError = document.getElementById('termsError');
+    if (termsError) termsError.textContent = "";
 }
 
 /* VALIDATION LOGIC 
@@ -87,6 +118,48 @@ function validateEmail(email) {
     const validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return validRegex.test(email);
 }
+
+function validateBirthday(day, month, year) {
+    let isValid = true;
+
+    // Day validation (1-31)
+    if (!day || day < 1 || day > 31) {
+        setInputError(document.getElementById('bdayDay'), "Inválido");
+        isValid = false;
+    } else {
+        clearInputError(document.getElementById('bdayDay'));
+    }
+
+    // Month validation (1-12)
+    if (!month) {
+        setInputError(document.getElementById('bdayMonth'), "Selecione");
+        isValid = false;
+    } else {
+        clearInputError(document.getElementById('bdayMonth'));
+    }
+
+    // Year validation (simple range check)
+    const currentYear = new Date().getFullYear();
+    if (!year || year < 1900 || year > currentYear) {
+        setInputError(document.getElementById('bdayYear'), "Inválido");
+        isValid = false;
+    } else {
+        clearInputError(document.getElementById('bdayYear'));
+    }
+    
+    // Additional check for day/month compatibility (e.g., Feb 30) - basic leap year ignored for brevity
+    if (isValid && day && month && year) {
+        const date = new Date(year, month - 1, day);
+        if (date.getMonth() + 1 != month || date.getDate() != day) {
+            setInputError(document.getElementById('bdayDay'), "Data inválida");
+            setFormMessage(document.querySelector("#createAccount"), "error", "Data de nascimento inválida");
+            return false;
+        }
+    }
+
+    return isValid;
+}
+
 
 /* EVENT LISTENERS SETUP 
 */
@@ -111,19 +184,19 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm.classList.add("form--hidden");
     });
 
-    // --- LOGIN SUBMIT ---
+    // --- LOGIN SUBMIT (Feature 3: Username or Email) ---
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
-        const usernameInput = document.getElementById('loginUsername');
+        const identifierInput = document.getElementById('loginIdentifier');
         const passwordInput = document.getElementById('loginPassword');
         
-        const username = usernameInput.value.trim();
+        const identifier = identifierInput.value.trim();
         const password = passwordInput.value;
         let hasError = false;
 
         // Basic Empty Check
-        if (!username) {
-            setInputError(usernameInput, "Nome de utilizador necessário");
+        if (!identifier) {
+            setInputError(identifierInput, "Nome de utilizador ou Email necessário");
             hasError = true;
         }
         if (!password) {
@@ -137,26 +210,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Authentication Check
-        const user = authenticateUser(username, password);
+        const user = authenticateUser(identifier, password); // Checks both username and email
 
         if (user) {
             setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
             
             // Redirect based on user role (formador vs formando)
             setTimeout(() => {
-                // Check using strict boolean or string 'true' just in case
-                if (user.formador === true || user.formador === "true") {
+                // If formador is true OR admin is true, redirect to formadores.html
+                if (user.formador === true || user.formador === "true" || user.admin === true || user.admin === "true") {
                     window.location.href = "formadores.html";
                 } else {
                     window.location.href = "formando.html";
                 }
             }, 1000);
         } else {
-            setFormMessage(loginForm, "error", "Nome de utilizador ou password inválidos");
+            setFormMessage(loginForm, "error", "Nome de utilizador/Email ou password inválidos");
         }
     });
 
-    // --- REGISTER SUBMIT ---
+    // --- REGISTER SUBMIT (Features 1, 2, 4 implemented) ---
     createAccountForm.addEventListener("submit", e => {
         e.preventDefault();
         
@@ -164,23 +237,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
-        const checkboxInput = document.getElementById('checkboxID');
+        const checkboxInputFormador = document.getElementById('checkboxID'); // Assuming original checkbox is formador
+        const checkboxInputAdmin = document.getElementById('checkboxAdmin'); // New Admin checkbox
+        const checkboxInputTerms = document.getElementById('checkboxTerms'); // New Terms checkbox
+
+        const dayInput = document.getElementById('bdayDay');
+        const monthInput = document.getElementById('bdayMonth');
+        const yearInput = document.getElementById('bdayYear');
+        const termsErrorElement = document.getElementById('termsError');
 
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
+        const bdayDay = parseInt(dayInput.value);
+        const bdayMonth = monthInput.value ? parseInt(monthInput.value) : null;
+        const bdayYear = parseInt(yearInput.value);
 
         let hasError = false;
 
         // Clear previous messages
         setFormMessage(createAccountForm, "", "");
+        termsErrorElement.textContent = "";
+
 
         // 1. Validate Username
         if (username.length < 3) {
             setInputError(usernameInput, "O nome de utilizador deve ter pelo menos 3 caracteres");
             hasError = true;
-        } else if (findUser(username)) {
+        } else if (findUserByUsername(username)) {
             setInputError(usernameInput, "Nome de utilizador já registado");
             hasError = true;
         } else {
@@ -197,8 +282,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             clearInputError(emailInput);
         }
+        
+        // 3. Validate Birthday (Feature 1)
+        if (!validateBirthday(bdayDay, bdayMonth, bdayYear)) {
+             hasError = true;
+        }
 
-        // 3. Validate Password
+        // 4. Validate Password
         if (password.length < 8) {
             setInputError(passwordInput, "A password deve ter pelo menos 8 caracteres");
             hasError = true;
@@ -206,12 +296,18 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInputError(passwordInput);
         }
 
-        // 4. Validate Confirm Password
+        // 5. Validate Confirm Password
         if (password !== confirmPassword) {
             setInputError(confirmPasswordInput, "As passwords não coincidem");
             hasError = true;
         } else {
             clearInputError(confirmPasswordInput);
+        }
+        
+        // 6. Validate Terms and Conditions (Feature 2: Mandatory)
+        if (!checkboxInputTerms.checked) {
+            termsErrorElement.textContent = "É obrigatório aceitar os termos e condições.";
+            hasError = true;
         }
 
         // Stop if errors
@@ -219,9 +315,19 @@ document.addEventListener("DOMContentLoaded", () => {
             setFormMessage(createAccountForm, "error", "Corrija os erros destacados acima");
             return;
         }
+        
+        // Format birthday for storage
+        const birthdayString = `${bdayDay}/${bdayMonth}/${bdayYear}`;
 
-        // Success: Register User
-        registerUser(username, email, password, checkboxInput.checked);
+        // Success: Register User (Features 1, 4 data points added)
+        registerUser(
+            username, 
+            email, 
+            password, 
+            checkboxInputFormador.checked, 
+            checkboxInputAdmin.checked, // Feature 4: Admin checkbox value
+            birthdayString // Feature 1: Birthday string
+        );
         
         setFormMessage(createAccountForm, "success", "Conta criada com sucesso! A redirecionar para o login...");
         
@@ -240,5 +346,19 @@ document.addEventListener("DOMContentLoaded", () => {
         inputElement.addEventListener("input", () => {
             clearInputError(inputElement);
         });
+        // Clear Month error on change
+        if (inputElement.id === 'bdayMonth') {
+            inputElement.addEventListener("change", () => {
+                clearInputError(inputElement);
+            });
+        }
+    });
+    
+    // Clear Terms error on check
+    document.getElementById('checkboxTerms').addEventListener('change', () => {
+        const termsErrorElement = document.getElementById('termsError');
+        if (document.getElementById('checkboxTerms').checked) {
+            termsErrorElement.textContent = "";
+        }
     });
 });
