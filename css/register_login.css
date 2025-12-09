@@ -1,175 +1,53 @@
-:root{
-    --NavBar-height: 44px;
-    --Menu-width: 240px;
-} 
+/* Imports variables from styles.css implicitly 
+   (Since styles.css is loaded first in the HTML)
+*/
 
-*{
-
-    padding:0px;
-    box-sizing: border-box;
-
-    font-family: sans-serif;
-
-}
-
-
-/*Remover a underline dos links*/
-
-.NavBar .Home a
-{
-    text-decoration: none;
-}
-
-        /*NavBar*/
-
-.NavBar
-{
-    position:fixed;
-
-    top: 0;
-    left:0;
-    height: 64px;
-    width: 100vw;
-
-    background: #033663ff;
-
-}
-
-    /*NavBar Headers*/
-
-.NavBar .Home, .Register, .Login, .LogOut{
-    position: absolute;
-    cursor: pointer;
-
-    height: 64px;
-    top:0px;
-
-    border-radius: 7px;
-}
-
-/*Position and Width*/
-
-.NavBar .Home{
-    width: fit-content;
-    left: 10px;
-}
-
-.NavBar .Register{
-    height: 32px;
-    top: 16px;
-    width: 95px;
-    right: 155px;
-}
-
-.NavBar .Login{
-    height: 32px;
-    top: 16px;
-    width: 65px;
-    right: 75px;
-}
-
-.NavBar .LogOut{
-    height: 32px;
-    top: 15px;
-    width: 36px;
-    right: 25px;
-}
-
-    /*NavBar Icons*/
-
-.NavBar .Home i
-{
-    position: absolute;
-
-    font-size: 28px;
-
-    top: 20px;
-    margin-left: 5px;
-
-    color: white;
-}
-
-.NavBar .LogOut i{
-
-    position: absolute;
-
-    font-size: 28px;
-
-    top: 4px;
-    margin-left: 4px;
-
-    color: white;
-}
-
-
-
-    /*NavBar Links p*/
-
-.NavBar .Home p, .Register p, .Login p
-{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-    text-align: right;
-    color: white;
-
-    margin-top: 6px;
-    margin-right: 5px;
-}
-
-/*Font-Size and top position*/
-
-.NavBar .Home p{
-    font-size: 24px;
-    font-family: 'Montserrat', sans-serif;;
-    margin-top: 15px;
-}
-
-.NavBar .Register p, .Login p
-{
-    font-size: 26px;
-    margin-top: -4px;
-}
-
-
-
-
-        /*Login and Register*/
-
+/* Body/Layout Setup for the Login Page */
 body {
-    --color-primary: #009579;
-    --color-primary-dark: #007f67;
-    --color-secondary: #252c6a;
-    --color-error: #cc3333;
-    --color-success: #4bb544;
-    --border-radius: 4px;
+    /* Using variables from styles.css to ensure consistency */
+    background-color: var(--brand-light); 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-    margin: 0;
-    height: 100vh;
+/* Wrapper to handle the fixed navbar spacing and center the form 
+   Adjust background here if you want an image like the old file
+*/
+.auth-section {
+    padding-top: 6rem; /* Space for fixed navbar */
+    padding-bottom: 4rem;
+    flex: 1; /* Pushes footer down */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    background: url(../images/background.jpg);
+    
+    /* Optional: Add a background image here if desired, 
+       otherwise it uses the body background */
+    background: url('../images/header-background.jpg') center center no-repeat;
     background-size: cover;
 }
 
-.container {
+/* The Card Container */
+.auth-container {
     width: 400px;
-    max-width: 400px;
-    margin: 1rem;
-    margin-top: 50px;
-    padding: 2rem;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-    border-radius: var(--border-radius);
+    max-width: 90%; /* Responsive width */
+    padding: 2.5rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     background: #ffffff;
+    position: relative;
+    z-index: 2;
 }
 
-.container,
+/* Fonts */
+.auth-container,
 .form__input,
 .form__button {
-    font: 500 1rem 'Quicksand', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Form Visibility Logic */
 .form--hidden {
     display: none;
 }
@@ -182,106 +60,125 @@ body {
     margin-bottom: 0;
 }
 
+/* Headings */
 .form__title {
     margin-bottom: 2rem;
     text-align: center;
+    font-size: 1.75rem;
+    color: #161223;
 }
 
+/* Messages */
 .form__message {
     text-align: center;
     margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
 .form__message--success {
-    color: var(--color-success);
+    color: #28a745;
 }
 
 .form__message--error {
-    color: var(--color-error);
+    color: #dc3545;
 }
 
+/* Inputs - Matching styles.css .form-control-input look */
 .form__input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .form__input {
     display: block;
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.875rem 1.5rem;
     box-sizing: border-box;
-    border-radius: var(--border-radius);
-    border: 1px solid #dddddd;
+    border-radius: 4px;
+    border: 1px solid #cbcbd1;
     outline: none;
-    background: #eeeeee;
-    transition: background 0.2s, border-color 0.2s;
+    background: #ffffff;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    color: #53575a;
 }
 
 .form__input:focus {
-    border-color: var(--color-primary);
-    background: #ffffff;
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 .form__input--error {
-    color: var(--color-error);
-    border-color: var(--color-error);
+    color: #dc3545;
+    border-color: #dc3545;
 }
 
 .form__input-error-message {
     margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--color-error);
+    font-size: 0.8rem;
+    color: #dc3545;
+    text-align: left;
 }
 
+/* Buttons - Matching styles.css .btn-solid-lg look */
 .form__button {
     width: 100%;
     padding: 1rem 2rem;
-    font-weight: bold;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1rem;
     color: #ffffff;
-    border: none;
-    border-radius: var(--border-radius);
+    border: 1px solid var(--brand-accent);
+    border-radius: 4px;
     outline: none;
     cursor: pointer;
-    background: var(--color-primary);
+    background: var(--brand-accent);
+    transition: all 0.2s;
+    margin-top: 1rem;
 }
 
 .form__button:hover {
-    background: var(--color-primary-dark);
+    background: transparent;
+    color: var(--brand-accent);
 }
 
 .form__button:active {
     transform: scale(0.98);
 }
 
+/* Text Links */
 .form__text {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
 }
 
 .form__link {
-    color: var(--color-secondary);
-    text-decoration: none;
+    color: #53575a;
+    text-decoration: underline;
     cursor: pointer;
+    transition: color 0.2s;
 }
 
 .form__link:hover {
-    text-decoration: underline;
+    color: var(--brand-accent);
 }
 
+/* Custom Checkbox Styling */
 .checkbox {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
+    font-size: 0.9rem;
+    color: #53575a;
 }
 
-.checkbox__input{
+.checkbox__input {
     display: none;
 }
 
-.checkbox__box{
+.checkbox__box {
     width: 1.25em;
     height: 1.25em;
-    border: 2px solid #cccccc;
+    border: 2px solid #cbcbd1;
     border-radius: 3px;
     display: flex;
     align-items: center;
@@ -291,23 +188,24 @@ body {
     transition: background 0.15s, border-color 0.15s;
 }
 
-.checkbox__box::after{
-    content: '\2714';
+.checkbox__box::after {
+    content: '\2714'; /* Checkmark symbol */
     color: #ffffff;
     transform: scale(0);
     transition: transform 0.15s;
+    font-size: 0.75rem;
 }
 
-.checkbox__input:checked + .checkbox__box{
-    background: #2266dc;
-    border-color: #2266dc;
+/* When checked, use brand accent color */
+.checkbox__input:checked + .checkbox__box {
+    background: var(--brand-accent);
+    border-color: var(--brand-accent);
 }
 
 .checkbox__input:checked + .checkbox__box::after {
-    transform:scale(1);
+    transform: scale(1);
 }
 
-
-.form__input__checkbox-group{
-    padding: 0.4em;
+.form__input__checkbox-group {
+    padding: 0.5rem 0;
 }
