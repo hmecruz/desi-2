@@ -40,12 +40,10 @@
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
     <div class="container">
 
-        <!-- Image Logo -->
         <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
         <img src="images/code_logo.png" alt="CODE logo">
         </a>
 
-        <!-- Text Logo fallback -->
         <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
         <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
@@ -53,25 +51,46 @@
         </button>
 
         <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#header">Início</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#sobre">Sobre</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#services">Serviços</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#contact">Contactos</a>
-            </li>
-        </ul>
+            <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#header">Início</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#sobre">Sobre</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#services">Serviços</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#contact">Contactos</a>
+                </li>
+            </ul>
 
-        <!-- CTA button in navbar (prominent, no social icons) -->
-        <div class="nav-item ms-3 ms-lg-4">
-            <a class="btn-outline-sm navbar-cta" href="#jump-solicitar-orcamento" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
-        </div>
+            <div class="nav-item ms-3 ms-lg-4" id="orcamento-cta-container">
+                <a class="btn-outline-sm navbar-cta" href="#jump-solicitar-orcamento" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+            </div>
+            
+            <div class="d-flex align-items-center ms-auto ms-lg-5 me-0 me-lg-2" id="auth-position-wrapper">
+
+                <div class="nav-item me-0" id="auth-button-guest">
+                    <a class="btn-outline-sm navbar-cta-secondary" href="register_login.html" role="button" aria-label="Entrar ou Registar-se">
+                        <i class="fas fa-sign-in-alt me-2"></i>Entrar/Registar-se
+                    </a>
+                </div>
+
+                <div class="nav-item dropdown d-none me-0" id="auth-dropdown-user">
+                    <button class="btn btn-outline-sm navbar-cta dropdown-toggle" type="button" id="userDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Abrir menu do utilizador">
+                        <i class="fas fa-user-circle me-2"></i><span id="loggedInUsername">Utilizador</span> 
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuButton">
+                        <li><a class="dropdown-item" href="account_details.html"><i class="fas fa-cog me-2"></i>Detalhes da Conta</a></li>
+                        <li><a class="dropdown-item" href="my_courses.html"><i class="fas fa-book me-2"></i>Meus Cursos</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item dropdown-logout" href="#" id="logoutButton"><i class="fas fa-sign-out-alt me-2"></i>Terminar Sessão</a></li>
+                    </ul>
+                </div>
+            </div>
+
         </div> <!-- end of navbar-collapse -->
     </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
@@ -557,5 +576,7 @@
     <script src="js/purecounter.min.js"></script> <!-- Purecounter counter for statistics numbers -->
     <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
+
+    <script src="js/register_login.js"></script> <!-- Register/Login scripts -->
 </body>
 </html>

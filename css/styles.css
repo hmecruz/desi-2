@@ -338,7 +338,7 @@ a:hover {
 }
 
 /**********************/
-/*     Navigation     */
+/* Navigation     */
 /**********************/
 .navbar {
   background-color: var(--brand-dark);
@@ -420,21 +420,21 @@ a:hover {
   color: #ffffff;
 }
 
-/* CTA (Solicitar Orçamento) — bigger box, more padding, bolder */
+/* CTA (Solicitar Orçamento) — Main CTA. NO SIZE/POSITION CHANGE. */
 .navbar-cta {
   display: inline-block;
-  padding: 0.75rem 1.2rem;      /* increased padding for bigger box */
-  border-radius: 8px;           /* slightly rounder */
+  padding: 0.75rem 1.2rem;      /* original padding */
+  border-radius: 8px;           
   border: 1px solid var(--brand-accent);
   background-color: transparent;
   color: var(--brand-white);
   font-weight: 800;
-  font-size: 1.04rem;           /* slightly larger text */
+  font-size: 1.04rem;           
   letter-spacing: 0.3px;
   text-decoration: none;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   transition: all 0.18s ease;
-  margin-left: 1rem;            /* explicit gap between nav items and CTA */
+  margin-left: 1rem;            /* space between Nav Links and Solicitar Orçamento */
 }
 
 /* stronger hover & focus */
@@ -446,6 +446,81 @@ a:hover {
   box-shadow: 0 12px 30px rgba(0,123,255,0.16);
   outline: none;
 }
+
+/* ------------------------------------------- */
+/* Entrar/Registar-se & User Dropdown STYLES */
+/* ------------------------------------------- */
+
+/* POSITION: Ensure the authentication containers inside the new wrapper don't have unwanted margins */
+#auth-button-guest,
+#auth-dropdown-user {
+    /* Remove default Bootstrap margins that might interfere */
+    margin: 0 !important;
+}
+
+/* CTA - secondary for Entrar/Registar-se */
+.navbar-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  /* SIZE CHANGE: Reduced padding for a smaller button */
+  padding: 0.65rem 1.0rem; 
+  border-radius: 8px;
+  border: 1px solid #777; /* Neutral border for less prominence */
+  background-color: transparent;
+  color: var(--brand-white);
+  font-weight: 600; /* Less bold than main CTA */
+  font-size: 1.04rem;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  box-shadow: none; /* No strong shadow */
+}
+
+.navbar-cta-secondary:hover,
+.navbar-cta-secondary:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--brand-white);
+  border-color: var(--brand-accent);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Styling for the user dropdown button (when logged in) */
+#auth-dropdown-user .navbar-cta {
+    /* Apply smaller padding to the logged-in dropdown button for consistency */
+    padding: 0.65rem 0.75rem; 
+}
+
+/* Styling for the dropdown menu itself */
+#auth-dropdown-user .dropdown-menu {
+    border-radius: 8px;
+    background-color: var(--brand-dark); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+#auth-dropdown-user .dropdown-item {
+    color: var(--brand-white);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+#auth-dropdown-user .dropdown-item:hover {
+    background-color: var(--brand-accent);
+    color: var(--brand-white);
+}
+
+/* Logout button specific style */
+#auth-dropdown-user .dropdown-logout {
+    font-weight: 700;
+}
+
+#auth-dropdown-user .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.25rem 0;
+}
+
 
 /* ensure nav items align in the large breakpoint */
 @media (min-width: 992px) {
@@ -461,8 +536,6 @@ a:hover {
   box-shadow: 0 0 0 4px rgba(0,123,255,0.12);
   border-radius: 6px;
 }
-
-/* remove social icon rules (no social icons in navbar) */
 
 
 /*****************/
