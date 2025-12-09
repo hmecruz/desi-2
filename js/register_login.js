@@ -4,37 +4,33 @@
 */
 let userDatabase = [];
 
-// --- Mock Data Initialization ---
-(function initializeMockUsers() {
-    userDatabase.push({
-        username: "admin",
-        password: "password123",
-        email: "admin@code.com",
-        formador: true, // Existing checkbox value
-        admin: true,     // New admin checkbox value
-        birthday: "1/1/2000" // New field
-    });
-    userDatabase.push({
-        username: "user",
-        password: "password123",
-        email: "user@code.com",
-        formador: false,
-        admin: false,
-        birthday: "10/5/1995"
-    });
-})();
-
+// --- User Database Loading ---
+async function loadUserDatabase() {
+    try {
+        // Assume users.json is in the same directory or accessible path
+        const response = await fetch('../json/users.json'); 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const users = await response.json();
+        userDatabase = users;
+        console.log("User database loaded from JSON:", userDatabase);
+    } catch (error) {
+        console.error("Failed to load user database from JSON:", error);
+        // Fallback: If JSON loading fails, the database remains empty.
+    }
+}
 
 /* CORE LOGIC 
 */
 
-function registerUser(username, email, password, isFormador, isAdmin, birthday) {
+// Removed isFormador parameter and logic
+function registerUser(username, email, password, isAdmin, birthday) {
     const newUser = {
         username: username,
         email: email,
         password: password,
-        formador: isFormador,
-        admin: isAdmin,
+        admin: isAdmin, // Only 'admin' remains
         birthday: birthday
     };
     
@@ -171,6 +167,9 @@ function validateBirthday(day, month, year) {
 */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Load users from JSON immediately on page load
+    loadUserDatabase();
+
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
     const forgotPasswordForm = document.querySelector("#forgotPassword"); // NEW
@@ -243,7 +242,8 @@ document.addEventListener("DOMContentLoaded", () => {
             setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
             
             setTimeout(() => {
-                if (user.formador === true || user.formador === "true" || user.admin === true || user.admin === "true") {
+                // Simplified login redirect based only on 'admin' status
+                if (user.admin === true) {
                     window.location.href = "formadores.html";
                 } else {
                     window.location.href = "formando.html";
@@ -291,8 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
         
-        // FIX APPLIED HERE: Replaced 'checkboxID' with 'checkboxAdmin' to reference the existing element.
-        const checkboxInputFormador = document.getElementById('checkboxAdmin'); 
+        // Only need checkboxInputAdmin now
         const checkboxInputAdmin = document.getElementById('checkboxAdmin');
         
         const checkboxInputTerms = document.getElementById('checkboxTerms');
@@ -375,13 +374,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Format birthday for storage
         const birthdayString = `${bdayDay}/${bdayMonth}/${bdayYear}`;
 
-        // Success: Register User
-        // Note: isFormador and isAdmin both get the value from the 'checkboxAdmin' element.
+        // Success: Register User (Removed formador argument)
         registerUser(
             username, 
             email, 
             password, 
-            checkboxInputFormador.checked, 
             checkboxInputAdmin.checked,
             birthdayString
         );

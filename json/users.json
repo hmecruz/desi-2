@@ -1,0 +1,23 @@
+[
+    {
+        "username": "admin",
+        "password": "password123",
+        "email": "admin@code.com",
+        "admin": true,
+        "birthday": "1/1/2000"
+    },
+    {
+        "username": "utilizador",
+        "password": "password123",
+        "email": "user@code.com",
+        "admin": false,
+        "birthday": "10/5/1995"
+    },
+    {
+        "username": "visitante",
+        "password": "password123",
+        "email": "visitor@code.com",
+        "admin": false,
+        "birthday": "5/12/1985"
+    }
+]
