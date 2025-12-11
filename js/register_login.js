@@ -1,13 +1,8 @@
-/* CORE DATA STRUCTURE 
-   Uses a global array to store user objects during the current session only.
-   (Data is reset when the page is refreshed or closed.)
-*/
 let userDatabase = [];
 
 // --- User Database Loading ---
 async function loadUserDatabase() {
     try {
-        // Assume users.json is in the same directory or accessible path
         const response = await fetch('../json/users.json'); 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -17,20 +12,15 @@ async function loadUserDatabase() {
         console.log("User database loaded from JSON:", userDatabase);
     } catch (error) {
         console.error("Failed to load user database from JSON:", error);
-        // Fallback: If JSON loading fails, the database remains empty.
     }
 }
 
-/* CORE LOGIC 
-*/
-
-// Removed isFormador parameter and logic
 function registerUser(username, email, password, isAdmin, birthday) {
     const newUser = {
         username: username,
         email: email,
         password: password,
-        admin: isAdmin, // Only 'admin' remains
+        admin: isAdmin, 
         birthday: birthday
     };
     
@@ -58,7 +48,6 @@ function authenticateUser(identifier, password) {
     );
 }
 
-// --- NEW SESSION MANAGEMENT & NAVBAR UI FUNCTIONS ---
 
 function saveUserSession(user) {
     sessionStorage.setItem('isLoggedIn', 'true');
@@ -104,11 +93,6 @@ function updateNavbarUI(username, isLoggedIn) {
     }
 }
 
-// ---------------------------------------------------
-
-/* UI HELPER FUNCTIONS 
-*/
-
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
     messageElement.textContent = message;
@@ -117,9 +101,7 @@ function setFormMessage(formElement, type, message) {
 }
 
 function setInputError(inputElement, message) {
-    // Check if the input is a select box (like the Month dropdown) or a standard input
     if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
-        // Find the error message element specific to the input's container
         const parentCol = inputElement.closest('.col-4');
         if (parentCol) {
             parentCol.querySelector(".form__input-error-message").textContent = message;
@@ -132,7 +114,6 @@ function setInputError(inputElement, message) {
 }
 
 function clearInputError(inputElement) {
-    // Special handling for grouped birthday inputs
     if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
         const parentCol = inputElement.closest('.col-4');
         if (parentCol) {
@@ -150,19 +131,15 @@ function clearAllErrors(formElement) {
     const messageElement = formElement.querySelector(".form__message");
     messageElement.textContent = "";
     
-    // Clear Terms & Conditions specific error
     const termsError = document.getElementById('termsError');
     if (termsError) termsError.textContent = "";
 
-    // Clear recovery identifier error message specifically
     const recoveryInput = formElement.querySelector('#recoveryIdentifier');
     if (recoveryInput) {
         clearInputError(recoveryInput);
     }
 }
 
-/* VALIDATION LOGIC 
-*/
 
 function validateEmail(email) {
     const validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -211,8 +188,6 @@ function validateBirthday(day, month, year) {
 }
 
 
-/* EVENT LISTENERS SETUP 
-*/
 
 document.addEventListener("DOMContentLoaded", () => {
     // Load users from JSON immediately on page load
@@ -224,13 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isLoggedIn && username) {
         updateNavbarUI(username, true);
     }
-    // ------------------------------------------------
 
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
     const forgotPasswordForm = document.querySelector("#forgotPassword"); 
 
-    // --- Logout Listener (NEW) ---
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', (e) => {
@@ -275,7 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
         forgotPasswordForm.classList.add("form--hidden");
     });
 
-    // --- LOGIN SUBMIT ---
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
         const identifierInput = document.getElementById('loginIdentifier');
@@ -300,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
              return;
         }
 
-        // Authentication Check
         const user = authenticateUser(identifier, password); 
 
         if (user) {
@@ -343,10 +314,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (user) {
             // Success case: user found
-            recoveryIdentifierInput.value = ''; // Clear input
+            recoveryIdentifierInput.value = '';
             setFormMessage(forgotPasswordForm, "success", "Se a conta estiver registada, será enviado um email de restauração.");
         } else {
-            // Failure case: user not found
             setFormMessage(forgotPasswordForm, "error", "Nome do utilizador ou email inválidos");
         }
     });
@@ -360,7 +330,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
         
-        // Only need checkboxInputAdmin now
         const checkboxInputAdmin = document.getElementById('checkboxAdmin');
         
         const checkboxInputTerms = document.getElementById('checkboxTerms');
@@ -380,7 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let hasError = false;
 
-        // Clear previous messages
         setFormMessage(createAccountForm, "", "");
         termsErrorElement.textContent = "";
 
@@ -464,7 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1500);
     });
 
-    // --- REAL-TIME INPUT CLEARING ---
     document.querySelectorAll(".form__input").forEach(inputElement => {
         inputElement.addEventListener("input", () => {
             clearInputError(inputElement);
@@ -477,7 +444,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
-    // Clear Terms error on check
     document.getElementById('checkboxTerms').addEventListener('change', () => {
         const termsErrorElement = document.getElementById('termsError');
         if (document.getElementById('checkboxTerms').checked) {
