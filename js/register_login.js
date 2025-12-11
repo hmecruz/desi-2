@@ -61,10 +61,11 @@ function authenticateUser(identifier, password) {
 // --- NEW SESSION MANAGEMENT & NAVBAR UI FUNCTIONS ---
 
 function saveUserSession(user) {
-    // Store user session data (username and status) in sessionStorage
     sessionStorage.setItem('isLoggedIn', 'true');
     sessionStorage.setItem('username', user.username);
     sessionStorage.setItem('isAdmin', user.admin);
+    sessionStorage.setItem('email', user.email); 
+    sessionStorage.setItem('birthday', user.birthday);
     console.log("Session saved for:", user.username);
 }
 
