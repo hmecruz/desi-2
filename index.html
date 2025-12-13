@@ -455,16 +455,31 @@
                 <textarea id="message" name="message" class="form-control-textarea" placeholder="Mensagem" required aria-label="Mensagem"></textarea>
             </div>
 
+                 <!-- atributo onclick para a função de js funcionar -->
+
             <div class="form-group">
-                <button type="submit" class="form-control-submit-button">Enviar mensagem</button>
+    <button type="button" id="sendBtn" class="form-control-submit-button" onclick="enviarFormulario()">Enviar mensagem</button>
             </div>
+
             </form>
             <!-- end of contact form -->
 
-        </div> <!-- end of col -->
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-    </div> <!-- end of form-1 -->
+            <!-- fast contact form -->
+
+<hr>
+<form id="form-contato-rapido">
+    <h3>Prefere uma interação real?</h3>
+    <p>Deixe o seu contacto e nós ligamos!</p>
+
+    <div class="form-group">
+        <input id="telefone" name="telefone" type="text" class="form-control-input" placeholder="O seu telefone">
+        
+            <button type="button" id="btn-contacto" class="form-control-submit-button" onclick="enviarcontacto()">Liguem-me</button>
+    </div>
+</form>
+
+            <!-- end of fast contact form -->
+
     <!-- end of contact -->
 
 
