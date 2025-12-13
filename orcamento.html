@@ -4,94 +4,89 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Your description">
     <meta name="author" content="Your name">
 
-    <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
-	<meta property="og:site_name" content="" /> <!-- website name -->
-	<meta property="og:site" content="" /> <!-- website link -->
-	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
-	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
-	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
-	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
-	<meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
-
-    <!-- Webpage Title -->
-    <title>CODE</title>
+    <title>Calculadora de Orçamento - CODE</title>
     
-    <!-- Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/fontawesome-all.min.css" rel="stylesheet">
     <link href="css/swiper.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
-    <link href="css/orcamento.css" rel="stylesheet"> ```
-	
-	<!-- Icon  -->
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/orcamento.css" rel="stylesheet">
+    
     <link rel="icon" href="images/CODE icon.png">
 
-    <!-- FontAwesome Icons -->
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous" defer></script>
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
-    <div class="container">
+        <div class="container">
 
-        <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
-        <img src="images/code_logo.png" alt="CODE logo">
-        </a>
+            <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
+                <img src="images/code_logo.png" alt="CODE logo">
+            </a>
 
-        <!-- Text Logo fallback -->
-        <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
+            <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
-        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
-        <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.html#header">Início</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.html#sobre">Sobre</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.html#services">Serviços</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="index.html#contact">Contactos</a>
-            </li>
-        </ul> 
-        
-        <!-- CTA button in navbar (prominent, no social icons) -->
-        <div class="nav-item ms-3 ms-lg-4">
-            <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
-        </div>
-        </div> <!-- end of navbar-collapse -->
-    </div> <!-- end of container -->
-    </nav> <!-- end of navbar -->
-    <!-- end of navigation -->
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#sobre">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#services">Serviços</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contactos</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-item ms-3 ms-lg-4" id="orcamento-cta-container">
+                    <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+                </div>
 
-     <!-- Header -->
-    <header class="ex-header">
+                <div class="d-flex align-items-center ms-auto ms-lg-3 me-0 me-lg-2" id="auth-position-wrapper">
+                    
+                    <div class="nav-item me-0" id="auth-button-guest">
+                        <a class="btn-outline-sm navbar-cta-secondary" href="register_login.html" role="button" aria-label="Entrar ou Registar-se">
+                            <i class="fas fa-sign-in-alt me-2"></i>Entrar/Registar-se
+                        </a>
+                    </div>
+
+                    <div class="nav-item dropdown d-none me-0" id="auth-dropdown-user">
+                        <button class="btn btn-outline-sm navbar-cta dropdown-toggle" type="button" id="userDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Abrir menu do utilizador">
+                            <i class="fas fa-user-circle me-2"></i><span id="loggedInUsername">Utilizador</span> 
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuButton">
+                            <li><a class="dropdown-item" href="account_details.html"><i class="fas fa-cog me-2"></i>Detalhes da Conta</a></li>
+                            <li><a class="dropdown-item" href="my_courses.html"><i class="fas fa-book me-2"></i>Meus Cursos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item dropdown-logout" href="#" id="logoutButton"><i class="fas fa-sign-out-alt me-2"></i>Terminar Sessão</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div> </div> </nav> <header class="ex-header">
         <div class="ex-container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </header> <!-- end of ex-header -->
-    <!-- end of header -->
-
+                    </div> 
+            </div> 
+        </div> 
+    </header> 
     <div class="container my-5">
-
-<div class="row">
+        <div class="row">
             <div class="col-md-8">
                 <h1>Calcular o Orçamento</h1>
 
@@ -160,7 +155,7 @@
                     </div>
 
                 </form>
-                </div>
+            </div>
 
             <div class="col-md-4">
                 <div class="card bg-light p-4 sticky-top shadow-sm">
@@ -182,96 +177,84 @@
         </div>
     </div>
 
-<!-- Footer -->
     <div class="footer">
-    <div class="container">
-        <div class="row">
-        <div class="col-lg-4">
-            <div class="footer-col first">
-            <h6>Sobre a CODE</h6>
-            <p class="p-small">
-                A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
-                estética, tecnologia e estratégia para criar experiências online únicas.
-            </p>
-            </div>
-        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="footer-col first">
+                        <h6>Sobre a CODE</h6>
+                        <p class="p-small">
+                            A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
+                            estética, tecnologia e estratégia para criar experiências online únicas.
+                        </p>
+                    </div>
+                </div>
 
-        <div class="col-lg-4">
-            <div class="footer-col second">
-            <h6>Ligações</h6>
-            <ul class="list-unstyled li-space-lg p-small">
-                <li>Importante: <a href="#header">Termos &amp; Condições</a>, <a href="#header">Política de Privacidade</a></li>
-                <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
-                <li>Menu: <a href="#header">Início</a>, <a href="#sobre">Sobre</a>, <a href="#services">Serviços</a>, <a href="#contact">Contactos</a></li>
-            </ul>
-            </div>
-        </div>
+                <div class="col-lg-4">
+                    <div class="footer-col second">
+                        <h6>Ligações</h6>
+                        <ul class="list-unstyled li-space-lg p-small">
+                            <li>Importante: <a href="index.html#header">Termos &amp; Condições</a>, <a href="index.html#header">Política de Privacidade</a></li>
+                            <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
+                            <li>Menu: <a href="index.html">Início</a>, <a href="index.html#sobre">Sobre</a>, <a href="index.html#services">Serviços</a>, <a href="index.html#contact">Contactos</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-        <div class="col-lg-4">
-            <div class="footer-col third text-lg-right">
-            <div class="social-icons">
-                <a href="#" class="social-link" aria-label="Facebook">
-                <span class="fa-stack">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                </span>
-                </a>
-                <a href="#" class="social-link" aria-label="Twitter">
-                <span class="fa-stack">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x"></i>
-                </span>
-                </a>
-                <a href="#" class="social-link" aria-label="Pinterest">
-                <span class="fa-stack">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                </span>
-                </a>
-                <a href="#" class="social-link" aria-label="Instagram">
-                <span class="fa-stack">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-instagram fa-stack-1x"></i>
-                </span>
-                </a>
-            </div>
+                <div class="col-lg-4">
+                    <div class="footer-col third text-lg-right">
+                        <div class="social-icons">
+                            <a href="#" class="social-link" aria-label="Facebook">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Twitter">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Pinterest">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Instagram">
+                                <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-instagram fa-stack-1x"></i>
+                                </span>
+                            </a>
+                        </div>
 
-            <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+                        <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+                    </div>
+                </div>
+            </div> </div> </div> <div class="copyright">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © <a href="index.html">CODE</a></p>
+                    <p class="p-small">Website desenvolvido pela CODE</p>
+                </div>
             </div>
-        </div>
-        </div> <!-- end of row -->
-    </div> <!-- end of container -->
-    </div> <!-- end of footer -->
-
-    <!-- Copyright -->
-    <div class="copyright">
-    <div class="container text-center">
-        <div class="row">
-        <div class="col-lg-12">
-            <p class="p-small">Copyright © <a href="#header">CODE</a></p>
-            <p class="p-small">Website desenvolvido pela CODE</p>
-        </div>
         </div>
     </div>
-    </div>
-    <!-- end of copyright -->
-
-    
-
-    <!-- Back To Top Button -->
     <button onclick="topFunction()" id="myBtn">
         <img src="images/up-arrow.png" alt="alternative">
     </button>
-    <!-- end of back to top button -->
-    	
-    <!-- Scripts -->
-    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
-    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
-    <script src="js/purecounter.min.js"></script> <!-- Purecounter counter for statistics numbers -->
-    <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
-    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="js/swiper.min.js"></script> 
+    <script src="js/purecounter.min.js"></script> 
+    <script src="js/isotope.pkgd.min.js"></script> 
+    <script src="js/scripts.js"></script> 
     <script src="js/equipa.js"></script>
     <script src="js/orcamento.js"></script>
+    
+    <script src="js/register_login.js"></script> 
 
 </body>
 </html>
