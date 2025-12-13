@@ -1,0 +1,277 @@
+/*
+ * Styles for the Budget Calculator page (orcamento.html)
+ * Based on the 'article.css' template for consistency.
+ */
+
+/* Brand variables */
+:root{
+    --brand-dark: #0d1b2a;
+    --brand-accent: #007bff;
+    --brand-white: #ffffff;
+    --muted: #bfc8d1;
+    --card-bg: #ffffff; /* Fundo branco para a calculadora */
+    --accent-dark: #153043;
+    --glass-shadow: 0 8px 32px rgba(13,27,42,0.1);
+    --max-content-width: 1200px;
+    --radius: 8px;
+    --body-font: "Open Sans", sans-serif;
+    --heading-font: "Poppins", sans-serif;
+}
+
+/* Base page settings */
+body {
+    font-family: var(--body-font);
+    color: #2f3940;
+    background: #fbfdff; /* Fundo muito claro */
+}
+
+/* ----------------------------------------------------------------
+   1. NAVIGATION, HEADER, FOOTER (MAINTAINING CODE STYLE)
+   ---------------------------------------------------------------- */
+
+/* ----- Header (ex-header) - Mantido do modelo ----- */
+.ex-header {
+    background: linear-gradient(90deg, rgba(13,27,42,0.95), rgba(13,27,42,0.75));
+    color: var(--brand-white);
+    padding: 3.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Navbar CTA button */
+.navbar-cta {
+    border: 2px solid var(--brand-accent);
+    color: var(--brand-accent);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+.navbar-cta:hover {
+    background-color: var(--brand-accent);
+    color: var(--brand-white);
+}
+
+
+/* ----- Footer - Mantido do modelo ----- */
+.footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: var(--brand-dark);
+    color: var(--muted);
+}
+
+.footer .footer-col.first h6,
+.footer .footer-col.second h6 {
+    color: var(--brand-white);
+}
+
+.footer a {
+    color: var(--muted);
+    text-decoration: none;
+}
+.footer a:hover { color: var(--brand-accent); text-decoration: underline; }
+
+.copyright {
+    padding: 1.5rem 0;
+    background-color: #0b1116;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* back to top button */
+#myBtn {
+    /* Mantido o estilo do modelo */
+    background: #25323a;
+    box-shadow: 0 8px 20px rgba(13,27,42,0.25);
+}
+
+/* ----------------------------------------------------------------
+   2. CALCULATOR SPECIFIC STYLES (ORCAMENTO PAGE)
+   ---------------------------------------------------------------- */
+
+.container.my-5 {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+}
+
+h1 {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-align: center;
+    margin-bottom: 2.5rem !important;
+}
+
+h2 {
+    font-family: var(--heading-font);
+    font-weight: 600;
+    color: var(--accent-dark);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    padding-bottom: 0.5rem;
+}
+
+/* Estilo para cada bloco de funcionalidade no formulário */
+.list-group-item {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.list-group-item:hover {
+    border-color: var(--brand-accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Títulos dentro do item de funcionalidade */
+.list-group-item h5 {
+    font-family: var(--heading-font);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+}
+
+/* Descrição e detalhes */
+.list-group-item .text-muted.small {
+    font-size: 0.9rem;
+    color: #6c757d !important;
+}
+
+/* ----------------------------------------------------------------
+   3. FORM ELEMENTS STYLING
+   ---------------------------------------------------------------- */
+
+/* SELECT (Tipo de Página) */
+.form-select {
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+    font-size: 1rem;
+    color: var(--accent-dark);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23007bff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-select:focus {
+    border-color: var(--brand-accent);
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* INPUT NUMBER (Horas/Páginas) */
+.input-group.w-auto {
+    align-items: center;
+}
+.form-control.text-center {
+    border-radius: 4px;
+    border-color: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0.25rem;
+    height: auto;
+    width: 80px !important;
+}
+.form-label.me-2 {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* CHECKBOX SWITCHES (Login/API) */
+.form-check.form-switch {
+    display: flex;
+    align-items: center;
+    padding-left: 0 !important; /* Retira o padding padrão do switch */
+}
+.form-check-label.me-4 {
+    font-weight: 600;
+    color: #495057;
+    margin-right: 1.5rem !important;
+}
+.form-check-input {
+    width: 2.5em;
+    height: 1.5em;
+    cursor: pointer;
+}
+.form-check-input:checked {
+    background-color: var(--brand-accent);
+    border-color: var(--brand-accent);
+}
+
+/* ----------------------------------------------------------------
+   4. SUMMARY CARD STYLING (DIREITA)
+   ---------------------------------------------------------------- */
+
+.card.bg-light {
+    background-color: #eaf1f8 !important; /* Cor de fundo ligeiramente mais escura que o corpo */
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Lista de resumo */
+#resumo-orcamento li {
+    padding: 0.2rem 0;
+    color: #495057;
+    border-bottom: 1px dashed rgba(0,0,0,0.05);
+}
+
+#resumo-orcamento li:last-child {
+    border-bottom: none;
+}
+
+/* Total */
+h4 {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--brand-dark);
+    font-size: 1.5rem;
+}
+
+#total-orcamento {
+    color: var(--brand-accent) !important;
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+/* Botão de Envio */
+.btn-primary {
+    background-color: var(--brand-accent);
+    border-color: var(--brand-accent);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Um azul ligeiramente mais escuro */
+    border-color: #0056b3;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 767.98px) {
+    .container.my-5 { padding-top: 3rem; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.3rem; }
+    
+    /* Remove flex direction and gap on small screens for better stacking */
+    .list-group-item {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem !important;
+    }
+    
+    /* Ajusta largura do select/input */
+    .w-md-50 { width: 100% !important; }
+    .input-group.w-auto { width: 100% !important; justify-content: space-between; }
+    .form-control.text-center { width: 40% !important; }
+    .form-label.me-2 { display: block !important; }
+}

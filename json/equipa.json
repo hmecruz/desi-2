@@ -1,0 +1,17 @@
+[
+  {
+    "nome": "Maria Barata",
+    "descricao": "Creative Director",
+    "foto": "images/mariabarata.jpg"
+  },
+  {
+    "nome": "Tiago Augusto",
+    "descricao": "Web Designer",
+    "foto": "images/tiagoaugusto.jpeg"
+  },
+  {
+    "nome": "Henrique",
+    "descricao": "Front-end Developer",
+    "foto": "images/henrique.jpg"
+  }
+]

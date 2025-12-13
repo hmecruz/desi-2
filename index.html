@@ -40,10 +40,12 @@
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
     <div class="container">
 
+        <!-- Image Logo -->
         <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
         <img src="images/code_logo.png" alt="CODE logo">
         </a>
 
+        <!-- Text Logo fallback -->
         <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
         <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
@@ -67,7 +69,7 @@
             </ul>
 
             <div class="nav-item ms-3 ms-lg-4" id="orcamento-cta-container">
-                <a class="btn-outline-sm navbar-cta" href="#jump-solicitar-orcamento" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+                <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
             </div>
             
             <div class="d-flex align-items-center ms-auto ms-lg-5 me-0 me-lg-2" id="auth-position-wrapper">
@@ -91,7 +93,6 @@
                     </ul>
                 </div>
             </div>
-
         </div> <!-- end of navbar-collapse -->
     </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
@@ -184,30 +185,7 @@
             
             <div class="equipa-container">
                 <h3>A Nossa Equipa</h3>
-                <div class="row-container">
-                    <div class="col-item">
-                        <div class="membro">
-                            <img src="images/mariabarata.jpg" alt="Maria Barata" class="membro-foto">
-                            <h4>Maria Barata</h4>
-                            <p class="membro-cargo"><strong>Creative Director</strong></p>
-                        </div>
-                    </div>
-                    
-                    <div class="col-item">
-                        <div class="membro">
-                            <img src="images/tiagoaugusto.jpeg" alt="Tiago Augusto" class="membro-foto">
-                            <h4>Tiago Augusto</h4>
-                            <p class="membro-cargo"><strong>Web Designer</strong></p>
-                        </div>
-                    </div>
-                    
-                    <div class="col-item">
-                        <div class="membro">
-                            <img src="images/henrique.jpg" alt="Henrique" class="membro-foto">
-                            <h4>Henrique</h4>
-                            <p class="membro-cargo"><strong>Front-end Developer</strong></p>
-                        </div>
-                    </div>
+                <div id="equipa-container" class="row-container">
                 </div>
             </div>
 
@@ -435,6 +413,7 @@
                 <div class="contact-info" id="jump-solicitar-orcamento">
                     <div class="contact-primary"><a href="mailto:contact@codeagency.com" aria-label="Enviar email para CODE">contact@codeagency.com</a></div>
                     <div class="contact-secondary">Respondemos em até 1 dia útil</div>
+                    <a class="btn btn-sm btn-primary mt-2" href="orcamento.html">Calcular Orçamento</a> </div>
                 </div>
                 </div>
             </div>
@@ -579,5 +558,6 @@
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
 
     <script src="js/register_login.js"></script> <!-- Register/Login scripts -->
+    <script src="js/equipa.js"></script> <!-- Equipa scripts -->
 </body>
 </html>

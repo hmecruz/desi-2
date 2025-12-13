@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Your description">
+    <meta name="author" content="Your name">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
+	<meta property="og:site_name" content="" /> <!-- website name -->
+	<meta property="og:site" content="" /> <!-- website link -->
+	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
+	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+	<meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
+
+    <!-- Webpage Title -->
+    <title>CODE</title>
+    
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+    <link href="css/orcamento.css" rel="stylesheet"> ```
+	
+	<!-- Icon  -->
+    <link rel="icon" href="images/CODE icon.png">
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous" defer></script>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
+    <div class="container">
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
+        <img src="images/code_logo.png" alt="CODE logo">
+        </a>
+
+        <!-- Text Logo fallback -->
+        <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
+
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html#header">Início</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#sobre">Sobre</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#services">Serviços</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="index.html#contact">Contactos</a>
+            </li>
+        </ul> 
+        
+        <!-- CTA button in navbar (prominent, no social icons) -->
+        <div class="nav-item ms-3 ms-lg-4">
+            <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
+        </div>
+        </div> <!-- end of navbar-collapse -->
+    </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+
+     <!-- Header -->
+    <header class="ex-header">
+        <div class="ex-container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </header> <!-- end of ex-header -->
+    <!-- end of header -->
+
+    <div class="container my-5">
+
+<div class="row">
+            <div class="col-md-8">
+                <h1>Calcular o Orçamento</h1>
+
+                <form action="#" method="POST">
+                    
+                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Tipo de Página (Pacote Base)</h5>
+                            <p class="mb-1 text-muted small">Escolha o ponto de partida do seu projeto.</p>
+                        </div>
+                        <div class="w-100 w-md-50">
+                            <select id="tipo_website" name="tipo_website" class="form-select">
+                                <option value="simples">Website Institucional Simples (800.00€)</option>
+                                <option value="blog">Website com Blog/Conteúdo (1200.00€)</option>
+                                <option value="e_commerce">E-commerce (Loja Online) (3500.00€)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Horas de Personalização Estimadas</h5>
+                            <p class="mb-1 text-muted small">Ajuste o número de horas para design e desenvolvimento avançado (45.00€ por hora).</p>
+                        </div>
+                        <div class="input-group w-auto">
+                            <label for="horas_personalizacao" class="form-label me-2 d-none d-sm-inline">Horas:</label>
+                            <input type="number" id="horas_personalizacao" name="horas_personalizacao" value="20" min="0" class="form-control text-center" style="width: 70px;">
+                        </div>
+                    </div>
+
+                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Número de Páginas Adicionais</h5>
+                            <p class="mb-1 text-muted small">Adicionar páginas como "Sobre Nós" ou "FAQ" (50.00€ por página).</p>
+                        </div>
+                        <div class="input-group w-auto">
+                            <label for="num_paginas" class="form-label me-2 d-none d-sm-inline">Páginas:</label>
+                            <input type="number" id="num_paginas" name="num_paginas" value="3" min="0" class="form-control text-center" style="width: 70px;">
+                        </div>
+                    </div>
+
+                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Sistema de Autenticação (Login/Registo)</h5>
+                            <p class="mb-1 text-muted small">Incluir um sistema para utilizadores criarem contas (+300.00€).</p>
+                        </div>
+                        <div class="form-check form-switch p-0 mt-2 mt-md-0">
+                            <label class="form-check-label me-4" for="login"></label>
+                            <input class="form-check-input float-none" type="checkbox" role="switch" id="login" name="login">
+                        </div>
+                    </div>
+                    
+                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Integração de APIs de Terceiros</h5>
+                            <p class="mb-1 text-muted small">Ex: Google Maps, Chatbots, Newsletters (+200.00€).</p>
+                        </div>
+                        <div class="form-check form-switch p-0 mt-2 mt-md-0">
+                            <label class="form-check-label me-4" for="integracao_api"></label>
+                            <input class="form-check-input float-none" type="checkbox" role="switch" id="integracao_api" name="integracao_api">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="calcularOrcamento()">Calcular Orçamento</button>
+                    </div>
+
+                </form>
+                </div>
+
+            <div class="col-md-4">
+                <div class="card bg-light p-4 sticky-top shadow-sm">
+                    <h3>Seu Orçamento!</h3>
+                    
+                    <div class="alert alert-warning small mt-3" role="alert">
+                        <strong>AVISO:</strong> Este valor é somente uma estimativa do valor real.
+                    </div>
+
+                    <ul id="resumo-orcamento" class="list-unstyled mt-3">
+                        <li>Preço Base do Website: <strong>[A ser calculado]</strong></li>
+                        <li>Custo de Horas: <strong>[A ser calculado]</strong></li>
+                        <li>Custo de Funcionalidades: <strong>[A ser calculado]</strong></li>
+                    </ul>
+                    <hr>
+                    <h4>Total Estimado: <span id="total-orcamento" class="text-danger">0.00€ (Estático)</span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <div class="footer">
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-4">
+            <div class="footer-col first">
+            <h6>Sobre a CODE</h6>
+            <p class="p-small">
+                A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
+                estética, tecnologia e estratégia para criar experiências online únicas.
+            </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col second">
+            <h6>Ligações</h6>
+            <ul class="list-unstyled li-space-lg p-small">
+                <li>Importante: <a href="#header">Termos &amp; Condições</a>, <a href="#header">Política de Privacidade</a></li>
+                <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
+                <li>Menu: <a href="#header">Início</a>, <a href="#sobre">Sobre</a>, <a href="#services">Serviços</a>, <a href="#contact">Contactos</a></li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col third text-lg-right">
+            <div class="social-icons">
+                <a href="#" class="social-link" aria-label="Facebook">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Pinterest">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-instagram fa-stack-1x"></i>
+                </span>
+                </a>
+            </div>
+
+            <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+            </div>
+        </div>
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+    </div> <!-- end of footer -->
+
+    <!-- Copyright -->
+    <div class="copyright">
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-lg-12">
+            <p class="p-small">Copyright © <a href="#header">CODE</a></p>
+            <p class="p-small">Website desenvolvido pela CODE</p>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- end of copyright -->
+
+    
+
+    <!-- Back To Top Button -->
+    <button onclick="topFunction()" id="myBtn">
+        <img src="images/up-arrow.png" alt="alternative">
+    </button>
+    <!-- end of back to top button -->
+    	
+    <!-- Scripts -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/purecounter.min.js"></script> <!-- Purecounter counter for statistics numbers -->
+    <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script src="js/equipa.js"></script>
+    <script src="js/orcamento.js"></script>
+
+</body>
+</html>
