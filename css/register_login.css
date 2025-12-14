@@ -17,29 +17,9 @@ body {
     align-items: center; 
     justify-content: center;
     
-    /* Removed static background image logic */
-    background: transparent;
-}
-
-/* New styling for the video element to behave like a background */
-.auth-video-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This makes the video behave exactly like background-size: cover */
-    z-index: 0;        /* Places video behind the form */
-}
-
-.footer {
-    margin-top: 0 !important;
-}
-
-/* Ensure the form container sits ABOVE the video */
-.auth-section .container {
-    z-index: 2;        /* Higher than the video */
-    position: relative;
+    /* Placeholder for background image path */
+    background: url('../images/background2.jpg') center center no-repeat; 
+    background-size: cover;
 }
 
 /* The Card Container */
