@@ -986,6 +986,11 @@ a:hover {
 	}
 	/* end of contact */
 
+    /* Fast contact form */
+    #form-contato-rapido h3,
+    #form-contacto-rapido p {
+        color: var(--brand-white);
+    }
 
 	/* Footer */
 	.footer .footer-col.first {
