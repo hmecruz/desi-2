@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <meta name="description" content="Your description">
-    <meta name="author" content="Your name">
+    <meta name="description" content="Calculadora de Orçamento - CODE">
+    <meta name="author" content="CODE">
 
     <title>Calculadora de Orçamento - CODE</title>
     
@@ -24,67 +24,62 @@
 <body>
 
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Navegação principal">
-        <div class="container">
+    <div class="container">
 
-            <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
-                <img src="images/code_logo.png" alt="CODE logo">
-            </a>
+        <a class="navbar-brand logo-image" href="index.html" aria-label="Ir para Início — CODE">
+        <img src="images/code_logo.png" alt="CODE logo">
+        </a>
 
-            <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
+        <a class="navbar-brand logo-text d-none" href="index.html">CODE</a>
 
-            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#sobre">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#services">Serviços</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#contact">Contactos</a>
-                    </li>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll align-items-lg-center">
+            <li class="nav-item"><a class="nav-link active" href="index.html#header">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#sobre">Sobre</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#services">Serviços</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contact">Contactos</a></li>
+        </ul>
+        
+        <div class="nav-item ms-3 ms-lg-4" id="orcamento-cta-container">
+            <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button">Solicitar Orçamento</a>
+        </div>
+
+        <div class="d-flex align-items-center ms-auto ms-lg-3 me-0 me-lg-2" id="auth-position-wrapper">
+            <div class="nav-item me-0" id="auth-button-guest">
+                <a class="btn-outline-sm navbar-cta-secondary" href="register_login.html" role="button">
+                    <i class="fas fa-sign-in-alt me-2"></i>Entrar/Registar-se
+                </a>
+            </div>
+            <div class="nav-item dropdown d-none me-0" id="auth-dropdown-user">
+                <button class="btn btn-outline-sm navbar-cta dropdown-toggle" type="button" id="userDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle me-2"></i><span id="loggedInUsername">Utilizador</span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuButton">
+                    <li><a class="dropdown-item" href="account_details.html"><i class="fas fa-cog me-2"></i>Detalhes da Conta</a></li>
+                    <li><a class="dropdown-item" href="my_courses.html"><i class="fas fa-book me-2"></i>Meus Cursos</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item dropdown-logout" href="#" id="logoutButton"><i class="fas fa-sign-out-alt me-2"></i>Terminar Sessão</a></li>
                 </ul>
-                
-                <div class="nav-item ms-3 ms-lg-4" id="orcamento-cta-container">
-                    <a class="btn-outline-sm navbar-cta" href="orcamento.html" role="button" aria-label="Solicitar orçamento">Solicitar Orçamento</a>
-                </div>
+            </div>
+        </div>
 
-                <div class="d-flex align-items-center ms-auto ms-lg-3 me-0 me-lg-2" id="auth-position-wrapper">
-                    
-                    <div class="nav-item me-0" id="auth-button-guest">
-                        <a class="btn-outline-sm navbar-cta-secondary" href="register_login.html" role="button" aria-label="Entrar ou Registar-se">
-                            <i class="fas fa-sign-in-alt me-2"></i>Entrar/Registar-se
-                        </a>
-                    </div>
+        </div> 
+    </div> 
+    </nav> 
 
-                    <div class="nav-item dropdown d-none me-0" id="auth-dropdown-user">
-                        <button class="btn btn-outline-sm navbar-cta dropdown-toggle" type="button" id="userDropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Abrir menu do utilizador">
-                            <i class="fas fa-user-circle me-2"></i><span id="loggedInUsername">Utilizador</span> 
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuButton">
-                            <li><a class="dropdown-item" href="account_details.html"><i class="fas fa-cog me-2"></i>Detalhes da Conta</a></li>
-                            <li><a class="dropdown-item" href="my_courses.html"><i class="fas fa-book me-2"></i>Meus Cursos</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item dropdown-logout" href="#" id="logoutButton"><i class="fas fa-sign-out-alt me-2"></i>Terminar Sessão</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div> </div> </nav> <header class="ex-header">
+    <header class="ex-header">
         <div class="ex-container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
-                    </div> 
+                </div> 
             </div> 
         </div> 
     </header> 
+
     <div class="container my-5">
         <div class="row">
             <div class="col-md-8">
@@ -92,66 +87,15 @@
 
                 <form action="#" method="POST">
                     
-                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Tipo de Página (Pacote Base)</h5>
-                            <p class="mb-1 text-muted small">Escolha o ponto de partida do seu projeto.</p>
-                        </div>
-                        <div class="w-100 w-md-50">
-                            <select id="tipo_website" name="tipo_website" class="form-select">
-                                <option value="simples">Website Institucional Simples (800.00€)</option>
-                                <option value="blog">Website com Blog/Conteúdo (1200.00€)</option>
-                                <option value="e_commerce">E-commerce (Loja Online) (3500.00€)</option>
-                            </select>
+                    <div id="form-placeholder">
+                        <div class="d-flex justify-content-center p-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando formulário...</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Horas de Personalização Estimadas</h5>
-                            <p class="mb-1 text-muted small">Ajuste o número de horas para design e desenvolvimento avançado (45.00€ por hora).</p>
-                        </div>
-                        <div class="input-group w-auto">
-                            <label for="horas_personalizacao" class="form-label me-2 d-none d-sm-inline">Horas:</label>
-                            <input type="number" id="horas_personalizacao" name="horas_personalizacao" value="20" min="0" class="form-control text-center" style="width: 70px;">
-                        </div>
-                    </div>
-
-                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Número de Páginas Adicionais</h5>
-                            <p class="mb-1 text-muted small">Adicionar páginas como "Sobre Nós" ou "FAQ" (50.00€ por página).</p>
-                        </div>
-                        <div class="input-group w-auto">
-                            <label for="num_paginas" class="form-label me-2 d-none d-sm-inline">Páginas:</label>
-                            <input type="number" id="num_paginas" name="num_paginas" value="3" min="0" class="form-control text-center" style="width: 70px;">
-                        </div>
-                    </div>
-
-                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Sistema de Autenticação (Login/Registo)</h5>
-                            <p class="mb-1 text-muted small">Incluir um sistema para utilizadores criarem contas (+300.00€).</p>
-                        </div>
-                        <div class="form-check form-switch p-0 mt-2 mt-md-0">
-                            <label class="form-check-label me-4" for="login"></label>
-                            <input class="form-check-input float-none" type="checkbox" role="switch" id="login" name="login">
-                        </div>
-                    </div>
-                    
-                    <div class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start gap-2 mb-3">
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Integração de APIs de Terceiros</h5>
-                            <p class="mb-1 text-muted small">Ex: Google Maps, Chatbots, Newsletters (+200.00€).</p>
-                        </div>
-                        <div class="form-check form-switch p-0 mt-2 mt-md-0">
-                            <label class="form-check-label me-4" for="integracao_api"></label>
-                            <input class="form-check-input float-none" type="checkbox" role="switch" id="integracao_api" name="integracao_api">
-                        </div>
-                    </div>
-
                     <div class="d-grid gap-2 mt-5">
-                        <button type="button" class="btn btn-primary btn-lg" onclick="calcularOrcamento()">Calcular Orçamento</button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="calculateBudget()">Atualizar Orçamento</button>
                     </div>
 
                 </form>
@@ -166,95 +110,90 @@
                     </div>
 
                     <ul id="resumo-orcamento" class="list-unstyled mt-3">
-                        <li>Preço Base do Website: <strong>[A ser calculado]</strong></li>
-                        <li>Custo de Horas: <strong>[A ser calculado]</strong></li>
-                        <li>Custo de Funcionalidades: <strong>[A ser calculado]</strong></li>
+                        <li class="text-muted">Aguardando dados...</li>
                     </ul>
                     <hr>
-                    <h4>Total Estimado: <span id="total-orcamento" class="text-danger">0.00€ (Estático)</span></h4>
+                    <h4>Total Estimado: <span id="total-orcamento" class="text-danger">0.00€</span></h4>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="footer-col first">
-                        <h6>Sobre a CODE</h6>
-                        <p class="p-small">
-                            A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
-                            estética, tecnologia e estratégia para criar experiências online únicas.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="footer-col second">
-                        <h6>Ligações</h6>
-                        <ul class="list-unstyled li-space-lg p-small">
-                            <li>Importante: <a href="index.html#header">Termos &amp; Condições</a>, <a href="index.html#header">Política de Privacidade</a></li>
-                            <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
-                            <li>Menu: <a href="index.html">Início</a>, <a href="index.html#sobre">Sobre</a>, <a href="index.html#services">Serviços</a>, <a href="index.html#contact">Contactos</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="footer-col third text-lg-right">
-                        <div class="social-icons">
-                            <a href="#" class="social-link" aria-label="Facebook">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                                </span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Twitter">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-twitter fa-stack-1x"></i>
-                                </span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Pinterest">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                                </span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Instagram">
-                                <span class="fa-stack">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-instagram fa-stack-1x"></i>
-                                </span>
-                            </a>
-                        </div>
-
-                        <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
-                    </div>
-                </div>
-            </div> </div> </div> <div class="copyright">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Copyright © <a href="index.html">CODE</a></p>
-                    <p class="p-small">Website desenvolvido pela CODE</p>
-                </div>
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-4">
+            <div class="footer-col first">
+            <h6>Sobre a CODE</h6>
+            <p class="p-small">
+                A CODE é uma equipa jovem e criativa, especializada em design web e comunicação digital. Combinamos
+                estética, tecnologia e estratégia para criar experiências online únicas.
+            </p>
             </div>
         </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col second">
+            <h6>Ligações</h6>
+            <ul class="list-unstyled li-space-lg p-small">
+                <li>Importante: <a href="index.html#header">Termos &amp; Condições</a>, <a href="index.html#header">Política de Privacidade</a></li>
+                <li>Útil: <a href="#">Colorpicker</a>, <a href="#">Biblioteca de Ícones</a>, <a href="#">Ilustrações</a></li>
+                <li>Menu: <a href="index.html">Início</a>, <a href="index.html#sobre">Sobre</a>, <a href="index.html#services">Serviços</a>, <a href="index.html#contact">Contactos</a></li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="footer-col third text-lg-right">
+            <div class="social-icons">
+                <a href="#" class="social-link" aria-label="Facebook">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Pinterest">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
+                </span>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                <span class="fa-stack">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-instagram fa-stack-1x"></i>
+                </span>
+                </a>
+            </div>
+
+            <p class="p-small mt-3">Adoramos receber notícias suas <a href="mailto:contact@codeagency.com"><strong>contact@codeagency.com</strong></a></p>
+            </div>
+        </div>
+        </div> </div> </div> <div class="copyright">
+    <div class="container text-center">
+        <div class="row">
+        <div class="col-lg-12">
+            <p class="p-small">Copyright © <a href="index.html">CODE</a></p>
+            <p class="p-small">Website desenvolvido pela CODE</p>
+        </div>
+        </div>
+    </div>
     </div>
     <button onclick="topFunction()" id="myBtn">
         <img src="images/up-arrow.png" alt="alternative">
     </button>
+        
     <script src="js/bootstrap.min.js"></script> 
     <script src="js/swiper.min.js"></script> 
     <script src="js/purecounter.min.js"></script> 
     <script src="js/isotope.pkgd.min.js"></script> 
     <script src="js/scripts.js"></script> 
-    <script src="js/equipa.js"></script>
     <script src="js/orcamento.js"></script>
-    
-    <script src="js/register_login.js"></script> 
-
-</body>
+    <script src="js/register_login.js"></script> </body>
 </html>

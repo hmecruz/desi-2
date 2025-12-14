@@ -1,48 +1,56 @@
 [
     {
         "id": "tipo_website",
-        "nome": "Tipo de Website",
-        "descricao": "Escolha o tipo de página que deseja criar.",
+        "nome": "Tipo de Website (Pacote Base)",
+        "descricao": "Escolha a base do seu projeto.",
         "tipo_input": "dropdown",
         "unidade": "pacote",
         "opcoes": [
-            {"valor_id": "simples", "nome": "Website Institucional Simples", "preco_base": 800.00, "multiplicador_horas": 1.0},
-            {"valor_id": "blog", "nome": "Website com Blog/Conteúdo", "preco_base": 1200.00, "multiplicador_horas": 1.2},
-            {"valor_id": "e_commerce", "nome": "E-commerce (Loja Online)", "preco_base": 3500.00, "multiplicador_horas": 1.8}
+            { "valor_id": "simples", "nome": "Website Institucional Simples", "preco": 800.00 },
+            { "valor_id": "blog", "nome": "Website com Blog/Conteúdo", "preco": 1200.00 },
+            { "valor_id": "e_commerce", "nome": "E-commerce (Loja Online)", "preco": 3500.00 }
         ]
     },
     {
         "id": "horas_personalizacao",
-        "nome": "Horas de Personalização Estimadas",
-        "descricao": "Ajuste o número de horas para design e desenvolvimento avançado.",
+        "nome": "Horas de Personalização",
+        "descricao": "Design e desenvolvimento extra.",
         "preco_base": 45.00,
-        "tipo_input": "number_input",
-        "unidade": "por hora",
+        "tipo_input": "number",
+        "unidade": "hora",
         "valor_inicial": 20
     },
     {
         "id": "num_paginas",
-        "nome": "Número de Páginas Adicionais (além do Home)",
-        "descricao": "Preço por página extra (e.g., Sobre Nós, Contactos Avançados, Política).",
+        "nome": "Páginas Adicionais",
+        "descricao": "Páginas extra (ex: Sobre Nós, FAQ).",
         "preco_base": 50.00,
-        "tipo_input": "number_input",
-        "unidade": "por página",
+        "tipo_input": "number",
+        "unidade": "página",
         "valor_inicial": 3
     },
     {
         "id": "login",
-        "nome": "Sistema de Autenticação (Login/Registo)",
-        "descricao": "Permite que os utilizadores criem contas e façam login.",
+        "nome": "Sistema de Autenticação",
+        "descricao": "Permite login e registo de utilizadores.",
         "preco_base": 300.00,
         "tipo_input": "checkbox",
-        "unidade": "pacote"
+        "unidade": "fixo"
     },
     {
         "id": "integracao_api",
-        "nome": "Integração de APIs de Terceiros (ex: Mapas, Chatbots)",
-        "descricao": "Integração com serviços externos, crucial para funcionalidades avançadas.",
+        "nome": "Integração de APIs",
+        "descricao": "Google Maps, Chatbots, etc.",
         "preco_base": 200.00,
         "tipo_input": "checkbox",
-        "unidade": "pacote"
+        "unidade": "fixo"
+    },
+    {
+        "id": "seo_avancado",
+        "nome": "SEO Avançado",
+        "descricao": "Otimização para motores de busca.",
+        "preco_base": 150.00,
+        "tipo_input": "checkbox",
+        "unidade": "fixo"
     }
 ]
