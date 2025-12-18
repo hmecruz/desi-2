@@ -60,52 +60,52 @@
             
             <div class="auth-container">
                 
-                <form class="form" id="login">
+                <form class="form" id="login" onsubmit="handleLogin(event)">
                     <h1 class="form__title">Bem-vindo</h1>
                     <div class="form__message form__message--error"></div>
                     
                     <div class="form__input-group">
-                        <input type="text" id="loginIdentifier" class="form__input" autofocus placeholder="Nome de utilizador ou Email">
+                        <input type="text" id="loginIdentifier" class="form__input" autofocus placeholder="Nome de utilizador ou Email" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <div class="form__input-group">
-                        <input type="password" id="loginPassword" class="form__input" autofocus placeholder="Password">
+                        <input type="password" id="loginPassword" class="form__input" placeholder="Password" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <button class="form__button" type="submit">Entrar</button>
                     
                     <p class="form__text">
-                        <a href="#" class="form__link" id="linkForgotPassword">Esqueceu-se da sua password?</a>
+                        <a href="#" class="form__link" onclick="switchForm('forgot'); return false;">Esqueceu-se da sua password?</a>
                     </p>
                     <p class="form__text">
-                        <a class="form__link" href="./" id="linkCreateAccount">Não tem conta? Criar conta</a>
+                        <a class="form__link" href="#" onclick="switchForm('create'); return false;">Não tem conta? Criar conta</a>
                     </p>
                 </form>
 
-                <form class="form form--hidden" id="createAccount">
+                <form class="form form--hidden" id="createAccount" onsubmit="handleRegister(event)">
                     <h1 class="form__title">Criar Conta</h1>
                     <div class="form__message form__message--error"></div>
                     
                     <div class="form__input-group">
-                        <input type="text" id="signupUsername" class="form__input" autofocus placeholder="Nome de utilizador">
+                        <input type="text" id="signupUsername" class="form__input" placeholder="Nome de utilizador" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <div class="form__input-group">
-                        <input type="text" id="email" class="form__input" autofocus placeholder="Endereço de Email">
+                        <input type="text" id="email" class="form__input" placeholder="Endereço de Email" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <label class="form__text" style="text-align: left; margin-top: 0.5rem; margin-bottom: 0.25rem;">Data de Nascimento *</label>
                     <div class="form__input-group row gx-2">
                         <div class="col-4">
-                            <input type="number" id="bdayDay" class="form__input" placeholder="Dia" min="1" max="31">
+                            <input type="number" id="bdayDay" class="form__input" placeholder="Dia" min="1" max="31" oninput="clearInputError(this)">
                             <div class="form__input-error-message"></div>
                         </div>
                         <div class="col-4">
-                            <select id="bdayMonth" class="form__input" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+                            <select id="bdayMonth" class="form__input" style="padding-left: 0.5rem; padding-right: 0.5rem;" onchange="clearInputError(this)">
                                 <option value="" disabled selected>Mês</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -123,17 +123,17 @@
                             <div class="form__input-error-message"></div>
                         </div>
                         <div class="col-4">
-                            <input type="number" id="bdayYear" class="form__input" placeholder="Ano" min="1900" max="2025">
+                            <input type="number" id="bdayYear" class="form__input" placeholder="Ano" min="1900" max="2025" oninput="clearInputError(this)">
                             <div class="form__input-error-message"></div>
                         </div>
                     </div>
                     <div class="form__input-group">
-                        <input type="password" id="password" class="form__input" autofocus placeholder="Password">
+                        <input type="password" id="password" class="form__input" placeholder="Password" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <div class="form__input-group">
-                        <input type="password" id="confirmPassword" class="form__input" autofocus placeholder="Confirmar password">
+                        <input type="password" id="confirmPassword" class="form__input" placeholder="Confirmar password" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
 
@@ -157,26 +157,26 @@
                     <button class="form__button" type="submit">Registar</button>
                     
                     <p class="form__text">
-                        <a class="form__link" href="./" id="linkLogin">Já tem conta? Entrar</a>
+                        <a class="form__link" href="#" onclick="switchForm('login'); return false;">Já tem conta? Entrar</a>
                     </p>
                 </form>
                 
-                <form class="form form--hidden" id="forgotPassword">
+                <form class="form form--hidden" id="forgotPassword" onsubmit="handleRecovery(event)">
                     <h1 class="form__title">Restaurar Password</h1>
                     <div class="form__message form__message--error"></div>
                     
                     <div class="form__input-group">
-                        <input type="text" id="recoveryIdentifier" class="form__input" autofocus placeholder="Nome de utilizador ou Email">
+                        <input type="text" id="recoveryIdentifier" class="form__input" autofocus placeholder="Nome de utilizador ou Email" oninput="clearInputError(this)">
                         <div class="form__input-error-message"></div>
                     </div>
                     
                     <button class="form__button" type="submit">Enviar Email de Restauração</button>
                     
                     <p class="form__text">
-                        <a class="form__link" href="./" id="linkForgotPasswordLogin">Voltar ao Login</a>
+                        <a class="form__link" href="#" onclick="switchForm('login'); return false;">Voltar ao Login</a>
                     </p>
                 </form>
-                </div>
+            </div>
         </div>
     </header>
 

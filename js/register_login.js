@@ -1,6 +1,11 @@
 let userDatabase = [];
 
-// --- User Database Loading ---
+// 1. Initialize immediately
+loadUserDatabase();
+checkSessionOnLoad();
+
+// --- Database & Session Logic ---
+
 async function loadUserDatabase() {
     try {
         const response = await fetch('../json/users.json'); 
@@ -11,43 +16,17 @@ async function loadUserDatabase() {
         userDatabase = users;
         console.log("User database loaded from JSON:", userDatabase);
     } catch (error) {
-        console.error("Failed to load user database from JSON:", error);
+        console.error("Failed to load user database:", error);
     }
 }
 
-function registerUser(username, email, password, isAdmin, birthday) {
-    const newUser = {
-        username: username,
-        email: email,
-        password: password,
-        admin: isAdmin, 
-        birthday: birthday
-    };
-    
-    userDatabase.push(newUser);
-    console.log("User registered (in-memory):", newUser);
+function checkSessionOnLoad() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const username = sessionStorage.getItem('username');
+    if (isLoggedIn && username) {
+        updateNavbarUI(username, true);
 }
-
-// Function to find user by username or email (used for login and recovery)
-function findUser(identifier) {
-    return userDatabase.find(user => user.username === identifier || user.email === identifier);
 }
-
-function findUserByUsername(username) {
-    return userDatabase.find(user => user.username === username);
-}
-
-function findUserByEmail(email) {
-    return userDatabase.find(user => user.email === email);
-}
-
-function authenticateUser(identifier, password) {
-    // Check if identifier (username or email) AND password match
-    return userDatabase.find(user => 
-        (user.username === identifier || user.email === identifier) && user.password === password
-    );
-}
-
 
 function saveUserSession(user) {
     sessionStorage.setItem('isLoggedIn', 'true');
@@ -55,399 +34,265 @@ function saveUserSession(user) {
     sessionStorage.setItem('isAdmin', user.admin);
     sessionStorage.setItem('email', user.email); 
     sessionStorage.setItem('birthday', user.birthday);
-    console.log("Session saved for:", user.username);
 }
 
-function clearUserSession() {
-    // Clear all session data and refresh the page to restore guest UI
+function handleLogout() {
     sessionStorage.clear();
-    console.log("Session cleared.");
-    // Redirect to home or login page after logout
     window.location.href = "index.html"; 
 }
 
+// --- Navigation / Form Switching ---
+
+function switchForm(formToShow) {
+    const loginForm = document.getElementById("login");
+    const createForm = document.getElementById("createAccount");
+    const forgotForm = document.getElementById("forgotPassword");
+
+    // Hide all
+    loginForm.classList.add("form--hidden");
+    createForm.classList.add("form--hidden");
+    forgotForm.classList.add("form--hidden");
+
+    // Clear errors before switching
+    clearAllErrors(loginForm);
+    clearAllErrors(createForm);
+    clearAllErrors(forgotForm);
+
+    // Show specific
+    if (formToShow === 'login') loginForm.classList.remove("form--hidden");
+    if (formToShow === 'create') createForm.classList.remove("form--hidden");
+    if (formToShow === 'forgot') forgotForm.classList.remove("form--hidden");
+}
+
+// --- Form Handlers (Called by HTML) ---
+
+function handleLogin(e) {
+    e.preventDefault();
+    const form = document.getElementById("login");
+    const idInput = document.getElementById('loginIdentifier');
+    const passInput = document.getElementById('loginPassword');
+    
+    const identifier = idInput.value.trim();
+    const password = passInput.value;
+    
+    let hasError = false;
+
+    if (!identifier) {
+        setInputError(idInput, "Nome de utilizador ou Email necessário");
+        hasError = true;
+    }
+    if (!password) {
+        setInputError(passInput, "Password necessária");
+        hasError = true;
+    }
+
+    if (hasError) {
+        setFormMessage(form, "error", "Preencha todos os campos necessários");
+        return;
+    }
+
+    // Authentication Logic
+    const user = userDatabase.find(u => 
+        (u.username === identifier || u.email === identifier) && u.password === password
+    );
+
+    if (user) {
+        saveUserSession(user);
+        updateNavbarUI(user.username, true);
+        setFormMessage(form, "success", "Login bem-sucedido! A redirecionar...");
+        setTimeout(() => window.location.href = "index.html", 1000);
+    } else {
+        setFormMessage(form, "error", "Credenciais inválidas");
+    }
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    const form = document.getElementById("createAccount");
+    
+    const usernameIn = document.getElementById('signupUsername');
+    const emailIn = document.getElementById('email');
+    const passIn = document.getElementById('password');
+    const confirmIn = document.getElementById('confirmPassword');
+    const termsCheck = document.getElementById('checkboxTerms');
+    const adminCheck = document.getElementById('checkboxAdmin');
+    
+    // Date inputs
+    const day = parseInt(document.getElementById('bdayDay').value);
+    const month = document.getElementById('bdayMonth').value ? parseInt(document.getElementById('bdayMonth').value) : null;
+    const year = parseInt(document.getElementById('bdayYear').value);
+
+    let hasError = false;
+    setFormMessage(form, "", "");
+    document.getElementById('termsError').textContent = "";
+
+    // 1. Validation
+    if (usernameIn.value.trim().length < 3) {
+        setInputError(usernameIn, "Mínimo 3 caracteres");
+        hasError = true;
+    } else if (userDatabase.find(u => u.username === usernameIn.value.trim())) {
+        setInputError(usernameIn, "Nome já existe");
+        hasError = true;
+    } else {
+        clearInputError(usernameIn);
+}
+
+    if (!validateEmail(emailIn.value.trim())) {
+        setInputError(emailIn, "Email inválido");
+        hasError = true;
+    } else if (userDatabase.find(u => u.email === emailIn.value.trim())) {
+        setInputError(emailIn, "Email já registado");
+        hasError = true;
+    } else {
+        clearInputError(emailIn);
+    }
+
+    if (!validateBirthday(day, month, year)) hasError = true;
+
+    if (passIn.value.length < 8) {
+        setInputError(passIn, "Mínimo 8 caracteres");
+        hasError = true;
+    } else {
+        clearInputError(passIn);
+    }
+
+    if (passIn.value !== confirmIn.value) {
+        setInputError(confirmIn, "Passwords não coincidem");
+        hasError = true;
+    } else {
+        clearInputError(confirmIn);
+    }
+
+    if (!termsCheck.checked) {
+        document.getElementById('termsError').textContent = "Deve aceitar os termos.";
+        hasError = true;
+    }
+
+    if (hasError) {
+        setFormMessage(form, "error", "Corrija os erros acima");
+        return;
+    }
+
+    // 2. Success
+    const newUser = {
+        username: usernameIn.value.trim(),
+        email: emailIn.value.trim(),
+        password: passIn.value,
+        admin: adminCheck.checked,
+        birthday: `${day}/${month}/${year}`
+    };
+
+    userDatabase.push(newUser);
+    
+    setFormMessage(form, "success", "Conta criada! A redirecionar...");
+    
+    form.reset();
+    setTimeout(() => {
+        switchForm('login');
+        setFormMessage(document.getElementById("login"), "success", "Registo concluído. Faça login.");
+    }, 1500);
+}
+
+function handleRecovery(e) {
+    e.preventDefault();
+    const form = document.getElementById("forgotPassword");
+    const input = document.getElementById('recoveryIdentifier');
+    const val = input.value.trim();
+
+    clearInputError(input);
+    setFormMessage(form, "", "");
+
+    if (!val) {
+        setInputError(input, "Campo obrigatório");
+        return;
+    }
+
+    const user = userDatabase.find(u => u.username === val || u.email === val);
+    
+    if (user) {
+        input.value = '';
+        setFormMessage(form, "success", "Email de recuperação enviado (simulado).");
+    } else {
+        setFormMessage(form, "error", "Utilizador não encontrado.");
+    }
+}
+
+// --- UI Helper Functions ---
+
 function updateNavbarUI(username, isLoggedIn) {
-    const guestButtonContainer = document.getElementById('auth-button-guest');
-    const userDropdownContainer = document.getElementById('auth-dropdown-user');
-    const usernameDisplay = document.getElementById('loggedInUsername');
+    const guestBtn = document.getElementById('auth-button-guest');
+    const userDrop = document.getElementById('auth-dropdown-user');
+    const userDisplay = document.getElementById('loggedInUsername');
 
     if (isLoggedIn) {
-        // Logged in: Hide guest button, show user dropdown
-        if (guestButtonContainer) {
-            guestButtonContainer.classList.add('d-none');
-        }
-        if (userDropdownContainer) {
-            userDropdownContainer.classList.remove('d-none');
-        }
-        if (usernameDisplay) {
-            usernameDisplay.textContent = username;
-        }
+        if (guestBtn) guestBtn.classList.add('d-none');
+        if (userDrop) userDrop.classList.remove('d-none');
+        if (userDisplay) userDisplay.textContent = username;
     } else {
-        // Logged out: Show guest button, hide user dropdown
-        if (guestButtonContainer) {
-            guestButtonContainer.classList.remove('d-none');
-        }
-        if (userDropdownContainer) {
-            userDropdownContainer.classList.add('d-none');
-        }
+        if (guestBtn) guestBtn.classList.remove('d-none');
+        if (userDrop) userDrop.classList.add('d-none');
     }
 }
-
-function setFormMessage(formElement, type, message) {
-    const messageElement = formElement.querySelector(".form__message");
-    messageElement.textContent = message;
-    messageElement.classList.remove("form__message--success", "form__message--error");
-    messageElement.classList.add(`form__message--${type}`);
-}
-
-function setInputError(inputElement, message) {
-    if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
-        const parentCol = inputElement.closest('.col-4');
-        if (parentCol) {
-            parentCol.querySelector(".form__input-error-message").textContent = message;
-        }
-    } else {
-        inputElement.classList.add("form__input--error");
-        inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
-    }
-    inputElement.classList.add("form__input--error");
-}
-
-function clearInputError(inputElement) {
-    if (inputElement.tagName === 'SELECT' || inputElement.type === 'number') {
-        const parentCol = inputElement.closest('.col-4');
-        if (parentCol) {
-            parentCol.querySelector(".form__input-error-message").textContent = "";
-        }
-    } else {
-        inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
-    }
-    inputElement.classList.remove("form__input--error");
-}
-
-function clearAllErrors(formElement) {
-    const inputs = formElement.querySelectorAll(".form__input");
-    inputs.forEach(input => clearInputError(input));
-    const messageElement = formElement.querySelector(".form__message");
-    messageElement.textContent = "";
-    
-    const termsError = document.getElementById('termsError');
-    if (termsError) termsError.textContent = "";
-
-    const recoveryInput = formElement.querySelector('#recoveryIdentifier');
-    if (recoveryInput) {
-        clearInputError(recoveryInput);
-    }
-}
-
 
 function validateEmail(email) {
-    const validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return validRegex.test(email);
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 }
 
 function validateBirthday(day, month, year) {
-    let isValid = true;
-
-    // Day validation (1-31)
     if (!day || day < 1 || day > 31) {
         setInputError(document.getElementById('bdayDay'), "Inválido");
-        isValid = false;
-    } else {
-        clearInputError(document.getElementById('bdayDay'));
+        return false;
     }
+    clearInputError(document.getElementById('bdayDay'));
 
-    // Month validation (1-12)
     if (!month) {
         setInputError(document.getElementById('bdayMonth'), "Selecione");
-        isValid = false;
-    } else {
-        clearInputError(document.getElementById('bdayMonth'));
+        return false;
     }
+    clearInputError(document.getElementById('bdayMonth'));
 
-    // Year validation (simple range check)
     const currentYear = new Date().getFullYear();
     if (!year || year < 1900 || year > currentYear) {
         setInputError(document.getElementById('bdayYear'), "Inválido");
-        isValid = false;
-    } else {
-        clearInputError(document.getElementById('bdayYear'));
+        return false;
     }
+    clearInputError(document.getElementById('bdayYear'));
     
-    // Additional check for day/month compatibility (e.g., Feb 30) - basic leap year ignored for brevity
-    if (isValid && day && month && year) {
         const date = new Date(year, month - 1, day);
         if (date.getMonth() + 1 != month || date.getDate() != day) {
             setInputError(document.getElementById('bdayDay'), "Data inválida");
-            setFormMessage(document.querySelector("#createAccount"), "error", "Data de nascimento inválida");
             return false;
         }
-    }
-
-    return isValid;
+    return true;
 }
 
+function setFormMessage(form, type, msg) {
+    const el = form.querySelector(".form__message");
+    el.textContent = msg;
+    el.className = `form__message form__message--${type}`;
+}
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Load users from JSON immediately on page load
-    loadUserDatabase();
-
-    // --- NEW: Check Session and Update UI on load ---
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    const username = sessionStorage.getItem('username');
-    if (isLoggedIn && username) {
-        updateNavbarUI(username, true);
+function setInputError(input, msg) {
+    input.classList.add("form__input--error");
+    if (input.closest('.col-4')) {
+        input.closest('.col-4').querySelector(".form__input-error-message").textContent = msg;
+        } else {
+        input.parentElement.querySelector(".form__input-error-message").textContent = msg;
     }
+}
 
-    const loginForm = document.querySelector("#login");
-    const createAccountForm = document.querySelector("#createAccount");
-    const forgotPasswordForm = document.querySelector("#forgotPassword"); 
-
-    const logoutButton = document.getElementById('logoutButton');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            clearUserSession();
-        });
+function clearInputError(input) {
+    input.classList.remove("form__input--error");
+    if (input.closest('.col-4')) {
+        input.closest('.col-4').querySelector(".form__input-error-message").textContent = "";
+        } else {
+        const msgEl = input.parentElement.querySelector(".form__input-error-message");
+        if(msgEl) msgEl.textContent = "";
     }
+}
 
-    // --- Toggle: Switch to Create Account ---
-    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
-        e.preventDefault();
-        clearAllErrors(loginForm);
-        loginForm.classList.add("form--hidden");
-        createAccountForm.classList.remove("form--hidden");
-        forgotPasswordForm.classList.add("form--hidden"); // Ensure recovery is hidden
-    });
-
-    // --- Toggle: Switch to Login (From Register) ---
-    document.querySelector("#linkLogin").addEventListener("click", e => {
-        e.preventDefault();
-        clearAllErrors(createAccountForm);
-        loginForm.classList.remove("form--hidden");
-        createAccountForm.classList.add("form--hidden");
-        forgotPasswordForm.classList.add("form--hidden"); // Ensure recovery is hidden
-    });
-
-    // --- Toggle: Switch to Forgot Password (From Login) ---
-    document.querySelector("#linkForgotPassword").addEventListener("click", e => { 
-        e.preventDefault();
-        clearAllErrors(loginForm);
-        loginForm.classList.add("form--hidden");
-        createAccountForm.classList.add("form--hidden");
-        forgotPasswordForm.classList.remove("form--hidden");
-    });
-    
-    // --- Toggle: Switch to Login (From Forgot Password) ---
-    document.querySelector("#linkForgotPasswordLogin").addEventListener("click", e => { 
-        e.preventDefault();
-        clearAllErrors(forgotPasswordForm);
-        loginForm.classList.remove("form--hidden");
-        createAccountForm.classList.add("form--hidden");
-        forgotPasswordForm.classList.add("form--hidden");
-    });
-
-    loginForm.addEventListener("submit", e => {
-        e.preventDefault();
-        const identifierInput = document.getElementById('loginIdentifier');
-        const passwordInput = document.getElementById('loginPassword');
-        
-        const identifier = identifierInput.value.trim();
-        const password = passwordInput.value;
-        let hasError = false;
-
-        // Basic Empty Check
-        if (!identifier) {
-            setInputError(identifierInput, "Nome de utilizador ou Email necessário");
-            hasError = true;
+function clearAllErrors(form) {
+    form.querySelectorAll(".form__input").forEach(i => clearInputError(i));
+    form.querySelector(".form__message").textContent = "";
+    if (document.getElementById('termsError')) document.getElementById('termsError').textContent = "";
         }
-        if (!password) {
-            setInputError(passwordInput, "Password necessária");
-            hasError = true;
-        }
-
-        if (hasError) {
-             setFormMessage(loginForm, "error", "Preencha todos os campos necessários");
-             return;
-        }
-
-        const user = authenticateUser(identifier, password); 
-
-        if (user) {
-            // KEY CHANGE: Save session and update UI
-            saveUserSession(user);
-            updateNavbarUI(user.username, true); // Update navbar immediately
-
-            setFormMessage(loginForm, "success", "Login bem-sucedido! A redirecionar...");
-            
-            setTimeout(() => {
-                // Simplified login redirect based only on 'admin' status
-                if (user.admin === true) {
-                    window.location.href = "index.html";
-                } else {
-                    window.location.href = "index.html";
-                }
-            }, 1000);
-        } else {
-            setFormMessage(loginForm, "error", "Nome de utilizador/Email ou password inválidos");
-        }
-    });
-    
-    // --- FORGOT PASSWORD SUBMIT (NEW FEATURE) ---
-    forgotPasswordForm.addEventListener("submit", e => {
-        e.preventDefault();
-        const recoveryIdentifierInput = document.getElementById('recoveryIdentifier');
-        const identifier = recoveryIdentifierInput.value.trim();
-        
-        clearInputError(recoveryIdentifierInput);
-        setFormMessage(forgotPasswordForm, "", "");
-
-        if (!identifier) {
-            setInputError(recoveryIdentifierInput, "Nome de utilizador ou Email necessário");
-            setFormMessage(forgotPasswordForm, "error", "Preencha o campo necessário.");
-            return;
-        }
-        
-        // Check if user exists by username or email
-        const user = findUser(identifier);
-
-        if (user) {
-            // Success case: user found
-            recoveryIdentifierInput.value = '';
-            setFormMessage(forgotPasswordForm, "success", "Se a conta estiver registada, será enviado um email de restauração.");
-        } else {
-            setFormMessage(forgotPasswordForm, "error", "Nome do utilizador ou email inválidos");
-        }
-    });
-
-    // --- REGISTER SUBMIT ---
-    createAccountForm.addEventListener("submit", e => {
-        e.preventDefault();
-        
-        const usernameInput = document.getElementById('signupUsername');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        
-        const checkboxInputAdmin = document.getElementById('checkboxAdmin');
-        
-        const checkboxInputTerms = document.getElementById('checkboxTerms');
-
-        const dayInput = document.getElementById('bdayDay');
-        const monthInput = document.getElementById('bdayMonth');
-        const yearInput = document.getElementById('bdayYear');
-        const termsErrorElement = document.getElementById('termsError');
-
-        const username = usernameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-        const bdayDay = parseInt(dayInput.value);
-        const bdayMonth = monthInput.value ? parseInt(monthInput.value) : null;
-        const bdayYear = parseInt(yearInput.value);
-
-        let hasError = false;
-
-        setFormMessage(createAccountForm, "", "");
-        termsErrorElement.textContent = "";
-
-
-        // 1. Validate Username
-        if (username.length < 3) {
-            setInputError(usernameInput, "O nome de utilizador deve ter pelo menos 3 caracteres");
-            hasError = true;
-        } else if (findUserByUsername(username)) {
-            setInputError(usernameInput, "Nome de utilizador já registado");
-            hasError = true;
-        } else {
-            clearInputError(usernameInput);
-        }
-
-        // 2. Validate Email
-        if (!validateEmail(email)) {
-            setInputError(emailInput, "Endereço de email inválido");
-            hasError = true;
-        } else if (findUserByEmail(email)) {
-            setInputError(emailInput, "Email já registado");
-            hasError = true;
-        } else {
-            clearInputError(emailInput);
-        }
-        
-        // 3. Validate Birthday
-        if (!validateBirthday(bdayDay, bdayMonth, bdayYear)) {
-             hasError = true;
-        }
-
-        // 4. Validate Password
-        if (password.length < 8) {
-            setInputError(passwordInput, "A password deve ter pelo menos 8 caracteres");
-            hasError = true;
-        } else {
-            clearInputError(passwordInput);
-        }
-
-        // 5. Validate Confirm Password
-        if (password !== confirmPassword) {
-            setInputError(confirmPasswordInput, "As passwords não coincidem");
-            hasError = true;
-        } else {
-            clearInputError(confirmPasswordInput);
-        }
-        
-        // 6. Validate Terms and Conditions
-        if (!checkboxInputTerms.checked) {
-            termsErrorElement.textContent = "É obrigatório aceitar os termos e condições.";
-            hasError = true;
-        }
-
-        // Stop if errors
-        if (hasError) {
-            setFormMessage(createAccountForm, "error", "Corrija os erros destacados acima");
-            return;
-        }
-        
-        // Format birthday for storage
-        const birthdayString = `${bdayDay}/${bdayMonth}/${bdayYear}`;
-
-        // Success: Register User (Removed formador argument)
-        registerUser(
-            username, 
-            email, 
-            password, 
-            checkboxInputAdmin.checked,
-            birthdayString
-        );
-        
-        setFormMessage(createAccountForm, "success", "Conta criada com sucesso! A redirecionar para o login...");
-        
-        // Reset form and switch to login after delay
-        createAccountForm.reset();
-        setTimeout(() => {
-            clearAllErrors(createAccountForm);
-            createAccountForm.classList.add("form--hidden");
-            loginForm.classList.remove("form--hidden");
-            setFormMessage(loginForm, "success", "Registo concluído. Por favor, inicie sessão.");
-        }, 1500);
-    });
-
-    document.querySelectorAll(".form__input").forEach(inputElement => {
-        inputElement.addEventListener("input", () => {
-            clearInputError(inputElement);
-        });
-        // Clear Month error on change
-        if (inputElement.id === 'bdayMonth') {
-            inputElement.addEventListener("change", () => {
-                clearInputError(inputElement);
-            });
-        }
-    });
-    
-    document.getElementById('checkboxTerms').addEventListener('change', () => {
-        const termsErrorElement = document.getElementById('termsError');
-        if (document.getElementById('checkboxTerms').checked) {
-            termsErrorElement.textContent = "";
-        }
-    });
-});
